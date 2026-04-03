@@ -9,6 +9,7 @@ import { H1, H2, H3, Paragraph } from "@/components/Typography";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { Roadmap } from "@/components/Roadmap";
 import { projects } from "@/data/projects";
+import Link from "next/link";
 import { roadmapSections } from "@/data/roadmap";
 import { skillCategories } from "@/data/skills";
 import { terminalHeaders, terminalInput, terminalRows, terminalTitle } from "@/data/terminal";
@@ -60,10 +61,16 @@ export default function HomePage() {
         <section id="projects">
           <H2>Featured Projects</H2>
           <div className="mt-4 grid grid-cols-1 gap-3">
-            {projects.map((p) => (
+            {projects.slice(0, 2).map((p) => (
               <ProjectCard key={p.title} {...p} />
             ))}
           </div>
+          <Link
+            href="/projects"
+            className="mt-4 inline-block text-sm font-medium text-accent-1 transition-colors hover:text-accent-2"
+          >
+            See More →
+          </Link>
         </section>
 
         <SectionDivider />

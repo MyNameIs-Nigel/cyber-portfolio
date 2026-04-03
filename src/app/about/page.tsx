@@ -16,7 +16,9 @@ const codeLines = [
   { text: 'if (nigel == nerd) {', indent: 1, annotation: "HAH, NERD!" },
   { text: 'return "do you really need to ask?";', indent: 2 },
   { text: "}", indent: 1 },
-  { text: 'return "try again, he is a nerd.";', indent: 1 },
+  { text: 'else {', indent: 1 },
+  { text: 'return "try again, he is a nerd.";', indent: 2 },
+  { text: '}', indent: 1 },
   { text: "}", indent: 0 },
 ];
 
