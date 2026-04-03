@@ -1,0 +1,25 @@
+name: Push to cyber-portfolio
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Notify Discord
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: "Push to cyber-portfolio"
+          description: |
+            **Commit:** ${{ github.event.head_commit.message }}
+            **Branch:** `${{ github.ref_name }}`
+            **Triggered by:** ${{ github.actor }}
+            **Live URL:** https://nigel-smith.dev
+          username: Cyber Portfolio
