@@ -3,7 +3,8 @@ name: Push to cyber-portfolio
 on:
   push:
     branches:
-      - main
+      - master
+      - preview
 
 jobs:
   deploy:
