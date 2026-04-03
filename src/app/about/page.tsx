@@ -1,25 +1,15 @@
-import { AccentList } from "@/components/AccentList";
 import { Container } from "@/components/Container";
-import { DevLoop } from "@/components/DevLoop";
-import { Kanban } from "@/components/Kanban";
 import { PersonalityProfile } from "@/components/PersonalityProfile";
-import { PlusMinus } from "@/components/PlusMinus";
 import { QuoteBlock } from "@/components/QuoteBlock";
-import { Roadmap } from "@/components/Roadmap";
 import { SectionDivider } from "@/components/SectionDivider";
 import { StatBar } from "@/components/StatBar";
-import { ToolCard } from "@/components/ToolCard";
 import { H1, H2, H3, Paragraph } from "@/components/Typography";
 import { CardGrid } from "@/components/cards/CardGrid";
 import { MediaCard } from "@/components/cards/MediaCard";
-import { kanbanColumns } from "@/data/kanban";
-import { musicRotation } from "@/data/media";
+import { musicRotation, photoShowcase } from "@/data/media";
 import { personalitySample } from "@/data/personality";
-import { roadmapSections } from "@/data/roadmap";
-import { skillCategories } from "@/data/skills";
-import { toolbox } from "@/data/tools";
-import { valueCards } from "@/data/values";
 import { CodeSnippet } from "@/components/CodeSnippet";
+import { PhotoCard } from "@/components/cards/PhotoCard";
 
 const codeLines = [
   { text: 'export function nigelsmith() {', indent: 0 },
@@ -31,8 +21,19 @@ const codeLines = [
 ];
 
 export const metadata = {
-  title: "About — Portfolio Template",
-  description: "Lorem ipsum about page.",
+  title: "About — Nigel Smith's Portfolio",
+  description: "Nigel's about page.",
+  openGraph: {
+    title: "About — Nigel Smith's Portfolio",
+    description: "Nigel's about page.",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 675,
+      },
+    ],
+  },
 };
 
 const attentionSegments = [
@@ -93,17 +94,28 @@ export default function AboutPage() {
 
         <SectionDivider />
 
-        {/* <H2>Current Toolbox</H2>
-        <div className="mt-4 grid grid-cols-2 gap-3">
-          {toolbox.map((t) => (
-            <ToolCard key={t.name} {...t} />
-          ))}
-        </div> */}
-
         <H2>Personality</H2>
         <div className="mt-4">
           <PersonalityProfile {...personalitySample} />
         </div>
+
+        <SectionDivider />
+
+        <H2>Some of my favorite Shots</H2>
+
+        <Paragraph>
+          I love to shoot film and digital photography. Here are some of my favorite shots.
+        </Paragraph>
+
+        <CardGrid columns={2} gap="md">
+            {photoShowcase.map((p, i) => (
+              <PhotoCard key={i} {...p} />
+            ))}
+          </CardGrid>
+
+        <Paragraph muted className="pt-4">
+          For full size photos, check out my Flickr page, or my ndsironwood.com portfolio.
+        </Paragraph>
 
         <SectionDivider />
 

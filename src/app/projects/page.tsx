@@ -3,10 +3,24 @@ import { SectionDivider } from "@/components/SectionDivider";
 import { H1, H2, Paragraph } from "@/components/Typography";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { projects } from "@/data/projects";
+import { ConsoleLog } from "@/components/ConsoleLog";
+import { thoughtLogMessages, thoughtLogTitle } from "@/data/consoleLogs";
+
 
 export const metadata = {
-  title: "Projects — Portfolio Template",
-  description: "Lorem ipsum project showcase.",
+  title: "Projects — Nigel Smith's Portfolio",
+  description: "Project showcase for Nigel Smith's portfolio.",
+  openGraph: {
+    title: "Projects — Nigel Smith's Portfolio",
+    description: "Project showcase for Nigel Smith's portfolio.",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 675,
+      },
+    ],
+  },
 };
 
 export default function ProjectsPage() {
@@ -14,12 +28,14 @@ export default function ProjectsPage() {
     <main>
       <Container className="py-12">
         <H1 firstOnPage>Projects</H1>
-        <Paragraph muted>
+        <Paragraph muted className="pb-6">
           A curated collection of work spanning frontend, backend, and everything in between. Feel free to look around and see what I've been working on.
         </Paragraph>
 
-        <SectionDivider />
 
+        <ConsoleLog title={thoughtLogTitle} messages={thoughtLogMessages} />
+
+        <SectionDivider />
         <H2>Featured</H2>
         <div className="mt-4 grid grid-cols-1 gap-4">
           {projects.map((p) => (

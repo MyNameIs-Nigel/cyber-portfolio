@@ -8,8 +8,19 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  title: "Portfolio Template",
-  description: "Lorem ipsum developer portfolio template.",
+  title: "Nigel Smith's Portfolio",
+  description: "Web Portfolio for Nigel Smith to showcase his skills and projects.",
+  openGraph: {
+    title: "Nigel Smith's Portfolio",
+    description: "Web Portfolio to showcase my skills and projects.",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 675,
+      },
+    ],
+  }
 };
 
 export default function RootLayout({

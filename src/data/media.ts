@@ -19,10 +19,10 @@ export const mediaShowcase: MediaItem[] = [
 ];
 
 export const photoShowcase = [
-  { image: sq, caption: "2024" },
-  { image: sq, caption: "2023" },
-  { image: sq, caption: "2022" },
-  { image: sq, caption: "2021" },
-  { image: sq, caption: "2020" },
-  { image: sq, caption: "2019" },
+  { image: "/photos/path.jpg", caption: "Fuji 400 - 2024" },
+  { image: "/photos/ernie.jpg", caption: "Portra 400 - 2025" },
+  { image: "/photos/sea.jpg", caption: "Digital - 2025" },
+  { image: "/photos/max.jpg", caption: "Digital - 2024" },
+  { image: "/photos/emma.jpg", caption: "Ektachrome 100 - 2025" },
+  { image: "/photos/tree.jpg", caption: "Gold 200 - 2025" },
 ];

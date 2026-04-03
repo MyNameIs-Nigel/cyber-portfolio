@@ -1,20 +1,13 @@
 import { AccentList } from "@/components/AccentList";
-import { ConsoleLog } from "@/components/ConsoleLog";
 import { Container } from "@/components/Container";
-import { DevLoop } from "@/components/DevLoop";
 import { SectionDivider } from "@/components/SectionDivider";
 import { Banner } from "@/components/Banner";
-import { StatBar } from "@/components/StatBar";
 import { Terminal } from "@/components/Terminal";
 import { LiveClock } from "@/components/LiveClock";
 import { SiteTitle } from "@/components/SiteTitle";
 import { H1, H2, H3, Paragraph } from "@/components/Typography";
-import { CardGrid } from "@/components/cards/CardGrid";
-import { MediaCard } from "@/components/cards/MediaCard";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { Roadmap } from "@/components/Roadmap";
-import { thoughtLogMessages, thoughtLogTitle } from "@/data/consoleLogs";
-import { musicRotation } from "@/data/media";
 import { projects } from "@/data/projects";
 import { roadmapSections } from "@/data/roadmap";
 import { skillCategories } from "@/data/skills";
@@ -22,13 +15,6 @@ import { terminalHeaders, terminalInput, terminalRows, terminalTitle } from "@/d
 import { QuoteBlock } from "@/components/QuoteBlock";
 
 const bannerSrc = "/hero.jpg";
-
-const attentionSegments = [
-  { label: "Building", sublabel: "Deep work", percentage: 35, accent: 1 as const },
-  { label: "Learning", sublabel: "Courses + docs", percentage: 25, accent: 2 as const },
-  { label: "Community", sublabel: "Mentoring", percentage: 20, accent: 3 as const },
-  { label: "Exploring", sublabel: "Side quests", percentage: 20, accent: 4 as const },
-];
 
 export default function HomePage() {
   return (
@@ -126,9 +112,11 @@ export default function HomePage() {
           I've had the opportunity to work on some projects that I'm proud of.
         </Paragraph>
         <AccentList accent={4} items={["Audited and consolidated AWS RDS infrastructure, reducing monthly cloud expenditure by 14% ($700/mo)", "Executed seamless zero-downtime migrations of enterprise Google Workspace environments", "Engineered client-facing web applications from scratch using Next.js, managing DNS and domain controllers."]} />
-        <Paragraph muted>
+        <Paragraph muted className="pt-6">
         That's not all I've done, but those are some I'm glad to say I oversaw.
         </Paragraph>
+
+        <SectionDivider />
 
         <div className="mt-4">
           <Terminal title={terminalTitle} columnHeaders={terminalHeaders} rows={terminalRows} input={terminalInput} />
