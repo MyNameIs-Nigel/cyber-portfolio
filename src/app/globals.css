@@ -1,0 +1,52 @@
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
+
+:root {
+  --color-bg: #0a0a0a;
+  --color-fg: #e5e5e5;
+  --color-muted: #737373;
+  --color-accent-1: #22c55e;
+  --color-accent-2: #f97316;
+  --color-accent-3: #8b5cf6;
+  --color-accent-4: #38bdf8;
+  --color-surface: #141414;
+  --color-border: #262626;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-bg text-fg font-sans antialiased;
+}
+
+::selection {
+  @apply bg-accent-1/20 text-accent-1;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.terminal-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
