@@ -65,7 +65,7 @@ export function CodeSnippet({ filename, theme, lines }: CodeSnippetProps) {
               {colorizeLine(line.text)}
             </div>
             {line.annotation ? (
-              <span className="shrink-0 text-xs italic text-muted max-sm:w-full max-sm:pl-0">{line.annotation}</span>
+              <span className="shrink-0 text-xs italic text-muted max-sm:hidden">{line.annotation}</span>
             ) : null}
           </div>
         ))}

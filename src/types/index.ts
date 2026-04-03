@@ -38,6 +38,7 @@ export interface TerminalProps {
   title?: string;
   rows: TerminalRow[];
   columnHeaders?: string[];
+  mobileHiddenColumns?: number[];
   input?: {
     prompt: string;
     command: string;

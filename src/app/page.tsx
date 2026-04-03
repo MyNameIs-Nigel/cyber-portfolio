@@ -126,7 +126,7 @@ export default function HomePage() {
         <SectionDivider />
 
         <div className="mt-4">
-          <Terminal title={terminalTitle} columnHeaders={terminalHeaders} rows={terminalRows} input={terminalInput} />
+          <Terminal title={terminalTitle} columnHeaders={terminalHeaders} rows={terminalRows} input={terminalInput} mobileHiddenColumns={[0, 3]} />
         </div>
 
         <SectionDivider />

@@ -39,10 +39,10 @@ export const metadata = {
 };
 
 const attentionSegments = [
-  { label: "Building", sublabel: "Deep work", percentage: 35, accent: 1 as const },
-  { label: "Learning", sublabel: "Courses + docs", percentage: 25, accent: 2 as const },
-  { label: "Community", sublabel: "Mentoring", percentage: 20, accent: 3 as const },
-  { label: "Exploring", sublabel: "Side quests", percentage: 20, accent: 4 as const },
+  { label: "Building", sublabel: "In the flow state", percentage: 56, accent: 1 as const },
+  { label: "Sustaining", sublabel: "Sleeping (for the weak)", percentage: 3, accent: 2 as const },
+  { label: "Socializing", sublabel: "Relaxing and spending time with friends", percentage: 19, accent: 3 as const },
+  { label: "Exploring", sublabel: "Side quests + new hobbies", percentage: 22, accent: 4 as const },
 ];
 
 export default function AboutPage() {

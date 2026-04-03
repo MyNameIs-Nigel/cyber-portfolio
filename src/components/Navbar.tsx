@@ -79,49 +79,50 @@ export function Navbar() {
           </button>
         </Container>
 
-        <div
-          id="mobile-nav"
-          className={`fixed inset-0 z-40 bg-bg/95 backdrop-blur-xl transition-all duration-200 sm:hidden ${
-            menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
-          }`}
-          aria-hidden={!menuOpen}
-        >
-          <div className={`flex min-h-full flex-col items-center justify-center gap-8 px-6 transition-transform duration-200 ${menuOpen ? "translate-y-0" : "-translate-y-2"}`}>
-            <button
-              type="button"
-              className="absolute right-6 top-6 rounded-lg border border-border px-3 py-2 text-sm text-muted transition-colors duration-200 hover:text-fg"
-              onClick={closeMenu}
-            >
-              Close
-            </button>
-            {links.map(({ href, label }) => {
-              const active = pathname === href;
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`text-2xl font-semibold tracking-tight transition-colors duration-200 ${
-                    active ? "text-accent-1" : "text-fg hover:text-accent-1"
-                  }`}
-                  onClick={closeMenu}
-                >
-                  {label}
-                </Link>
-              );
-            })}
-            <button
-              type="button"
-              className="text-2xl font-semibold tracking-tight text-accent-1 transition-colors duration-200 hover:text-accent-2"
-              onClick={() => {
-                closeMenu();
-                setContactOpen(true);
-              }}
-            >
-              Contact
-            </button>
-          </div>
-        </div>
       </header>
+
+      <div
+        id="mobile-nav"
+        className={`fixed inset-0 z-[60] bg-bg/95 backdrop-blur-xl transition-all duration-200 sm:hidden ${
+          menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        aria-hidden={!menuOpen}
+      >
+        <div className={`flex min-h-full flex-col items-center justify-center gap-8 px-6 transition-transform duration-200 ${menuOpen ? "translate-y-0" : "-translate-y-2"}`}>
+          <button
+            type="button"
+            className="absolute right-6 top-6 rounded-lg border border-border px-3 py-2 text-sm text-muted transition-colors duration-200 hover:text-fg"
+            onClick={closeMenu}
+          >
+            Close
+          </button>
+          {links.map(({ href, label }) => {
+            const active = pathname === href;
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={`text-2xl font-semibold tracking-tight transition-colors duration-200 ${
+                  active ? "text-accent-1" : "text-fg hover:text-accent-1"
+                }`}
+                onClick={closeMenu}
+              >
+                {label}
+              </Link>
+            );
+          })}
+          <button
+            type="button"
+            className="text-2xl font-semibold tracking-tight text-accent-1 transition-colors duration-200 hover:text-accent-2"
+            onClick={() => {
+              closeMenu();
+              setContactOpen(true);
+            }}
+          >
+            Contact
+          </button>
+        </div>
+      </div>
 
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
     </>

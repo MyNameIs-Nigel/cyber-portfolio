@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { TerminalProps, TerminalRow } from "@/types";
 
 function statusDotClass(color?: TerminalRow["statusColor"]) {
@@ -16,8 +17,9 @@ function statusDotClass(color?: TerminalRow["statusColor"]) {
   }
 }
 
-export function Terminal({ title, rows, columnHeaders, input }: TerminalProps) {
+export function Terminal({ title, rows, columnHeaders, mobileHiddenColumns, input }: TerminalProps) {
   const colCount = columnHeaders?.length ?? (rows[0]?.columns.length ?? 1);
+  const mobileColCount = colCount - (mobileHiddenColumns?.length ?? 0);
 
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-surface">
@@ -27,11 +29,11 @@ export function Terminal({ title, rows, columnHeaders, input }: TerminalProps) {
       <div className="p-5 font-mono text-sm">
         {columnHeaders?.length ? (
           <div
-            className="mb-3 grid gap-3 text-xs uppercase tracking-wider text-muted"
-            style={{ gridTemplateColumns: `repeat(${colCount}, minmax(0, 1fr))` }}
+            className="mb-3 grid gap-3 text-xs uppercase tracking-wider text-muted [grid-template-columns:repeat(var(--cols),minmax(0,1fr))] max-sm:[grid-template-columns:repeat(var(--mobile-cols),minmax(0,1fr))]"
+            style={{ "--cols": colCount, "--mobile-cols": mobileColCount } as CSSProperties}
           >
-            {columnHeaders.map((h) => (
-              <span key={h}>{h}</span>
+            {columnHeaders.map((h, j) => (
+              <span key={h} className={mobileHiddenColumns?.includes(j) ? "max-sm:hidden" : ""}>{h}</span>
             ))}
           </div>
         ) : null}
@@ -39,16 +41,17 @@ export function Terminal({ title, rows, columnHeaders, input }: TerminalProps) {
           {rows.map((row, i) => (
             <div
               key={i}
-              className="grid items-center gap-3"
-              style={{ gridTemplateColumns: `repeat(${row.columns.length}, minmax(0, 1fr))` }}
+              className="grid items-center gap-3 [grid-template-columns:repeat(var(--cols),minmax(0,1fr))] max-sm:[grid-template-columns:repeat(var(--mobile-cols),minmax(0,1fr))]"
+              style={{ "--cols": row.columns.length, "--mobile-cols": row.columns.length - (mobileHiddenColumns?.length ?? 0) } as CSSProperties}
             >
               {row.columns.map((cell, j) => {
                 const isLast = j === row.columns.length - 1;
                 const isProcess = j === 1;
                 const isStatus = j === 2;
                 const textClass = isProcess ? "font-medium text-accent-1" : isLast ? "text-muted" : "text-fg";
+                const hiddenClass = mobileHiddenColumns?.includes(j) ? "max-sm:hidden" : "";
                 return (
-                  <span key={j} className={textClass}>
+                  <span key={j} className={`${textClass} ${hiddenClass}`.trim()}>
                     {isStatus ? (
                       <span className="inline-flex items-center gap-2">
                         <span className={`inline-block h-2 w-2 shrink-0 rounded-full ${statusDotClass(row.statusColor)}`} aria-hidden />
