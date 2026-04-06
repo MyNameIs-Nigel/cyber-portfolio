@@ -31,6 +31,7 @@ export const projects: Project[] = [
       "The site doubles as a playground for refining typography, spacing, and subtle motion without overpowering the art.",
     ],
     demoUrl: "https://ndsironwood.com/",
+    repoUrl: "https://github.com/mynameis-nigel/nextjs-portfolio",
   },
   {
     slug: "grade-calculator",
@@ -46,6 +47,7 @@ export const projects: Project[] = [
       "If I revisit it, I'd add clearer onboarding for API keys and stronger error messaging when Canvas changes behavior.",
     ],
     demoUrl: "https://grades.ndsironwood.com/",
+    repoUrl: "https://github.com/mynameis-nigel/firebase-grades",
   },
 ];
 
