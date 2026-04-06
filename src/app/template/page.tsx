@@ -95,7 +95,7 @@ export default function TemplatePage() {
         <Showcase name="ProjectCard">
           <div className="space-y-3">
             {projects.slice(0, 2).map((p) => (
-              <ProjectCard key={p.title} {...p} />
+              <ProjectCard key={p.slug} {...p} />
             ))}
           </div>
         </Showcase>

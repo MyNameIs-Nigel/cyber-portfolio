@@ -15,6 +15,8 @@ export interface ProjectCardProps {
   tags: string[];
   link?: string;
   image?: string;
+  /** When set, the card links to `/projects/{slug}` instead of an external URL. */
+  slug?: string;
 }
 
 export interface PhotoCardProps {
@@ -150,6 +152,12 @@ export interface Project {
   tags: string[];
   link?: string;
   image?: string;
+  slug: string;
+  screenshots: string[];
+  /** One string per paragraph in the case study write-up. */
+  content: string[];
+  demoUrl?: string;
+  repoUrl?: string;
 }
 
 export interface MediaItem {

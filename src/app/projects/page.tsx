@@ -29,7 +29,7 @@ export default function ProjectsPage() {
       <Container className="py-12">
         <H1 firstOnPage>Projects</H1>
         <Paragraph muted className="pb-6">
-          A curated collection of work spanning frontend, backend, and everything in between. Feel free to look around and see what I've been working on.
+          A curated collection of work spanning frontend, backend, and everything in between. Feel free to look around and see what I&apos;ve been working on.
         </Paragraph>
 
 
@@ -39,7 +39,7 @@ export default function ProjectsPage() {
         <H2>Featured</H2>
         <div className="mt-4 grid grid-cols-1 gap-4">
           {projects.map((p) => (
-            <ProjectCard key={p.title} {...p} />
+            <ProjectCard key={p.slug} {...p} />
           ))}
         </div>
 

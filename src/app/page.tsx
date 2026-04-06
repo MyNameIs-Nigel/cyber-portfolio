@@ -62,7 +62,7 @@ export default function HomePage() {
           <H2>Featured Projects</H2>
           <div className="mt-4 grid grid-cols-1 gap-3">
             {projects.slice(0, 2).map((p) => (
-              <ProjectCard key={p.title} {...p} />
+              <ProjectCard key={p.slug} {...p} />
             ))}
           </div>
           <Link

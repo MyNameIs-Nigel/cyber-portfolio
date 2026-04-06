@@ -2,7 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ProjectCardProps } from "@/types";
 
-export function ProjectCard({ title, description, tags, link, image }: ProjectCardProps) {
+export function ProjectCard({ title, description, tags, link, image, slug }: ProjectCardProps) {
+  const showArrow = Boolean(slug || link);
+
   const inner = (
     <>
       {image ? (
@@ -19,7 +21,7 @@ export function ProjectCard({ title, description, tags, link, image }: ProjectCa
           </span>
         ))}
       </div>
-      {link ? (
+      {showArrow ? (
         <div className="mt-4 flex justify-end text-accent-1">
           <span className="text-sm font-medium transition-colors duration-200 group-hover:text-accent-2" aria-hidden>
             →
@@ -31,6 +33,14 @@ export function ProjectCard({ title, description, tags, link, image }: ProjectCa
 
   const className =
     "group block rounded-xl border border-border bg-surface p-5 transition-colors duration-200 hover:border-accent-1/50";
+
+  if (slug) {
+    return (
+      <Link href={`/projects/${slug}`} className={className}>
+        {inner}
+      </Link>
+    );
+  }
 
   if (link) {
     return (
