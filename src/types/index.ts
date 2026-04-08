@@ -19,6 +19,19 @@ export interface ProjectCardProps {
   slug?: string;
 }
 
+export type InteractiveProjectCategory = "game" | "tool" | "portfolio-builder";
+
+export interface InteractiveProject {
+  slug: string;
+  title: string;
+  category: InteractiveProjectCategory;
+  /** Public path under `/public`, e.g. `/projects/interactive/retro-tetris.svg` */
+  icon: string;
+  /** Short copy for the placeholder detail page. */
+  description: string;
+  status?: "coming-soon" | "live";
+}
+
 export interface PhotoCardProps {
   image: string;
   caption?: string;

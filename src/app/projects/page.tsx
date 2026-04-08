@@ -2,6 +2,8 @@ import { Container } from "@/components/Container";
 import { SectionDivider } from "@/components/SectionDivider";
 import { H1, H2, Paragraph } from "@/components/Typography";
 import { ProjectCard } from "@/components/cards/ProjectCard";
+import { InteractiveProjectsSection } from "@/components/projects/InteractiveProjectsSection";
+import { interactiveProjects } from "@/data/interactiveProjects";
 import { projects } from "@/data/projects";
 import { ConsoleLog } from "@/components/ConsoleLog";
 import { thoughtLogMessages, thoughtLogTitle } from "@/data/consoleLogs";
@@ -31,12 +33,13 @@ export default function ProjectsPage() {
         <Paragraph muted className="pb-6">
           A curated collection of work spanning frontend, backend, and everything in between. Feel free to look around and see what I&apos;ve been working on.
         </Paragraph>
-
+        <InteractiveProjectsSection items={interactiveProjects} />
+        <SectionDivider />
 
         <ConsoleLog title={thoughtLogTitle} messages={thoughtLogMessages} />
 
         <SectionDivider />
-        <H2>Featured</H2>
+        <H2>Featured Web Applications</H2>
         <div className="mt-4 grid grid-cols-1 gap-4">
           {projects.map((p) => (
             <ProjectCard key={p.slug} {...p} />

@@ -8,8 +8,12 @@ export function H1({ children, className = "", firstOnPage = false }: { children
   return <h1 className={headingClass(`${firstOnPage ? "mb-4" : "mt-12 mb-4"} text-3xl font-bold ${className}`)}>{children}</h1>;
 }
 
-export function H2({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <h2 className={headingClass(`mt-10 mb-3 text-2xl font-semibold ${className}`)}>{children}</h2>;
+export function H2({ children, className = "", id }: { children: ReactNode; className?: string; id?: string }) {
+  return (
+    <h2 id={id} className={headingClass(`mt-10 mb-3 text-2xl font-semibold ${className}`)}>
+      {children}
+    </h2>
+  );
 }
 
 export function H3({ children, className = "" }: { children: ReactNode; className?: string }) {
