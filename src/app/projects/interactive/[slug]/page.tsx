@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
+import { InteractiveMobileWarningModal } from "@/components/InteractiveMobileWarningModal";
 import { H1, Paragraph } from "@/components/Typography";
 import { getInteractiveProjectBySlug, interactiveProjects } from "@/data/interactiveProjects";
+import { InteractiveAppHost } from "@/features/interactive/InteractiveAppHost";
+import { isLiveInteractiveSlug } from "@/features/interactive/registry-meta";
 import type { InteractiveProjectCategory } from "@/types";
 
 type Props = {
@@ -52,9 +55,11 @@ export default async function InteractiveProjectPage({ params }: Props) {
   }
 
   const isComingSoon = project.status === "coming-soon";
+  const showInteractive = !isComingSoon && isLiveInteractiveSlug(slug);
 
   return (
     <main>
+      <InteractiveMobileWarningModal />
       <Container className="py-12">
         <p className="mb-6">
           <Link
@@ -79,6 +84,14 @@ export default async function InteractiveProjectPage({ params }: Props) {
         {isComingSoon ? (
           <Paragraph muted className="mt-4">
             This page is a placeholder. The interactive experience will load here once it&apos;s built.
+          </Paragraph>
+        ) : null}
+
+        {showInteractive ? <InteractiveAppHost slug={slug} /> : null}
+
+        {!isComingSoon && !showInteractive ? (
+          <Paragraph muted className="mt-4">
+            This project is marked live, but no interactive module is registered for this slug yet.
           </Paragraph>
         ) : null}
       </Container>

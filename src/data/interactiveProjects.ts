@@ -22,8 +22,8 @@ export const interactiveProjects: InteractiveProject[] = [
     title: "Minesweeper",
     category: "game",
     icon: "/projects/interactive/minesweeper.svg",
-    description: "Classic minesweeper in the browser. Placeholder route — grid logic coming soon.",
-    status: "coming-soon",
+    description: "Classic Minesweeper in the browser — pick a difficulty, flag mines, and clear the grid.",
+    status: "live",
   },
   {
     slug: "subnet-calculator",
