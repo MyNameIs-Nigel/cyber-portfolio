@@ -32,11 +32,11 @@ export default function HomePage() {
 
 
         <Paragraph>
-          I'm Nigel, experienced in both customer service and hands-on IT development.
-          I've worked on deploying production apps in AWS and I have built full-stack web applications maintained with CI/CD pipelines. 
+          I'm Nigel — a DevOps and cloud infrastructure engineer currently studying Cybersecurity at BYU-Idaho.
+          I've migrated production workloads to AWS CloudFormation, cut cloud spend by 14%, and built full-stack web applications with CI/CD pipelines.
         </Paragraph>
         <Paragraph>
-          I'm looking for a job in a DevOps or cloud role with emphasis on security.
+          I'm targeting a DevOps or cloud security role where I can bridge infrastructure automation with security-first thinking.
         </Paragraph>
 
         <QuoteBlock attribution="— Brené Brown, 2015">
@@ -91,16 +91,25 @@ export default function HomePage() {
         <H3>Highlighted Experience</H3>
         <div className="mt-4 space-y-8">
           <div>
-            <p className="font-semibold text-fg">FyberCom</p>
-            <p className="text-sm text-muted">Call Center Technician · Since 2026</p>
+            <p className="font-semibold text-fg">Roundsphere</p>
+            <p className="text-sm text-muted">DevOps Intern · Nov 2025 – May 2026 · Remote / Athens, GA</p>
+            <ul className="mt-2 space-y-1 text-sm text-muted">
+              <li>• Migrated production apps to AWS CloudFormation IaC</li>
+              <li>• Reduced cloud spend 14% by auditing and consolidating AWS RDS</li>
+              <li>• Oversaw Google Workspace org-to-org migrations</li>
+            </ul>
           </div>
           <div>
-            <p className="font-semibold text-fg">Full Coverage Technology</p>
-            <p className="text-sm text-muted">IT Technician · Since 2023</p>
+            <p className="font-semibold text-fg">Fybercom</p>
+            <p className="text-sm text-muted">Technical Support · March 2026 – Present · Idaho Falls, ID</p>
+            <ul className="mt-2 space-y-1 text-sm text-muted">
+              <li>• Configures Ubiquiti, Cambium, and Tarana radios and fiber equipment</li>
+              <li>• Manages CRM systems to resolve customer network and speed tickets</li>
+            </ul>
           </div>
           <div>
             <p className="font-semibold text-fg">The Home Depot</p>
-            <p className="text-sm text-muted">Service Desk Associate · From 2022 to 2025</p>
+            <p className="text-sm text-muted">Service Desk Associate · Aug 2022 – Jan 2025 · Monroe, GA</p>
           </div>
         </div>
 
@@ -108,11 +117,10 @@ export default function HomePage() {
 
         <H3>Certifications</H3>
         <ul className="mt-4 grid grid-cols-1 gap-2 text-sm text-fg sm:grid-cols-2">
-          <li className="rounded-lg border border-border bg-surface px-3 py-2 font-bold">ISC2 Certified in Cybersecurity (CC)</li>
+          <li className="rounded-lg border border-border bg-surface px-3 py-2 font-bold">ISC² Certified in Cybersecurity (CC)</li>
           <li className="rounded-lg border border-border bg-surface px-3 py-2 font-bold">CompTIA A+</li>
-          <li className="rounded-lg border border-border bg-surface px-3 py-2">CompTIA Security+ (In Progress)</li>
-          <li className="rounded-lg border border-border bg-surface px-3 py-2">AWS Cloud Practitioner (In Progress)</li>
-          <li className="rounded-lg border border-border bg-surface px-3 py-2">Cisco Certified Network Associate (CCNA) (In Progress)</li>
+          <li className="rounded-lg border border-border bg-surface px-3 py-2">CompTIA Security+ (Anticipated June 2026)</li>
+          <li className="rounded-lg border border-border bg-surface px-3 py-2">AWS Cloud Practitioner (Anticipated June 2026)</li>
         </ul>
 
         <SectionDivider />

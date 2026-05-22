@@ -2,23 +2,42 @@ import type { SkillCategory } from "@/types";
 
 export const skillCategories: SkillCategory[] = [
   {
-    title: "Interpersonal Skills",
+    title: "Cloud & DevOps",
     accent: 1,
     items: [
-      "Strong Communication",
-      "Problem Solving",
-      "Teamwork",
-      "Proactive",
+      "AWS (IAM, EC2, RDS, S3, Lambda, VPC, Cognito)",
+      "GCP (Firebase, IAM, Vertex AI)",
+      "AWS CloudFormation & IaC",
+      "CI/CD Pipelines",
     ],
   },
   {
-    title: "Technical Skills",
+    title: "Languages & Scripting",
     accent: 2,
     items: [
-      "Cloud Infrastructure",
-      "Networking",
-      "Cybersecurity",
-      "Programming",
+      "Python (APIs, data pipelines, automation)",
+      "PowerShell (M365/AD management)",
+      "Bash",
+    ],
+  },
+  {
+    title: "Infrastructure & Systems",
+    accent: 3,
+    items: [
+      "Linux (Debian/Ubuntu)",
+      "Windows Server 2016/2022/2025",
+      "Proxmox (CTs/VMs)",
+      "M365 Admin",
+    ],
+  },
+  {
+    title: "Security & Networking",
+    accent: 4,
+    items: [
+      "Cisco Devices",
+      "Cloudflare DNS & Tunnels",
+      "Wireshark · Nmap · SecurityOnion",
+      "Ubiquiti · Cambium · Tarana Radios",
     ],
   },
 ];
