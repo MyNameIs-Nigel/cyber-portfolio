@@ -33,8 +33,6 @@ export default function ProjectsPage() {
         <Paragraph muted className="pb-6">
           A curated collection of work spanning frontend, backend, and everything in between. Feel free to look around and see what I&apos;ve been working on.
         </Paragraph>
-        <InteractiveProjectsSection items={interactiveProjects} />
-        <SectionDivider />
 
         <ConsoleLog title={thoughtLogTitle} messages={thoughtLogMessages} />
 
@@ -70,6 +68,10 @@ export default function ProjectsPage() {
             </div>
           ))}
         </div>
+
+        <SectionDivider />
+
+        <InteractiveProjectsSection items={interactiveProjects} />
       </Container>
     </main>
   );

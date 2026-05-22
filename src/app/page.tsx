@@ -108,8 +108,11 @@ export default function HomePage() {
 
         <H3>Certifications</H3>
         <ul className="mt-4 grid grid-cols-1 gap-2 text-sm text-fg sm:grid-cols-2">
-          <li className="rounded-lg border border-border bg-surface px-3 py-2">ISC2 Certified in Cybersecurity (CC)</li>
-          <li className="rounded-lg border border-border bg-surface px-3 py-2">*IP* Cisco Certified Network Associate (CCNA)</li>
+          <li className="rounded-lg border border-border bg-surface px-3 py-2 font-bold">ISC2 Certified in Cybersecurity (CC)</li>
+          <li className="rounded-lg border border-border bg-surface px-3 py-2 font-bold">CompTIA A+</li>
+          <li className="rounded-lg border border-border bg-surface px-3 py-2">CompTIA Security+ (In Progress)</li>
+          <li className="rounded-lg border border-border bg-surface px-3 py-2">AWS Cloud Practitioner (In Progress)</li>
+          <li className="rounded-lg border border-border bg-surface px-3 py-2">Cisco Certified Network Associate (CCNA) (In Progress)</li>
         </ul>
 
         <SectionDivider />
