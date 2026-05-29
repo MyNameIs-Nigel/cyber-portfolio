@@ -1,17 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ProjectCardProps } from "@/types";
+import { LivePreview } from "@/components/projects/LivePreview";
 
-export function ProjectCard({ title, description, tags, link, image, slug }: ProjectCardProps) {
+export function ProjectCard({ title, description, tags, link, image, slug, preview }: ProjectCardProps) {
   const showArrow = Boolean(slug || link);
+
+  const previewSlot =
+    preview?.mode === "live" ? (
+      <LivePreview url={preview.url} previewWidth={preview.previewWidth} fallbackImage={image} />
+    ) : image ? (
+      <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-lg">
+        <Image src={image} alt="" fill className="object-cover" sizes="768px" />
+      </div>
+    ) : null;
 
   const inner = (
     <>
-      {image ? (
-        <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-lg">
-          <Image src={image} alt="" fill className="object-cover" sizes="768px" />
-        </div>
-      ) : null}
+      {previewSlot}
       <h3 className="text-lg font-semibold text-fg">{title}</h3>
       <p className="mt-1 text-sm leading-relaxed text-muted">{description}</p>
       <div className="mt-3 flex flex-wrap gap-2">

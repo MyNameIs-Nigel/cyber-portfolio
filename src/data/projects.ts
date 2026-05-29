@@ -9,6 +9,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "TypeScript", "Vercel"],
     link: "https://fullcoveragetechnology.com/",
     image: "/projects/fct-1.png",
+    preview: { mode: "live", url: "https://fullcoveragetechnology.com/", previewWidth: 1280 },
     screenshots: ["/projects/fct-1.png", "/projects/fct-2.png", "/projects/fct-3.png"],
     content: [
       "Full Coverage Technology is a small business that provides technology solutions to small businesses. I built this website to showcase their services and get them online.",
@@ -24,6 +25,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "Typescript", "Vercel"],
     link: "https://ndsironwood.com/",
     image: "/projects/nds-1.png",
+    preview: { mode: "live", url: "https://ndsironwood.com/", previewWidth: 1280 },
     screenshots: ["/projects/nds-1.png", "/projects/nds-2.png", "/projects/nds-3.png"],
     content: [
       "This portfolio showcases photography work in a minimal, image-first layout. The goal was to keep attention on the photos while still providing context and navigation that feels natural on phone and desktop.",

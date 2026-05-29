@@ -9,6 +9,11 @@ export interface MediaCardProps {
   accent?: Accent;
 }
 
+export type ProjectPreview =
+  | { mode: "live"; url: string; previewWidth?: number }
+  | { mode: "screenshot"; src: string }
+  | { mode: "image" };
+
 export interface ProjectCardProps {
   title: string;
   description: string;
@@ -17,6 +22,7 @@ export interface ProjectCardProps {
   image?: string;
   /** When set, the card links to `/projects/{slug}` instead of an external URL. */
   slug?: string;
+  preview?: ProjectPreview;
 }
 
 export type InteractiveProjectCategory = "game" | "tool" | "portfolio-builder";
@@ -171,6 +177,7 @@ export interface Project {
   content: string[];
   demoUrl?: string;
   repoUrl?: string;
+  preview?: ProjectPreview;
 }
 
 export interface MediaItem {
