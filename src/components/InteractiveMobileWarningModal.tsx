@@ -1,23 +1,31 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
 /** Matches Tailwind `md` (768px): viewports below are treated as mobile for this warning. */
 const MOBILE_MEDIA_QUERY = "(max-width: 767px)";
-const SESSION_DISMISS_KEY = "portfolio-interactive-mobile-warning-dismissed";
+const DEFAULT_SESSION_DISMISS_KEY = "portfolio-interactive-mobile-warning-dismissed";
 
-export function InteractiveMobileWarningModal() {
+type InteractiveMobileWarningModalProps = {
+  sessionDismissKey?: string;
+  description?: ReactNode;
+};
+
+export function InteractiveMobileWarningModal({
+  sessionDismissKey = DEFAULT_SESSION_DISMISS_KEY,
+  description,
+}: InteractiveMobileWarningModalProps = {}) {
   const [open, setOpen] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
 
   const handleClose = useCallback(() => {
     setOpen(false);
     try {
-      sessionStorage.setItem(SESSION_DISMISS_KEY, "1");
+      sessionStorage.setItem(sessionDismissKey, "1");
     } catch {
       /* private mode / quota */
     }
-  }, []);
+  }, [sessionDismissKey]);
 
   const handleEscape = useCallback(
     (e: KeyboardEvent) => {
@@ -29,7 +37,7 @@ export function InteractiveMobileWarningModal() {
   useEffect(() => {
     let dismissed = false;
     try {
-      dismissed = sessionStorage.getItem(SESSION_DISMISS_KEY) === "1";
+      dismissed = sessionStorage.getItem(sessionDismissKey) === "1";
     } catch {
       /* ignore */
     }
@@ -42,7 +50,7 @@ export function InteractiveMobileWarningModal() {
     sync();
     mq.addEventListener("change", sync);
     return () => mq.removeEventListener("change", sync);
-  }, []);
+  }, [sessionDismissKey]);
 
   useEffect(() => {
     if (!open) return;
@@ -84,8 +92,12 @@ export function InteractiveMobileWarningModal() {
           Warning
         </h2>
         <p id="interactive-mobile-warning-desc" className="mt-3 text-sm leading-relaxed text-muted">
-          <span className="font-semibold text-fg">WARNING!</span> interactive experiences are designed for use on desktop browsers, this game
-          will likely not work on mobile!
+          {description ?? (
+            <>
+              <span className="font-semibold text-fg">WARNING!</span> interactive experiences are designed for use on
+              desktop browsers, this game will likely not work on mobile!
+            </>
+          )}
         </p>
 
         <p className="mt-6 text-center text-xs text-muted">

@@ -33,14 +33,6 @@ export const interactiveProjects: InteractiveProject[] = [
     description: "Network subnet and CIDR helpers. Placeholder route — calculator UI coming soon.",
     status: "coming-soon",
   },
-  {
-    slug: "fake-cli-interface",
-    title: "Fake CLI Interface",
-    category: "portfolio-builder",
-    icon: "/projects/interactive/fake-cli-interface.svg",
-    description: "A terminal-style portfolio surface. Placeholder route — command palette coming soon.",
-    status: "coming-soon",
-  },
 ];
 
 export function getInteractiveProjectBySlug(slug: string): InteractiveProject | undefined {

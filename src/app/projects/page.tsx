@@ -2,6 +2,7 @@ import { Container } from "@/components/Container";
 import { SectionDivider } from "@/components/SectionDivider";
 import { H1, H2, Paragraph } from "@/components/Typography";
 import { ProjectCard } from "@/components/cards/ProjectCard";
+import { FakeShellSection } from "@/components/projects/FakeShellSection";
 import { InteractiveProjectsSection } from "@/components/projects/InteractiveProjectsSection";
 import { interactiveProjects } from "@/data/interactiveProjects";
 import { projects } from "@/data/projects";
@@ -68,6 +69,9 @@ export default function ProjectsPage() {
             </div>
           ))}
         </div>
+
+        <SectionDivider />
+        <FakeShellSection />
 
         <SectionDivider />
 
