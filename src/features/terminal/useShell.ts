@@ -81,14 +81,17 @@ export function useShell() {
     setHistoryIndex(-1);
   }, []);
 
-  const onCtrlC = useCallback(() => {
-    setState((prev) => {
-      const draft = { ...prev, scrollback: [...prev.scrollback] };
-      pushScrollback(draft, [{ text: "^C\n", variant: "error" }]);
-      return draft;
-    });
-    clearInput();
-  }, [clearInput]);
+  const onCtrlC = useCallback(
+    (current: string) => {
+      setState((prev) => {
+        const draft = { ...prev, scrollback: [...prev.scrollback] };
+        pushScrollback(draft, [{ text: `${formatPrompt(prev)}${current}^C`, variant: "prompt" }]);
+        return draft;
+      });
+      clearInput();
+    },
+    [clearInput],
+  );
 
   const historyUp = useCallback(() => {
     setState((prev) => {
@@ -115,12 +118,28 @@ export function useShell() {
     });
   }, [historyIndex]);
 
-  const completeTab = useCallback(() => {
-    setInput((current) => {
+  const completeTab = useCallback(
+    (current: string) => {
       const result = completeLine(state, current, current.length);
-      return result.value;
-    });
-  }, [state]);
+      if (result.value !== current) {
+        setInput(result.value);
+        return;
+      }
+      // Nothing left to auto-fill: echo the line and list the candidates, the
+      // way bash reacts to an ambiguous Tab, instead of silently doing nothing.
+      if (result.options && result.options.length > 1) {
+        setState((prev) => {
+          const draft = { ...prev, scrollback: [...prev.scrollback] };
+          pushScrollback(draft, [
+            { text: `${formatPrompt(prev)}${current}`, variant: "prompt" },
+            { text: result.options!.join("  "), variant: "normal" },
+          ]);
+          return draft;
+        });
+      }
+    },
+    [state],
+  );
 
   const prompt = formatPrompt(state);
 
