@@ -11,7 +11,7 @@ interface Props {
 
 type LoadState = "pending" | "loaded" | "failed";
 
-export function LivePreview({ url, previewWidth = 1280, fallbackImage }: Props) {
+export function LivePreview({ url, previewWidth = 1024, fallbackImage }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [inView, setInView] = useState(false);
@@ -88,7 +88,8 @@ export function LivePreview({ url, previewWidth = 1280, fallbackImage }: Props) 
               src={url}
               width={previewWidth}
               height={previewHeight}
-              style={{ border: "none", display: "block" }}
+              style={{ border: "none", display: "block", pointerEvents: "none" }}
+              scrolling="no"
               loading="lazy"
               tabIndex={-1}
               aria-hidden="true"
@@ -99,6 +100,10 @@ export function LivePreview({ url, previewWidth = 1280, fallbackImage }: Props) 
           </div>
         </div>
       )}
+
+      {/* Transparent overlay: absorbs scroll/clicks so they never reach the
+          iframe, and lets the tap fall through to the card's parent <Link>. */}
+      <div className="absolute inset-0 z-10" aria-hidden="true" />
     </div>
   );
 }
