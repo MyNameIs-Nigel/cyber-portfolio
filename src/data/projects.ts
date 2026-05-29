@@ -19,6 +19,22 @@ export const projects: Project[] = [
     demoUrl: "https://fullcoveragetechnology.com/",
   },
   {
+    slug: "walton-tax-professionals",
+    title: "Walton Tax Professionals",
+    description: "Walton Tax Professionals is a CPA firm offering tax preparation, planning, and IRS representation for individuals and small businesses.",
+    tags: ["Next.js", "TypeScript", "Vercel"],
+    link: "https://www.waltontaxpro.com/",
+    image: "/projects/wtp-1.png",
+    preview: { mode: "live", url: "https://www.waltontaxpro.com/", previewWidth: 1024 },
+    screenshots: ["/projects/wtp-1.png", "/projects/wtp-2.png", "/projects/wtp-3.png"],
+    content: [
+      "Walton Tax Professionals is a Monroe, Georgia CPA firm led by Rebecca Smith, CPA, serving clients nationwide. They specialize in complex tax situations—multi-state income, investments, real estate, equity compensation, and entity taxation—rather than simple W-2 returns. I built this website to introduce the firm, lay out their services, and guide visitors toward scheduling a consultation.",
+      "I used Next.js and TypeScript for structure and type safety, deployed on Vercel for previews and production. The site leans into the firm's \"no surprises\" approach with clear service descriptions, transparent pricing, and answers to common client questions. Content is easy to update as offerings change.",
+      "Next steps could include a client portal or scheduling integration so prospective clients can book consultations directly from the site.",
+    ],
+    demoUrl: "https://www.waltontaxpro.com/",
+  },
+  {
     slug: "photography-portfolio",
     title: "Photography Portfolio",
     description: "Side project to showcase my photography skills.",
