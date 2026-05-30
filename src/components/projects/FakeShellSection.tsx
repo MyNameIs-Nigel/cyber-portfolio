@@ -12,16 +12,17 @@ export function FakeShellSection() {
       <Paragraph muted>
         Use this simulated terminal to learn about some of my projects!
       </Paragraph>
-      <InteractiveMobileWarningModal
-        sessionDismissKey={SHELL_MOBILE_DISMISS_KEY}
-        description={
-          <>
-            <span className="font-semibold text-fg">WARNING!</span> The terminal works best on desktop. On mobile,
-            typing and Tab completion may be awkward.
-          </>
-        }
-      />
-      <div className="mt-4">
+      <div className="relative mt-4">
+        <InteractiveMobileWarningModal
+          contained
+          sessionDismissKey={SHELL_MOBILE_DISMISS_KEY}
+          description={
+            <>
+              <span className="font-semibold text-fg">WARNING!</span> The terminal works best on desktop. On mobile,
+              typing and Tab completion may be awkward.
+            </>
+          }
+        />
         <FakeShellApp />
         <Paragraph muted>
         Nothing here runs on a server. Create files, explore the filesystem, and type{" "}

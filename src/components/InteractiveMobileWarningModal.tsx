@@ -9,11 +9,19 @@ const DEFAULT_SESSION_DISMISS_KEY = "portfolio-interactive-mobile-warning-dismis
 type InteractiveMobileWarningModalProps = {
   sessionDismissKey?: string;
   description?: ReactNode;
+  /**
+   * When true, the overlay is confined to its (relatively positioned) parent
+   * instead of covering the whole viewport, and it does not lock body scroll.
+   * Use this to scope the warning to a single section (e.g. the fake terminal)
+   * so the rest of the page stays viewable on mobile.
+   */
+  contained?: boolean;
 };
 
 export function InteractiveMobileWarningModal({
   sessionDismissKey = DEFAULT_SESSION_DISMISS_KEY,
   description,
+  contained = false,
 }: InteractiveMobileWarningModalProps = {}) {
   const [open, setOpen] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -55,19 +63,21 @@ export function InteractiveMobileWarningModal({
   useEffect(() => {
     if (!open) return;
     document.addEventListener("keydown", handleEscape);
-    document.body.style.overflow = "hidden";
+    if (!contained) document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", handleEscape);
-      document.body.style.overflow = "";
+      if (!contained) document.body.style.overflow = "";
     };
-  }, [open, handleEscape]);
+  }, [open, handleEscape, contained]);
 
   if (!open) return null;
 
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm transition-all duration-200"
+      className={`${
+        contained ? "absolute" : "fixed"
+      } inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm transition-all duration-200`}
       onClick={(e) => {
         if (e.target === overlayRef.current) handleClose();
       }}
