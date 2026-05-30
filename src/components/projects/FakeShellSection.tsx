@@ -8,10 +8,9 @@ import { SHELL_MOBILE_DISMISS_KEY } from "@/features/terminal/shell.constants";
 export function FakeShellSection() {
   return (
     <section>
-      <H2>Terminal</H2>
+      <H2>Fake Terminal</H2>
       <Paragraph muted>
-        A simulated bash-style shell — nothing here runs on a server. Create files, explore the filesystem, and type{" "}
-        <code className="text-accent-1">help</code> to get started.
+        Use this simulated terminal to learn about some of my projects!
       </Paragraph>
       <InteractiveMobileWarningModal
         sessionDismissKey={SHELL_MOBILE_DISMISS_KEY}
@@ -24,6 +23,10 @@ export function FakeShellSection() {
       />
       <div className="mt-4">
         <FakeShellApp />
+        <Paragraph muted>
+        Nothing here runs on a server. Create files, explore the filesystem, and type{" "}
+        <code className="text-accent-1">help</code> to get started.
+      </Paragraph>
       </div>
     </section>
   );

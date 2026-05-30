@@ -35,7 +35,8 @@ export default function ProjectsPage() {
           A curated collection of work spanning frontend, backend, and everything in between. Feel free to look around and see what I&apos;ve been working on.
         </Paragraph>
 
-        <ConsoleLog title={thoughtLogTitle} messages={thoughtLogMessages} />
+        <FakeShellSection />
+
 
         <SectionDivider />
         <H2>Featured Web Applications</H2>
@@ -71,7 +72,8 @@ export default function ProjectsPage() {
         </div>
 
         <SectionDivider />
-        <FakeShellSection />
+
+        <ConsoleLog title={thoughtLogTitle} messages={thoughtLogMessages} />
 
         <SectionDivider />
 
