@@ -65,6 +65,13 @@ Dark theme only. Colors are CSS custom properties in `src/app/globals.css` (`--c
 (`bg-bg`, `text-accent-1`, …) via `tailwind.config.ts`. The `Accent` type (`1 | 2 | 3 | 4`)
 threads accent-color choices through component props. Font is Inter via `@fontsource/inter`.
 
+### Fake shell (`src/features/terminal/`)
+An interactive, browser-only Unix-ish shell embedded on `/projects` (via `FakeShellSection`). It is a
+pure client feature — no server route, no `fetch`, no `eval` — backed by a canonical read-only "base
+image" plus a per-visitor `localStorage` overlay. **See [`docs/fake-shell.md`](docs/fake-shell.md)
+for the full architecture, command model, persistence, and safety budget before touching it.**
+Planned enhancements live in `.claude/plans/fake-shell-enhancements.md`.
+
 ### Health check
 `src/app/_selfcheck/route.ts` — `force-dynamic` JSON endpoint. Returns basic status publicly;
 returns runtime/memory/deployment detail only with a valid `Bearer` token matching the
