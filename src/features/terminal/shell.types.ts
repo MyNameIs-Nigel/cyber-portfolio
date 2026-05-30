@@ -4,6 +4,7 @@ export type FsFile = {
   content: string;
   readonly?: boolean;
   hidden?: boolean;
+  executable?: boolean;
   mtime: number;
 };
 
@@ -37,6 +38,7 @@ export type CommandResult = {
   stderr: string;
   code: number;
   clearScrollback?: boolean;
+  navigate?: { href: string; delayMs: number };
 };
 
 export type CommandCtx = {
@@ -53,6 +55,7 @@ export type CommandDef = {
   run: CommandHandler;
   summary: string;
   usage: string;
+  hidden?: boolean;
 };
 
 export type RedirectSpec = { mode: ">" | ">>"; target: string };

@@ -1,6 +1,7 @@
 import { BASE_NODE_PATHS, createBaseImage } from "@/features/terminal/baseImage";
 import { FS_SCHEMA_VERSION, HOME, STORAGE_KEY } from "@/features/terminal/shell.constants";
 import { mkdirPath, resolvePath, writeFileContent } from "@/features/terminal/filesystem";
+import { seedProjectFiles } from "@/features/terminal/seed";
 import type { FsDir, OverlayEntry, PersistedOverlay, ShellState } from "@/features/terminal/shell.types";
 
 function isWritablePath(path: string): boolean {
@@ -52,6 +53,7 @@ function restampBaseNodes(target: FsDir, source: FsDir, path = "/") {
         tgtChild.content = srcChild.content;
         tgtChild.readonly = srcChild.readonly;
         tgtChild.hidden = srcChild.hidden;
+        tgtChild.executable = srcChild.executable;
         tgtChild.mtime = srcChild.mtime;
       } else if (srcChild.kind === "dir" && tgtChild.kind === "dir") {
         restampBaseNodes(tgtChild, srcChild, childPath);
@@ -67,6 +69,7 @@ function restampBaseNodes(target: FsDir, source: FsDir, path = "/") {
             tgtChild.content = srcChild.content;
             tgtChild.readonly = srcChild.readonly;
             tgtChild.hidden = srcChild.hidden;
+            tgtChild.executable = srcChild.executable;
           } else if (srcChild.kind === "dir" && tgtChild.kind === "dir") {
             restampBaseNodes(tgtChild, srcChild, childPath);
           }
@@ -108,7 +111,19 @@ export function loadShellFs(): { fs: FsDir; cwd: string } {
 
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return { fs: base, cwd };
+    if (!raw) {
+      seedProjectFiles(base);
+      const seeded: ShellState = {
+        fs: base,
+        cwd,
+        oldpwd: cwd,
+        vars: new Map(),
+        scrollback: [],
+        history: [],
+      };
+      saveShellFs(seeded);
+      return { fs: base, cwd };
+    }
     const parsed = JSON.parse(raw) as PersistedOverlay;
     if (!parsed || parsed.version !== FS_SCHEMA_VERSION || !Array.isArray(parsed.entries)) {
       localStorage.removeItem(STORAGE_KEY);

@@ -1,9 +1,33 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef } from "react";
-import { useShell } from "@/features/terminal/useShell";
+import { useShell, type NavigateHandler } from "@/features/terminal/useShell";
 
 export function FakeShellApp() {
+  const router = useRouter();
+  const navigateTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  const onNavigate: NavigateHandler = useCallback(
+    (href, delayMs) => {
+      if (navigateTimerRef.current) {
+        clearTimeout(navigateTimerRef.current);
+      }
+      navigateTimerRef.current = setTimeout(() => {
+        router.push(href);
+      }, delayMs);
+    },
+    [router],
+  );
+
+  useEffect(() => {
+    return () => {
+      if (navigateTimerRef.current) {
+        clearTimeout(navigateTimerRef.current);
+      }
+    };
+  }, []);
+
   const {
     scrollback,
     input,
@@ -16,21 +40,25 @@ export function FakeShellApp() {
     historyDown,
     completeTab,
     maxInputLen,
-  } = useShell();
+    inputLocked,
+  } = useShell(onNavigate);
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Keep the most recent output in view as the scrollback grows.
   useEffect(() => {
     const el = scrollRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   }, [scrollback]);
 
   const focusInput = useCallback(() => {
-    inputRef.current?.focus();
-  }, []);
+    if (!inputLocked) {
+      inputRef.current?.focus();
+    }
+  }, [inputLocked]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (inputLocked) return;
     if (e.key === "Enter") {
       e.preventDefault();
       runLine(input);
@@ -73,7 +101,6 @@ export function FakeShellApp() {
 
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-surface shadow-lg shadow-black/20">
-      {/* Title bar: faux window controls on the left, session label centered. */}
       <div className="relative flex items-center justify-center border-b border-border px-4 py-3">
         <div className="absolute left-4 flex items-center gap-2" aria-hidden>
           <span className="h-3 w-3 rounded-full bg-red-500/70" />
@@ -107,19 +134,19 @@ export function FakeShellApp() {
           ))}
         </div>
 
-        {/* Live input line, kept pinned beneath the scrollback so it is always reachable. */}
         <div className="mt-3 flex items-baseline border-t border-border/40 pt-3">
           <span className="shrink-0 whitespace-pre text-accent-1">{prompt}</span>
           <input
             ref={inputRef}
             type="text"
             value={input}
+            disabled={inputLocked}
             onChange={(e) => setInput(e.target.value.slice(0, maxInputLen))}
             onKeyDown={handleKeyDown}
             onPaste={handlePaste}
             maxLength={maxInputLen}
             aria-label="Shell command input"
-            className="min-w-0 flex-1 bg-transparent font-mono text-fg caret-accent-1 outline-none"
+            className="min-w-0 flex-1 bg-transparent font-mono text-fg caret-accent-1 outline-none disabled:opacity-50"
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="off"

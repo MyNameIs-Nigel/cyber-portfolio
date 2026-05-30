@@ -3,7 +3,9 @@ import { createBaseImage } from "@/features/terminal/baseImage";
 import {
   countNodes,
   normalizePath,
+  permString,
   removePath,
+  resolvePath,
   touchFile,
   writeFileContent,
 } from "@/features/terminal/filesystem";
@@ -24,13 +26,26 @@ describe("filesystem", () => {
 
   it("enforces read-only base files", () => {
     const fs = createBaseImage();
-    expect(removePath(fs, HOME, "README.md", false, false)).toMatchObject({ message: "Permission denied" });
+    expect(removePath(fs, HOME, "README.txt", false, false)).toMatchObject({ message: "Permission denied" });
   });
 
   it("creates user files under home", () => {
     const fs = createBaseImage();
     expect(touchFile(fs, HOME, "notes.txt")).toBeNull();
     expect(writeFileContent(fs, HOME, "notes.txt", "hello", false)).toBeNull();
+  });
+
+  it("permString shows exec bit for read-only executables", () => {
+    const fs = createBaseImage();
+    const sh = resolvePath(fs, HOME, "resume.sh");
+    expect(sh.ok && sh.node.kind === "file" && permString(sh.node)).toBe("-r-xr-xr-x");
+  });
+
+  it("user-created files are not executable", () => {
+    const fs = createBaseImage();
+    touchFile(fs, HOME, "mine.sh");
+    const f = resolvePath(fs, HOME, "mine.sh");
+    expect(f.ok && f.node.kind === "file" && f.node.executable).toBeFalsy();
   });
 
   it("respects node caps", () => {

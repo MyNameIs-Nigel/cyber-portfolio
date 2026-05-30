@@ -1,6 +1,7 @@
 import { getCommand } from "@/features/terminal/commandRegistry";
-import { writeFileContent } from "@/features/terminal/filesystem";
+import { writeFileContent, resolvePath } from "@/features/terminal/filesystem";
 import { applyAssignment, parseLine } from "@/features/terminal/parser";
+import { getScriptHandler } from "@/features/terminal/scripts";
 import { saveShellFs } from "@/features/terminal/storage";
 import type { CommandResult, ParsedLine, ShellState } from "@/features/terminal/shell.types";
 
@@ -8,16 +9,49 @@ export type ExecuteOutcome = {
   results: CommandResult[];
   persistError: string | null;
   parseError?: string;
+  navigate?: { href: string; delayMs: number };
 };
 
 const MUTATING = new Set(["mkdir", "touch", "rm", "cd", "echo"]);
 
+function runPathExecution(state: ShellState, cmd: string, argv: string[], stdin: string): CommandResult {
+  const resolved = resolvePath(state.fs, state.cwd, cmd);
+  if (!resolved.ok) {
+    return { stdout: "", stderr: `bash: ${cmd}: No such file or directory\n`, code: 127 };
+  }
+  if (resolved.node.kind === "dir") {
+    return { stdout: "", stderr: `bash: ${cmd}: Is a directory\n`, code: 126 };
+  }
+  if (!resolved.node.executable) {
+    return { stdout: "", stderr: `bash: ${cmd}: Permission denied\n`, code: 126 };
+  }
+
+  const script = getScriptHandler(resolved.path);
+  if (script) {
+    return script({ args: argv.slice(1), stdin, cwd: state.cwd, state });
+  }
+
+  const basename = resolved.name;
+  const def = getCommand(basename);
+  if (def) {
+    return def.run({ args: argv.slice(1), stdin, cwd: state.cwd, state });
+  }
+
+  return {
+    stdout: "",
+    stderr: `bash: ${cmd}: cannot execute binary file: Exec format error\n`,
+    code: 126,
+  };
+}
+
 function runSegment(state: ShellState, argv: string[], stdin: string): CommandResult {
   if (!argv.length) return { stdout: "", stderr: "", code: 0 };
   const cmd = argv[0]!;
-  if (cmd === "sudo") {
-    return { stdout: "", stderr: "Nice try. This incident will be reported. 🙂\n", code: 1 };
+
+  if (cmd.includes("/")) {
+    return runPathExecution(state, cmd, argv, stdin);
   }
+
   const def = getCommand(cmd);
   if (!def) {
     return { stdout: "", stderr: `bash: ${cmd}: command not found\n`, code: 127 };
@@ -29,6 +63,7 @@ function segmentMutates(argv: string[], hasRedirect: boolean): boolean {
   const cmd = argv[0];
   if (!cmd) return false;
   if (hasRedirect) return true;
+  if (cmd.includes("/")) return false;
   return MUTATING.has(cmd);
 }
 
@@ -45,11 +80,16 @@ export function executeParsedLine(state: ShellState, parsed: ParsedLine): Execut
   let stdin = "";
   let mutated = false;
   let exitCode = 0;
+  let navigate: ExecuteOutcome["navigate"];
 
   for (let i = 0; i < parsed.segments.length; i++) {
     const segment = parsed.segments[i]!;
     const isLast = i === parsed.segments.length - 1;
     let result = runSegment(state, segment.argv, stdin);
+
+    if (result.navigate) {
+      navigate = result.navigate;
+    }
 
     if (result.clearScrollback) {
       state.scrollback = [];
@@ -93,7 +133,7 @@ export function executeParsedLine(state: ShellState, parsed: ParsedLine): Execut
   }
 
   void exitCode;
-  return { results, persistError };
+  return { results, persistError, navigate };
 }
 
 export function runShellLine(state: ShellState, raw: string): ExecuteOutcome {

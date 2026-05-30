@@ -1,4 +1,5 @@
-export const FS_SCHEMA_VERSION = 1;
+export const FS_SCHEMA_VERSION = 2;
+export const SEED_VERSION = 1;
 export const STORAGE_KEY = `portfolio-shell-fs:v${FS_SCHEMA_VERSION}`;
 
 export const HOME = "/home/guest";

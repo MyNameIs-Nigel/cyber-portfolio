@@ -11,6 +11,8 @@ import { truncateForDisplay } from "@/features/terminal/sanitize";
 import { createInitialState } from "@/features/terminal/storage";
 import type { OutputLine, ShellState } from "@/features/terminal/shell.types";
 
+export type NavigateHandler = (href: string, delayMs: number) => void;
+
 function pushScrollback(state: ShellState, lines: OutputLine[]) {
   state.scrollback.push(...lines);
   if (state.scrollback.length > MAX_SCROLLBACK_LINES) {
@@ -22,7 +24,7 @@ function formatPrompt(state: ShellState): string {
   return `${USER}@${HOSTNAME}:${displayPath(state.cwd)}$ `;
 }
 
-export function useShell() {
+export function useShell(onNavigate?: NavigateHandler) {
   const [state, setState] = useState<ShellState>(() => {
     const initial = createInitialState();
     pushScrollback(initial, [{ text: getMotdContent(initial.fs), variant: "normal" }]);
@@ -30,6 +32,7 @@ export function useShell() {
   });
   const [input, setInput] = useState("");
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [inputLocked, setInputLocked] = useState(false);
 
   const appendOutput = useCallback((draft: ShellState, stdout: string, stderr: string, promptLine?: string) => {
     if (promptLine) {
@@ -45,6 +48,7 @@ export function useShell() {
 
   const runLine = useCallback(
     (raw: string) => {
+      if (inputLocked) return;
       const trimmed = raw.trimEnd();
       setState((prev) => {
         const draft: ShellState = {
@@ -69,11 +73,17 @@ export function useShell() {
           appendOutput(draft, r.stdout, r.stderr);
         }
 
+        if (outcome.navigate && onNavigate) {
+          pushScrollback(draft, [{ text: "Redirecting…\n", variant: "normal" }]);
+          setInputLocked(true);
+          onNavigate(outcome.navigate.href, outcome.navigate.delayMs);
+        }
+
         return draft;
       });
       setHistoryIndex(-1);
     },
-    [appendOutput],
+    [appendOutput, inputLocked, onNavigate],
   );
 
   const clearInput = useCallback(() => {
@@ -125,8 +135,6 @@ export function useShell() {
         setInput(result.value);
         return;
       }
-      // Nothing left to auto-fill: echo the line and list the candidates, the
-      // way bash reacts to an ambiguous Tab, instead of silently doing nothing.
       if (result.options && result.options.length > 1) {
         setState((prev) => {
           const draft = { ...prev, scrollback: [...prev.scrollback] };
@@ -155,5 +163,6 @@ export function useShell() {
     historyDown,
     completeTab,
     maxInputLen: MAX_INPUT_LEN,
+    inputLocked,
   };
 }

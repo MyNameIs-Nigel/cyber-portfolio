@@ -314,6 +314,9 @@ export function permString(node: FsNode): string {
   if (node.kind === "dir") {
     return ro ? "dr-xr-xr-x" : "drwxr-xr-x";
   }
+  if (node.executable) {
+    return ro ? "-r-xr-xr-x" : "-rwxr-xr-x";
+  }
   return ro ? "-r--r--r--" : "-rw-r--r--";
 }
 
