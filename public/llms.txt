@@ -1,0 +1,68 @@
+# Nigel Smith — DevOps & Cloud Infrastructure Engineer
+
+> DevOps and cloud infrastructure engineer with a cybersecurity background. Pursuing a B.S. in Cybersecurity at BYU-Idaho (Est. 2027). Based in Idaho Falls, ID. Portfolio at nigel-smith.dev.
+
+## Contact
+
+- Email: nigel.nds.smith@gmail.com
+- LinkedIn: https://linkedin.com/in/nigeld-smith
+- GitHub: https://github.com/mynameis-nigel
+- Portfolio: https://nigel-smith.dev
+
+## Summary
+
+Nigel Smith is a DevOps and cloud infrastructure engineer who specializes in AWS, Infrastructure as Code, and automation. He brings a security-first perspective to infrastructure work and has hands-on experience migrating production systems, reducing cloud costs, and managing IT environments for small businesses.
+
+## Education
+
+- B.S. Cybersecurity, BYU-Idaho, Rexburg ID — Anticipated July 2027
+- Relevant coursework: Network Security, Cloud Architecture, Systems Administration, Cyber Defense
+
+## Work Experience
+
+### Technical Support / Customer Support — Fybercom (March 2026 – Present)
+Idaho Falls, ID
+- Configures Ubiquiti, Cambium, and Tarana radio and fiber equipment
+- Manages CRM systems to analyze customer networks and resolve connectivity issues
+
+### DevOps Intern — Roundsphere (November 2025 – May 2026)
+Remote / Athens, GA
+- Migrated production applications from legacy operating systems to AWS CloudFormation (IaC)
+- Reduced cloud expenditure by 14% through AWS RDS infrastructure audit and consolidation
+- Oversaw Google Workspace migrations between organizations
+
+### Cloud & IT Consultant — Full Coverage Tech (May 2023 – Present)
+Monroe, GA
+- Sole technical point of contact for a managed IT client
+- Responsibilities: M365 tenant administration, Exchange triage, endpoint management
+- Deployed and configured on-premises network infrastructure including access points and remote access solutions
+
+### Service Desk Associate — The Home Depot (August 2022 – January 2025)
+Monroe, GA
+- Performed initial triage on Point-of-Sale IT outages and coordinated with corporate IT to restore operations
+
+## Certifications
+
+- ISC² Certified in Cybersecurity (CC) — Earned
+- CompTIA A+ — Earned
+- CompTIA Security+ — Anticipated July 2026
+- AWS Cloud Practitioner — Anticipated July 2026
+
+## Technical Skills
+
+- Languages & Scripting: Python (APIs, data pipelines, automation), PowerShell (M365/AD management, automation), Bash
+- Cloud & DevOps: AWS (IAM, EC2, RDS, S3, Lambda, VPC, Cognito), GCP (Firebase, IAM, Vertex AI), CloudFormation, IaC, CI/CD
+- Infrastructure: Linux (Debian/Ubuntu), Windows Server (2016/2022/2025), Proxmox CTs/VMs, M365 Admin
+- Security & Networking: Cisco Devices, Cloudflare DNS/Tunnels, Wireshark, Nmap, SecurityOnion, Ubiquiti, Cambium, Tarana
+- AI & Agentic Tooling: Claude Code, Cursor, n8n, Ollama, Openclaw
+
+## Projects
+
+- Full Coverage Technology — Client website built with Next.js, TypeScript, deployed on Vercel
+- Walton Tax Professionals — Client website built with Next.js, TypeScript, deployed on Vercel
+
+## Career Goals
+
+- Targeting DevOps, Platform Engineering, and SRE roles at mid-size SaaS companies
+- Relocating to Utah (Silicon Slopes area) after graduation
+- Building toward AWS Solutions Architect certification
