@@ -12,7 +12,7 @@ export const roadmapSections: RoadmapSection[] = [
     label: "NEXT",
     accent: 2,
     title: "CompTIA Security+ & AWS CCP",
-    description: "Completing CompTIA Security+ and AWS Cloud Practitioner certifications (anticipated June 2026) to formalize hands-on cloud and security experience.",
+    description: "Completing CompTIA Security+ and AWS Cloud Practitioner certifications (anticipated July 2026) to formalize hands-on cloud and security experience.",
     number: 2,
   },
   {

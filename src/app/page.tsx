@@ -32,8 +32,7 @@ export default function HomePage() {
 
 
         <Paragraph>
-          I&apos;m Nigel — a DevOps and cloud infrastructure engineer currently studying Cybersecurity at BYU-Idaho.
-          I&apos;ve migrated production workloads to AWS CloudFormation, cut cloud spend by 14%, and built full-stack web applications with CI/CD pipelines.
+          I build cloud infrastructure and automate the toil around it. Currently: AWS workloads, IaC, and a cybersecurity degree I'm using as a DevSecOps edge rather than a SOC ticket to punch.
         </Paragraph>
         <Paragraph>
           I&apos;m targeting a DevOps or cloud security role where I can bridge infrastructure automation with security-first thinking.
@@ -119,8 +118,8 @@ export default function HomePage() {
         <ul className="mt-4 grid grid-cols-1 gap-2 text-sm text-fg sm:grid-cols-2">
           <li className="rounded-lg border border-border bg-surface px-3 py-2 font-bold">ISC² Certified in Cybersecurity (CC)</li>
           <li className="rounded-lg border border-border bg-surface px-3 py-2 font-bold">CompTIA A+</li>
-          <li className="rounded-lg border border-border bg-surface px-3 py-2">CompTIA Security+ (Anticipated June 2026)</li>
-          <li className="rounded-lg border border-border bg-surface px-3 py-2">AWS Cloud Practitioner (Anticipated June 2026)</li>
+          <li className="rounded-lg border border-border bg-surface px-3 py-2">CompTIA Security+ (Anticipated July 2026)</li>
+          <li className="rounded-lg border border-border bg-surface px-3 py-2">AWS Cloud Practitioner (Anticipated July 2026)</li>
         </ul>
 
         <SectionDivider />
