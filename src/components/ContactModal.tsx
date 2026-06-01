@@ -50,7 +50,7 @@ export function ContactModal({ open, onClose }: { open: boolean; onClose: () => 
 
         <h2 className="text-xl font-semibold text-fg">Get in touch</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted">
-          I'd love to hear from you! Reach out through any of these channels.
+          I&apos;d love to hear from you! Reach out through any of these channels.
         </p>
 
         <div className="mt-6 space-y-4">

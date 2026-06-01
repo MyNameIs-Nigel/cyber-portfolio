@@ -12,11 +12,9 @@ function getMDT() {
 }
 
 export function LiveClock() {
-  const [time, setTime] = useState<string | null>(null);
+  const [time, setTime] = useState<string | null>(() => getMDT());
 
   useEffect(() => {
-    setTime(getMDT());
-
     const id = setInterval(() => {
       setTime(getMDT());
     }, 1000);

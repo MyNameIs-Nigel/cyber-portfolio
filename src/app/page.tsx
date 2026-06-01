@@ -32,15 +32,15 @@ export default function HomePage() {
 
 
         <Paragraph>
-          I'm Nigel — a DevOps and cloud infrastructure engineer currently studying Cybersecurity at BYU-Idaho.
-          I've migrated production workloads to AWS CloudFormation, cut cloud spend by 14%, and built full-stack web applications with CI/CD pipelines.
+          I&apos;m Nigel — a DevOps and cloud infrastructure engineer currently studying Cybersecurity at BYU-Idaho.
+          I&apos;ve migrated production workloads to AWS CloudFormation, cut cloud spend by 14%, and built full-stack web applications with CI/CD pipelines.
         </Paragraph>
         <Paragraph>
-          I'm targeting a DevOps or cloud security role where I can bridge infrastructure automation with security-first thinking.
+          I&apos;m targeting a DevOps or cloud security role where I can bridge infrastructure automation with security-first thinking.
         </Paragraph>
 
         <QuoteBlock attribution="— Brené Brown, 2015">
-          "Integrity is choosing courage over comfort; choosing what is right over what is fun, fast, or easy; and choosing to practice our values rather than simply professing them."
+          &ldquo;Integrity is choosing courage over comfort; choosing what is right over what is fun, fast, or easy; and choosing to practice our values rather than simply professing them.&rdquo;
         </QuoteBlock>
 
         <SectionDivider />
@@ -127,11 +127,11 @@ export default function HomePage() {
 
         <H2>Some Early Career Sucesses</H2>
         <Paragraph>
-          I've had the opportunity to work on some projects that I'm proud of.
+          I&apos;ve had the opportunity to work on some projects that I&apos;m proud of.
         </Paragraph>
         <AccentList accent={4} items={["Audited and consolidated AWS RDS infrastructure, reducing monthly cloud expenditure by 14% ($700/mo)", "Executed seamless zero-downtime migrations of enterprise Google Workspace environments", "Engineered client-facing web applications from scratch using Next.js, managing DNS and domain controllers."]} />
         <Paragraph muted className="pt-6">
-        That's not all I've done, but those are some I'm glad to say I oversaw.
+        That&apos;s not all I&apos;ve done, but those are some I&apos;m glad to say I oversaw.
         </Paragraph>
 
         <SectionDivider />

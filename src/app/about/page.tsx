@@ -59,15 +59,15 @@ export default function AboutPage() {
       <Container className="py-12">
         <H1 firstOnPage>More about Nigel</H1>
         <Paragraph>
-          So you made it here, congrats! I'd love to show you a little bit about me.
+          So you made it here, congrats! I&apos;d love to show you a little bit about me.
         </Paragraph>
 
         <Paragraph>
-          As a cyber student, I have tons of weird interests. How surprising. But I'm a fun guy, I swear!
+          As a cyber student, I have tons of weird interests. How surprising. But I&apos;m a fun guy, I swear!
           This page is essentially a collection of my interests and hobbies.
         </Paragraph>
         <Paragraph muted>
-          I'm not sure if you'll find this page entertaining, but I hope you do. If you have any questions, feel free to contact me.
+          I&apos;m not sure if you&apos;ll find this page entertaining, but I hope you do. If you have any questions, feel free to contact me.
         </Paragraph>
         <SectionDivider />
 
@@ -143,7 +143,7 @@ export default function AboutPage() {
 
 
         <QuoteBlock attribution="— Cursor Autocomplete, 2026">
-          &ldquo;If you're not having fun, you're doing it wrong.&rdquo;
+          &ldquo;If you&apos;re not having fun, you&apos;re doing it wrong.&rdquo;
         </QuoteBlock>
       </Container>
     </main>
