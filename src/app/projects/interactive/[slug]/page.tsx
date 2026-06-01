@@ -29,13 +29,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) {
     return { title: "Interactive project not found" };
   }
-  const title = `${project.title} — Nigel Smith's Portfolio`;
+  const ogTitle = `${project.title} — Nigel Smith's Portfolio`;
   return {
-    title,
+    title: project.title,
     description: project.description,
+    alternates: { canonical: `/projects/interactive/${slug}` },
     openGraph: {
-      title,
+      title: ogTitle,
       description: project.description,
+      siteName: "Nigel Smith's Portfolio",
+      locale: "en_US",
+      type: "website",
+      url: `https://nigel-smith.dev/projects/interactive/${slug}`,
       images: [
         {
           url: project.icon,
@@ -43,6 +48,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           height: 256,
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
     },
   };
 }

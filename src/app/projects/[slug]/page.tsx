@@ -20,13 +20,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) {
     return { title: "Project not found" };
   }
-  const title = `${project.title} — Nigel Smith's Portfolio`;
+  const ogTitle = `${project.title} — Nigel Smith's Portfolio`;
   return {
-    title,
+    title: project.title,
     description: project.description,
+    alternates: { canonical: `/projects/${slug}` },
     openGraph: {
-      title,
+      title: ogTitle,
       description: project.description,
+      siteName: "Nigel Smith's Portfolio",
+      locale: "en_US",
+      type: "website",
+      url: `https://nigel-smith.dev/projects/${slug}`,
       images: project.image
         ? [
             {
@@ -42,6 +47,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
               height: 630,
             },
           ],
+    },
+    twitter: {
+      card: "summary_large_image",
     },
   };
 }

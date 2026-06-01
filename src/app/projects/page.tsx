@@ -11,11 +11,16 @@ import { thoughtLogMessages, thoughtLogTitle } from "@/data/consoleLogs";
 
 
 export const metadata = {
-  title: "Projects — Nigel Smith's Portfolio",
+  title: "Projects",
   description: "Project showcase for Nigel Smith's portfolio.",
+  alternates: { canonical: "/projects" },
   openGraph: {
     title: "Projects — Nigel Smith's Portfolio",
     description: "Project showcase for Nigel Smith's portfolio.",
+    siteName: "Nigel Smith's Portfolio",
+    locale: "en_US",
+    type: "website",
+    url: "https://nigel-smith.dev/projects",
     images: [
       {
         url: "/opengraph.png",
@@ -23,6 +28,9 @@ export const metadata = {
         height: 630,
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
   },
 };
 

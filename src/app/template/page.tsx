@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 import { AccentList } from "@/components/AccentList";
 import { Banner } from "@/components/Banner";
 import { CodeSnippet } from "@/components/CodeSnippet";

@@ -76,12 +76,12 @@ chosen to fill `/usr`/`/bin`/`/var`.
   #!/usr/bin/env bash
   # resume.sh — pull the latest copy of my résumé and open the site
   set -euo pipefail
-  RESUME_URL="https://nigelsmith.dev/resume.pdf"
+  RESUME_URL="https://nigel-smith.dev/resume.pdf"
   DEST="${HOME}/Downloads/nigel-smith-resume.pdf"
   echo "Fetching résumé from ${RESUME_URL} ..."
   curl -fsSL --retry 3 -o "${DEST}" "${RESUME_URL}"
   echo "Saved to ${DEST}"
-  command -v xdg-open >/dev/null && xdg-open "https://nigelsmith.dev" || open "https://nigelsmith.dev"
+  command -v xdg-open >/dev/null && xdg-open "https://nigel-smith.dev" || open "https://nigel-smith.dev"
   ```
 - Update `BASE_NODE_PATHS`: drop `/home/guest/resume.txt`, add `/home/guest/resume.sh`.
 - Rename `README.md` → `README.txt` (E7); move the "Nothing here is real or executed. Files persist
@@ -91,12 +91,12 @@ chosen to fill `/usr`/`/bin`/`/var`.
 - `SCRIPT_HANDLERS: Map<string, (ctx) => CommandResult>` keyed by absolute path.
 - `/home/guest/resume.sh` → handler returns a static curl-progress block as `stdout`, e.g.:
   ```
-  Fetching résumé from https://nigelsmith.dev/resume.pdf ...
+  Fetching résumé from https://nigel-smith.dev/resume.pdf ...
     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                    Dload  Upload   Total   Spent    Left  Speed
   100  248k  100  248k    0     0   612k      0 --:--:-- --:--:-- --:--:--  611k
   Saved to /home/guest/Downloads/nigel-smith-resume.pdf
-  Opening https://nigelsmith.dev ↗
+  Opening https://nigel-smith.dev ↗
   ```
   plus `navigate: { href: "/", delayMs: 1200 }`.
 
@@ -136,8 +136,8 @@ chosen to fill `/usr`/`/bin`/`/var`.
   Welcome to Ubuntu 24.04.2 LTS (GNU/Linux 6.8.0-52-generic x86_64)
 
    * Documentation:  https://help.ubuntu.com
-   * Management:     https://nigelsmith.dev
-   * Support:        https://nigelsmith.dev/contact
+   * Management:     https://nigel-smith.dev
+   * Support:        https://nigel-smith.dev/contact
    * New here?       Run `help` to see what this shell can do.
   ```
 - `getMotdContent(fs)` returns the static file **plus** a dynamically generated block built at boot:

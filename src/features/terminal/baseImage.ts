@@ -6,12 +6,12 @@ const NOW = 1_700_000_000_000;
 const RESUME_SH = `#!/usr/bin/env bash
 # resume.sh — pull the latest copy of my résumé and open the site
 set -euo pipefail
-RESUME_URL="https://nigelsmith.dev/resume.pdf"
+RESUME_URL="https://nigel-smith.dev/resume.pdf"
 DEST="\${HOME}/Downloads/nigel-smith-resume.pdf"
 echo "Fetching résumé from \${RESUME_URL} ..."
 curl -fsSL --retry 3 -o "\${DEST}" "\${RESUME_URL}"
 echo "Saved to \${DEST}"
-command -v xdg-open >/dev/null && xdg-open "https://nigelsmith.dev" || open "https://nigelsmith.dev"
+command -v xdg-open >/dev/null && xdg-open "https://nigel-smith.dev" || open "https://nigel-smith.dev"
 `;
 
 const README_TXT = `Welcome to my portfolio shell.
@@ -27,8 +27,8 @@ Try: help, ls -la, cat resume.sh, ./resume.sh
 const MOTD_STATIC = `Welcome to Nigel's Portfolio Shell
 
  * Documentation:  https://help.ubuntu.com
- * Management:     https://nigelsmith.dev
- * Support:        https://nigelsmith.dev/contact
+ * Management:     https://nigel-smith.dev
+ * Support:        https://nigel-smith.dev/contact
  * New here?       Run \`help\` to see what this shell can do.
 `;
 

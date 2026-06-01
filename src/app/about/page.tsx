@@ -23,11 +23,16 @@ const codeLines = [
 ];
 
 export const metadata = {
-  title: "About — Nigel Smith's Portfolio",
+  title: "About",
   description: "Nigel's about page.",
+  alternates: { canonical: "/about" },
   openGraph: {
     title: "About — Nigel Smith's Portfolio",
     description: "Nigel's about page.",
+    siteName: "Nigel Smith's Portfolio",
+    locale: "en_US",
+    type: "website",
+    url: "https://nigel-smith.dev/about",
     images: [
       {
         url: "/opengraph.png",
@@ -35,6 +40,9 @@ export const metadata = {
         height: 630,
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
   },
 };
 
