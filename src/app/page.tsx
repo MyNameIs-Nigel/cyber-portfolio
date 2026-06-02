@@ -32,7 +32,7 @@ export default function HomePage() {
 
 
         <Paragraph>
-          I build cloud infrastructure and automate the toil around it. Currently: AWS workloads, IaC, and a cybersecurity degree I'm using as a DevSecOps edge rather than a SOC ticket to punch.
+          I build cloud infrastructure and automate the toil around it. Currently: AWS workloads, IaC, and a cybersecurity degree I&apos;m using as a DevSecOps edge rather than a SOC ticket to punch.
         </Paragraph>
         <Paragraph>
           I&apos;m targeting a DevOps or cloud security role where I can bridge infrastructure automation with security-first thinking.
@@ -58,7 +58,7 @@ export default function HomePage() {
         <SectionDivider />
 
         <section id="projects">
-          <H2>Featured Projects</H2>
+          <H2>Featured Web Apps</H2>
           <div className="mt-4 grid grid-cols-1 gap-3">
             {projects.slice(0, 2).map((p) => (
               <ProjectCard key={p.slug} {...p} />

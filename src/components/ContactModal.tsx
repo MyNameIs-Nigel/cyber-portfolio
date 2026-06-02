@@ -111,7 +111,20 @@ export function ContactModal({ open, onClose }: { open: boolean; onClose: () => 
           </div>
         </div>
 
-        <p className="mt-6 text-center text-xs text-muted">
+        <Link
+          href="/contact"
+          onClick={onClose}
+          className="group mt-6 flex w-full items-center justify-center gap-2 rounded-lg border border-accent-1 bg-accent-1/10 px-4 py-3 text-sm font-semibold text-accent-1 transition-colors duration-200 hover:bg-accent-1/20"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+            <path d="M4 17l6-6-6-6" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 19h8" strokeLinecap="round" />
+          </svg>
+          Contact Form
+          <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+        </Link>
+
+        <p className="mt-4 text-center text-xs text-muted">
           Press <kbd className="rounded border border-border px-1.5 py-0.5 font-mono text-[10px] text-fg">Esc</kbd> to close
         </p>
       </div>
