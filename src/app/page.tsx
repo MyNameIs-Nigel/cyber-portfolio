@@ -1,12 +1,12 @@
 import { AccentList } from "@/components/AccentList";
 import { Container } from "@/components/Container";
 import { SectionDivider } from "@/components/SectionDivider";
-import { Banner } from "@/components/Banner";
 import { Terminal } from "@/components/Terminal";
-import { LiveClock } from "@/components/LiveClock";
-import { SiteTitle } from "@/components/SiteTitle";
+import { Hero } from "@/components/Hero";
+import { Stats, type Stat } from "@/components/Stats";
 import { H1, H2, H3, Paragraph } from "@/components/Typography";
 import { ProjectCard } from "@/components/cards/ProjectCard";
+import { SkillCard } from "@/components/cards/SkillCard";
 import { Roadmap } from "@/components/Roadmap";
 import { projects } from "@/data/projects";
 import Link from "next/link";
@@ -15,22 +15,35 @@ import { skillCategories } from "@/data/skills";
 import { terminalHeaders, terminalInput, terminalRows, terminalTitle } from "@/data/terminal";
 import { QuoteBlock } from "@/components/QuoteBlock";
 
-const bannerSrc = "/hero.jpg";
+const heroStats: Stat[] = [
+  { value: 14, suffix: "%", label: "AWS cost reduced", accent: 1 },
+  { value: 4, label: "Certifications", accent: 4 },
+  { value: 4, label: "Web apps shipped", accent: 3 },
+  { value: 3, suffix: "+", label: "Years in tech", accent: 2 },
+];
+
+// Terminal-style path label per skill category (index-aligned with skillCategories).
+const skillTags = ["~/cloud", "~/scripting", "~/infra", "~/security"];
+
+const certifications: { name: string; status: "earned" | "anticipated"; note?: string }[] = [
+  { name: "ISC² Certified in Cybersecurity (CC)", status: "earned" },
+  { name: "CompTIA A+", status: "earned" },
+  { name: "CompTIA Security+", status: "anticipated", note: "Jul 2026" },
+  { name: "AWS Cloud Practitioner", status: "anticipated", note: "Jul 2026" },
+];
 
 export default function HomePage() {
   return (
     <main>
 
       <Container className="py-12">
-      <SiteTitle />
-      <Banner src={bannerSrc} quote="Nigel Smith — shot on Kodak Ektachrome 100" />
+      <Hero />
+
+        <div className="mt-8">
+          <Stats items={heroStats} />
+        </div>
 
         <H1>About Me</H1>
-        <p className="mb-2 text-sm text-muted">Cybersecurity Student · BYU-Idaho</p>
-        <p className="mb-4 font-mono text-xs text-muted">Rexburg, ID · <LiveClock /></p>
-
-
-
         <Paragraph>
           I build cloud infrastructure and automate the toil around it. Currently: AWS workloads, IaC, and a cybersecurity degree I&apos;m using as a DevSecOps edge rather than a SOC ticket to punch.
         </Paragraph>
@@ -45,12 +58,15 @@ export default function HomePage() {
         <SectionDivider />
         
         <H2>Skills & Expertise</H2>
-        <div className="mt-4 grid grid-cols-1 gap-8 sm:grid-cols-2">
-          {skillCategories.map((cat) => (
-            <div key={cat.title}>
-              <p className="mb-2 text-lg font-medium tracking-tight text-fg">{cat.title}</p>
-              <AccentList accent={cat.accent} items={cat.items} />
-            </div>
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {skillCategories.map((cat, i) => (
+            <SkillCard
+              key={cat.title}
+              title={cat.title}
+              accent={cat.accent}
+              items={cat.items}
+              tag={skillTags[i] ?? "~/"}
+            />
           ))}
         </div>
 
@@ -115,16 +131,35 @@ export default function HomePage() {
         <SectionDivider />
 
         <H3>Certifications</H3>
-        <ul className="mt-4 grid grid-cols-1 gap-2 text-sm text-fg sm:grid-cols-2">
-          <li className="rounded-lg border border-border bg-surface px-3 py-2 font-bold">ISC² Certified in Cybersecurity (CC)</li>
-          <li className="rounded-lg border border-border bg-surface px-3 py-2 font-bold">CompTIA A+</li>
-          <li className="rounded-lg border border-border bg-surface px-3 py-2">CompTIA Security+ (Anticipated July 2026)</li>
-          <li className="rounded-lg border border-border bg-surface px-3 py-2">AWS Cloud Practitioner (Anticipated July 2026)</li>
+        <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+          {certifications.map((cert) => (
+            <li
+              key={cert.name}
+              className="group flex items-center justify-between gap-3 rounded-lg border border-border bg-surface px-4 py-3 transition-colors duration-200 hover:border-accent-1/50"
+            >
+              <span className="flex items-center gap-2.5">
+                <span
+                  className={`h-2 w-2 shrink-0 rounded-full ${cert.status === "earned" ? "bg-accent-1" : "bg-accent-2"}`}
+                  aria-hidden
+                />
+                <span className="text-sm font-medium text-fg">{cert.name}</span>
+              </span>
+              {cert.status === "earned" ? (
+                <span className="shrink-0 rounded-full border border-accent-1/30 bg-accent-1/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-accent-1">
+                  Earned
+                </span>
+              ) : (
+                <span className="shrink-0 rounded-full border border-accent-2/30 bg-accent-2/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-accent-2">
+                  {cert.note}
+                </span>
+              )}
+            </li>
+          ))}
         </ul>
 
         <SectionDivider />
 
-        <H2>Some Early Career Sucesses</H2>
+        <H2>Some Early Career Successes</H2>
         <Paragraph>
           I&apos;ve had the opportunity to work on some projects that I&apos;m proud of.
         </Paragraph>
