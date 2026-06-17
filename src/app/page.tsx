@@ -1,7 +1,6 @@
 import { AccentList } from "@/components/AccentList";
 import { Container } from "@/components/Container";
 import { SectionDivider } from "@/components/SectionDivider";
-import { Banner } from "@/components/Banner";
 import { Terminal } from "@/components/Terminal";
 import { Hero } from "@/components/Hero";
 import { Stats, type Stat } from "@/components/Stats";
@@ -15,8 +14,6 @@ import { roadmapSections } from "@/data/roadmap";
 import { skillCategories } from "@/data/skills";
 import { terminalHeaders, terminalInput, terminalRows, terminalTitle } from "@/data/terminal";
 import { QuoteBlock } from "@/components/QuoteBlock";
-
-const bannerSrc = "/hero.jpg";
 
 const heroStats: Stat[] = [
   { value: 14, suffix: "%", label: "AWS cost reduced", accent: 1 },
@@ -41,7 +38,6 @@ export default function HomePage() {
 
       <Container className="py-12">
       <Hero />
-      <Banner src={bannerSrc} quote="Nigel Smith — shot on Kodak Ektachrome 100" />
 
         <div className="mt-8">
           <Stats items={heroStats} />

@@ -1,3 +1,4 @@
+import { Banner } from "@/components/Banner";
 import { Container } from "@/components/Container";
 import { PersonalityProfile } from "@/components/PersonalityProfile";
 import { QuoteBlock } from "@/components/QuoteBlock";
@@ -69,6 +70,11 @@ export default function AboutPage() {
         <Paragraph muted>
           I&apos;m not sure if you&apos;ll find this page entertaining, but I hope you do. If you have any questions, feel free to contact me.
         </Paragraph>
+
+        <div className="mt-6">
+          <Banner src="/hero.jpg" quote="Nigel Smith — shot on Kodak Ektachrome 100" />
+        </div>
+
         <SectionDivider />
 
         <H2>My Hobbies</H2>
