@@ -17,8 +17,8 @@ import { QuoteBlock } from "@/components/QuoteBlock";
 
 const heroStats: Stat[] = [
   { value: 14, suffix: "%", label: "AWS cost reduced", accent: 1 },
-  { value: 4, label: "Certifications", accent: 4 },
-  { value: 4, label: "Web apps shipped", accent: 3 },
+  { value: 2, label: "Certifications", accent: 4 },
+  { value: 11, label: "Web apps shipped", accent: 3 },
   { value: 3, suffix: "+", label: "Years in tech", accent: 2 },
 ];
 

@@ -82,22 +82,6 @@ export const projects: Project[] = [
     demoUrl: "https://ndsironwood.com/",
     repoUrl: "https://github.com/mynameis-nigel/nextjs-portfolio",
   },
-  {
-    slug: "grade-calculator",
-    title: "Grade Calculator",
-    description: "A simple grade calculator to help me calculate my grades using Canvas API.",
-    tags: ["Firebase", "HTML", "Canvas API"],
-    link: "https://grades.ndsironwood.com/",
-    image: "/projects/grades-1.png",
-    screenshots: ["/projects/grades-1.png", "/projects/grades-2.png", "/projects/grades-3.png"],
-    content: [
-      "A practical tool that pulls course data via the Canvas API and helps estimate where grades stand across assignments. It started as a personal utility and might grow into something I could share with classmates.",
-      "The front end is straightforward HTML and client-side logic; Firebase backs auth or persistence where needed. Handling API quirks and edge cases (dropped grades, weighting) was the interesting part.",
-      "If I revisit it, I'd add clearer onboarding for API keys and stronger error messaging when Canvas changes behavior.",
-    ],
-    demoUrl: "https://grades.ndsironwood.com/",
-    repoUrl: "https://github.com/mynameis-nigel/firebase-grades",
-  },
 ];
 
 export function getProjectBySlug(slug: string): Project | undefined {
