@@ -5,8 +5,8 @@ export const skillCategories: SkillCategory[] = [
     title: "Cloud & DevOps",
     accent: 1,
     items: [
-      "AWS (IAM, EC2, RDS, S3, Lambda, VPC, Cognito)",
-      "GCP (Firebase, IAM, Vertex AI)",
+      "AWS (EC2, RDS, S3, Lambda, VPC, Cognito)",
+      "GCP (Firebase, IAM)",
       "AWS CloudFormation & IaC",
       "CI/CD Pipelines",
     ],
@@ -15,16 +15,17 @@ export const skillCategories: SkillCategory[] = [
     title: "Languages & Scripting",
     accent: 2,
     items: [
-      "Python (APIs, data pipelines, automation)",
       "PowerShell (M365/AD management)",
       "Bash",
+      "Python (APIs)",
+      "C#",
     ],
   },
   {
     title: "Infrastructure & Systems",
     accent: 3,
     items: [
-      "Linux (Debian/Ubuntu)",
+      "Linux (Various Distros)",
       "Windows Server 2016/2022/2025",
       "Proxmox (CTs/VMs)",
       "M365 Admin",
@@ -34,10 +35,10 @@ export const skillCategories: SkillCategory[] = [
     title: "Security & Networking",
     accent: 4,
     items: [
-      "Cisco Devices",
+      "Cisco & Aruba Devices",
       "Cloudflare DNS & Tunnels",
-      "Wireshark · Nmap · SecurityOnion",
-      "Ubiquiti · Cambium · Tarana Radios",
+      "Wireshark, Nmap, SecurityOnion",
+      "Fiber & Wireless Devices",
     ],
   },
 ];

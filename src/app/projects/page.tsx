@@ -62,10 +62,10 @@ export default function ProjectsPage() {
         </Paragraph>
         <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {[
-            { title: "Talk-To-Nigel", desc: "An asynchronous messaging agent that texts like a Gen-Z would.", tags: ["Node.js", "LLM"] },
+            { title: "SSH-IdleFarmer", desc: "A calming Terminal UI game that you can SSH into. Try ssh farm.ssharcade.dev now! (SSH Keys needed)", tags: ["Go", "Terminal UI"] },
             { title: "Contextual LLMcord", desc: "Fully vibe coded Discord bot that takes the chat as context, saves memories on users, and will occasionally make fun of you.", tags: ["Node.js", "LLM", "Discord"] },
             { title: "This Portfolio", desc: "This website you are on now!", tags: ["Next.js", "Vercel"] },
-            { title: "GratiTree", desc: "A class project for my intro to cloud class", tags: ["Firebase"] },
+            { title: "Other Contributions", desc: "My other contributions and projects can be found on my GitHub at MyNameIs-Nigel", tags: ["Many More..."] },
           ].map((p) => (
             <div key={p.title} className="rounded-xl border border-border bg-surface p-5 transition-colors duration-200 hover:border-accent-1/50">
               <h3 className="text-base font-semibold text-fg">{p.title}</h3>
