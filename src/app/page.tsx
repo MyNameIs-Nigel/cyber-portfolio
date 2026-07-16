@@ -17,7 +17,7 @@ import { QuoteBlock } from "@/components/QuoteBlock";
 
 const heroStats: Stat[] = [
   { value: 14, suffix: "%", label: "AWS cost reduced", accent: 1 },
-  { value: 2, label: "Certifications", accent: 4 },
+  { value: 4, label: "Certifications", accent: 4 },
   { value: 11, label: "Web apps shipped", accent: 3 },
   { value: 3, suffix: "+", label: "Years in tech", accent: 2 },
 ];
@@ -28,8 +28,8 @@ const skillTags = ["~/cloud", "~/scripting", "~/infra", "~/security"];
 const certifications: { name: string; status: "earned" | "anticipated"; note?: string }[] = [
   { name: "ISC² Certified in Cybersecurity (CC)", status: "earned" },
   { name: "CompTIA A+", status: "earned" },
-  { name: "CompTIA Security+", status: "anticipated", note: "Jul 2026" },
-  { name: "AWS Cloud Practitioner", status: "anticipated", note: "Jul 2026" },
+  { name: "CompTIA Security+", status: "earned" },
+  { name: "AWS Cloud Practitioner", status: "earned" },
 ];
 
 export default function HomePage() {
