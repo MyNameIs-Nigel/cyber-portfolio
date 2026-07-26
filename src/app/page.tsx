@@ -30,6 +30,7 @@ const certifications: { name: string; status: "earned" | "anticipated"; note?: s
   { name: "CompTIA A+", status: "earned" },
   { name: "CompTIA Security+", status: "earned" },
   { name: "AWS Cloud Practitioner", status: "earned" },
+  { name: "CompTIA Network+", status: "anticipated", note: "August 2026" },
 ];
 
 export default function HomePage() {
