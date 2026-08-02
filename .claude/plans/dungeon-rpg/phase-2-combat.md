@@ -1,5 +1,11 @@
 # Phase 2 — Turn-based combat
 
+> **Shipped.** Two changes worth knowing: the four-option menu is DOM buttons rather than canvas
+> (focus and screen-reader semantics for free), and ISOLATE's patch is budgeted per battle —
+> without a cap, turtling out-heals a weak enemy's halved chip damage and the battle never ends,
+> which is exactly what the termination sweep in this plan is meant to catch. See the deviation
+> table in [the roadmap](./README.md#where-phases-02-landed).
+
 **Ships:** encounters, the battle screen, enemies that can kill you.
 **Gate:** combat suite green; a run can actually be lost.
 
@@ -127,9 +133,9 @@ this separation should already be green.
 
 ## Exit criteria
 
-- [ ] Battles start, resolve, and end in win / loss / flee
-- [ ] 10k-battle termination sweep passes
-- [ ] Death clears the run save and leaves the profile untouched
-- [ ] Combat RNG cursor persists — reload mid-run continues the same sequence
-- [ ] Battle log is DOM text and scrolls
-- [ ] Lint, types, tests, build all clean
+- [x] Battles start, resolve, and end in win / loss / flee
+- [x] 10k-battle termination sweep passes
+- [x] Death clears the run save and leaves the profile untouched
+- [x] Combat RNG cursor persists — reload mid-run continues the same sequence
+- [x] Battle log is DOM text and scrolls
+- [x] Lint, types, tests, build all clean

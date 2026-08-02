@@ -20,7 +20,8 @@ export const interactiveProjects: InteractiveProject[] = [
     title: "Dungeon RPG",
     category: "game",
     icon: "/projects/interactive/dungeon-rpg.svg",
-    description: "A small dungeon crawler with EarthBound-inspired vibes. Placeholder route — adventure coming soon.",
+    description:
+      "A seeded, turn-based dungeon crawler themed as an incident-response descent through a compromised network. Fictional flavor only — the maths underneath is ordinary RPG maths.",
     status: "coming-soon",
     published: false,
   },

@@ -1,5 +1,7 @@
 # Phase 0 — Foundations
 
+> **Shipped.** See the deviation table in [the roadmap](./README.md#where-phases-02-landed).
+
 **Ships:** types, constants, seeded RNG, save layer. **No gameplay, nothing visible.**
 **Gate:** RNG and storage suites green; determinism proven.
 
@@ -198,8 +200,8 @@ export type Profile = {
 
 ## Exit criteria
 
-- [ ] `npm run test` green, including determinism and corruption suites
-- [ ] `npm run lint` and `tsc --noEmit` clean
-- [ ] `npm run build` succeeds; site behaves exactly as before (nothing user-visible changed)
-- [ ] `/projects/interactive/dungeon-rpg` still 404s
-- [ ] No new runtime dependency
+- [x] `npm run test` green, including determinism and corruption suites
+- [x] `npm run lint` and `tsc --noEmit` clean
+- [x] `npm run build` succeeds; site behaves exactly as before (nothing user-visible changed)
+- [x] `/projects/interactive/dungeon-rpg` still 404s
+- [x] No new runtime dependency

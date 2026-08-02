@@ -1,7 +1,7 @@
 # Plan: Dungeon RPG
 
-**Status:** Draft / not started — planning pass only, **no game code written**
-**Date:** 2026-08-02
+**Status:** Phases 0–2 shipped. Phase 3 (the publish gate) is next.
+**Date:** 2026-08-02 (planned), phases 0–2 landed 2026-08-02
 **Target stack:** Next.js 16.2 · React 19 · Tailwind v4 · Vitest 3 · Vercel (static route)
 **Architecture doc:** [`docs/dungeon-rpg.md`](../../../docs/dungeon-rpg.md) — read it first
 **Slug:** `dungeon-rpg` (already exists in `src/data/interactiveProjects.ts` as
@@ -11,9 +11,35 @@
 > entirely framework-agnostic client code, so the exposure is small — but before touching the route
 > or anything under `src/app/`, read the relevant guide in `node_modules/next/dist/docs/`.
 
-> ℹ️ `CLAUDE.md` claims "There is no test runner configured in this project." **That is stale** —
-> `vitest` 3.2 is installed and wired (`npm run test`, `vitest.config.ts`, `environment: "node"`,
-> `src/**/*.test.ts{,x}`). Phase 0 corrects that line.
+> ℹ️ `CLAUDE.md` claimed "There is no test runner configured in this project." That was stale;
+> phase 0 corrected it. `vitest` 3.2 is wired (`npm run test`, `vitest.config.ts`,
+> `environment: "node"`, `src/**/*.test.ts{,x}`), with a `// @vitest-environment jsdom` pragma
+> per-file for view suites.
+
+---
+
+## Where phases 0–2 landed
+
+The whole loop exists behind a shut publish gate: title → walk a seeded floor with fog of war →
+walk into a visible enemy → turn-based battle → win, lose, or disengage → descend → victory or
+death. 200 tests across the repo, 158 of them this feature's.
+
+Deviations from the plan as written, all recorded in `docs/dungeon-rpg.md`:
+
+| Change | Why |
+|---|---|
+| `GameState` carries `profile` in every mode | Death and victory need to hand it back to the title screen |
+| `GameAction` gained `boot` and `run:continue` carries a loaded `RunState` | Storage is I/O; the hook reads it and the reducer stays pure. Both refused outside `mode: "title"` |
+| `RunSave` gained `xp`, `defeated`, `kills` | Placements are re-derived per floor, so without `defeated` every enemy you killed respawns on reload |
+| Battle **menu** is DOM buttons, not canvas | Focus, `aria-pressed`, hover, and pointer input for free instead of reimplemented against a bitmap. The canvas still draws the scene |
+| ISOLATE has a per-battle patch budget | Unlimited healing out-paces a weak enemy's halved chip damage and the battle never terminates. Mitigation stays unlimited; only the healing is capped |
+| FOV is *symmetric* shadowcasting | Plain recursive shadowcasting is asymmetric — it lets an enemy see you from a tile you can't see. The exact diagonal ray through a corner join stays lit (geometrically correct); nothing beside it does |
+| `mapgen` validates full connectivity, not just "every room" | One assertion rules out both a sealed staircase and an orphan corridor stub |
+| Extra engine modules: `grid.ts`, `log.ts`, `run.ts`, `encounter.ts`, `save/bitset.ts` | Shared helpers that the original tree folded into other files |
+
+**Known for phase 3:** a player who walks the shortest path to the stairs can currently finish a
+run with zero kills — enemies are avoidable and there is no reason yet to engage. Loot, bounty
+pressure, or guarded stairs is the fix, and it belongs with the vertical slice.
 
 ---
 
@@ -36,9 +62,9 @@ These were chosen up front and are not open questions. Later phases assume them.
 
 | Phase | Title | Ships | Gate |
 |---|---|---|---|
-| [0](./phase-0-foundations.md) | Foundations | Types, constants, seeded RNG, save schema — no gameplay | RNG + storage suites green |
-| [1](./phase-1-map-and-movement.md) | Map & movement | Generation, FOV, canvas renderer, walking a floor | Reachability property test over 1000 seeds |
-| [2](./phase-2-combat.md) | Combat | Turn-based battles, enemies, death | Combat suite green; a run can be lost |
+| [0](./phase-0-foundations.md) ✅ | Foundations | Types, constants, seeded RNG, save schema — no gameplay | RNG + storage suites green |
+| [1](./phase-1-map-and-movement.md) ✅ | Map & movement | Generation, FOV, canvas renderer, walking a floor | Reachability property test over 1000 seeds |
+| [2](./phase-2-combat.md) ✅ | Combat | Turn-based battles, enemies, death | Combat suite green; a run can be lost |
 | [3](./phase-3-vertical-slice.md) | **Vertical slice ✦** | Full loop, autosave, 5 floors, one boss → **publish** | Playable start→win/lose; `published: true` |
 | [4](./phase-4-items-and-economy.md) | Items & economy | Inventory, loot, shops, Bounty | Loot tables deterministic per seed |
 | [5](./phase-5-skills-and-bosses.md) | Skills & bosses | Cycles, status effects, skills, per-segment bosses | Status stacking/expiry suite green |

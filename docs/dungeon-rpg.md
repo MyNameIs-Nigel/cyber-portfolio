@@ -1,10 +1,15 @@
 # Dungeon RPG — architecture
 
-> **Status: design, not code.** Nothing described here is implemented yet. This document is the
-> target architecture agreed before Phase 0; the build plan that gets us here lives in
-> [`.claude/plans/dungeon-rpg/`](../.claude/plans/dungeon-rpg/README.md). Treat every "is" below as
-> "will be" until the phase that ships it lands. When code and this doc disagree, **the code wins and
-> this doc gets fixed.**
+> **Status: phases 0–2 shipped.** Foundations, map generation, movement, rendering, and turn-based
+> combat are implemented and tested; a run can be started, walked, fought, won, and lost. Items,
+> shops, skills, meta-progression, and polish (phases 4–7) are still design. The build plan lives in
+> [`.claude/plans/dungeon-rpg/`](../.claude/plans/dungeon-rpg/README.md).
+>
+> **The publish gate is still shut.** `dungeon-rpg` is `published: false`, so it is absent from the
+> projects grid, the sitemap, and `generateStaticParams()`, and `/projects/interactive/dungeon-rpg`
+> 404s. `publish-gate.test.ts` guards that. Phase 3 opens it.
+>
+> When code and this doc disagree, **the code wins and this doc gets fixed.**
 
 A seeded, turn-based dungeon crawler that runs entirely in the browser, renders to a `<canvas>`, and
 persists both an in-progress run and permanent meta-progression to `localStorage`. Themed as an
@@ -38,33 +43,40 @@ If a rule ever needs `document` to decide an outcome, that rule is in the wrong 
 
 ## Where it lives
 
+Files marked ✦ are not written yet — they arrive with the phase that needs them.
+
 ```
 src/features/interactive/dungeon-rpg/
-  dungeon-rpg.types.ts      GameState, FloorMap, Entity, Combatant, Item, RunSave, Profile …
+  dungeon-rpg.types.ts      GameState, FloorMap, Combatant, RunSave, Profile …
   dungeon-rpg.constants.ts  tile size, floor count, caps, storage keys, schema versions
   engine/                   ── pure, no React, no DOM ──
     rng.ts                  seeded PRNG + named sub-streams
+    grid.ts                 tile lookups, BFS reachability, distance fields
     mapgen.ts               (seed, floor) → FloorMap
-    fov.ts                  shadowcast field of view / fog-of-war
-    movement.ts             step resolution, collision, tile triggers
-    combat.ts               turn resolution, damage, status effects
-    loot.ts                 drop tables, weighted selection
-    progression.ts          XP, levels, unlock evaluation
+    fov.ts                  symmetric shadowcasting / fog-of-war
+    movement.ts             step resolution, collision, sight refresh
+    encounter.ts            enemy placement + level scaling
+    combat.ts               turn resolution, damage, guards
+    progression.ts          XP, levels, the starting player
+    log.ts                  bounded log append
+    run.ts                  run lifecycle + RunState ⇄ RunSave
     reducer.ts              (GameState, GameAction) → GameState — the single entry point
+    loot.ts ✦               drop tables, weighted selection
   content/                  ── data, not logic ──
-    enemies.ts  items.ts  skills.ts  floors.ts  flavor.ts
+    enemies.ts  floors.ts  flavor.ts       items.ts ✦  skills.ts ✦
   render/                   ── canvas only, no game logic ──
     palette.ts              reads CSS custom properties from globals.css
     sprites.ts              procedural sprite generation → OffscreenCanvas
-    renderer.ts             draw(ctx, GameState, camera)
-    particles.ts            transient visual effects (never gameplay state)
+    renderer.ts             draw(ctx, GameState, camera, palette, sprites)
+    particles.ts ✦          transient visual effects (never gameplay state)
   save/
+    bitset.ts               explored-map bitset + hand-rolled base64
     schema.ts               versioned save shapes + type guards
     storage.ts              load / save / migrate, quota-safe, corruption-tolerant
   a11y/
     describe.ts             GameState → human-readable text
   useDungeonRpg.ts          React hook: reducer + persistence + keyboard input
-  DungeonRpgApp.tsx         "use client" view — canvas, HUD, log, a11y mirror
+  DungeonRpgApp.tsx         "use client" view — canvas, HUD, battle menu, log
 ```
 
 Registered the same way every interactive app is (see
@@ -141,7 +153,18 @@ function reduce(state: GameState, action: GameAction): GameState;
 TypeScript flags any unhandled case.
 
 `GameState` is a discriminated union on `mode`, which keeps illegal states unrepresentable: you
-cannot hold a battle cursor while exploring, because `mode: "explore"` has no such field.
+cannot hold a battle cursor while exploring, because `mode: "explore"` has no such field. Every
+variant carries `profile`, so death and victory can hand it back to the title screen without the
+view holding a second copy of it.
+
+**Storage is I/O, so it stays out of the reducer.** The hook reads `localStorage` and hands the
+result in: `{ type: "boot", profile, hasRunSave }` on mount, and `{ type: "run:continue", run }`
+with an already-validated `RunState` when the player resumes. The reducer still owns every
+transition; it just doesn't own the file handle. Both actions are refused outside `mode: "title"`,
+so neither can discard a run in progress.
+
+Illegal actions return the **identical state object**, not a copy — which doubles as the signal for
+React to skip a re-render. Walking into a wall costs nothing at all.
 
 ```
 mode: "title"    →  seed entry / continue / new run
@@ -182,11 +205,16 @@ Two independent keys, so losing one never corrupts the other:
 
 | Key | Lifetime | Holds |
 |---|---|---|
-| `dungeon-rpg:run:v1` | current run | `seed`, `floor`, player stats, inventory, position, explored tiles, `rngCursor` |
+| `dungeon-rpg:run:v1` | current run | `seed`, `floor`, player stats, `xp`, inventory, position, explored tiles, `defeated`, `kills`, `bounty`, `rngCursor` |
 | `dungeon-rpg:profile:v1` | forever | deepest floor, total runs, deaths, unlocks, achievements, best bounty |
 
+`defeated` is the list of `EnemyPlacement` ids already beaten. Placements are re-derived from
+`rngFor(seed, "encounter", floor)` on load, so without it every enemy you killed would be standing
+there again after a refresh.
+
 - **Autosave** on floor change, battle end, and item pickup — not every step (that thrashes
-  `localStorage` and can hitch on slower machines).
+  `localStorage` and can hitch on slower machines) — plus once on unmount, so leaving the page
+  resumes where you actually were rather than at the last checkpoint.
 - **Explored tiles are a bitset**, not an array of coordinates. Floors are small, but this keeps the
   save well clear of the ~5 MB budget with room to spare.
 - **Corruption is expected, not exceptional.** Every read is wrapped: parse failure, schema
@@ -202,8 +230,14 @@ Two independent keys, so losing one never corrupts the other:
 
 Canvas is invisible to assistive technology, so a DOM layer carries the same information:
 
+- **The battle menu is DOM, not canvas.** Four real `<button>`s, so focus, hover, `aria-pressed`,
+  and pointer input all work without being reimplemented against a bitmap. The canvas draws the
+  *scene* — enemy portrait, Integrity bars — and nothing the player has to operate. A menu is not a
+  picture.
 - **Visually-hidden mirror** — `a11y/describe.ts` turns `GameState` into text: current segment, room
-  contents, exits, player stats, and in battle the full menu state.
+  contents, exits, player stats, and in battle the full menu state. Currently it produces the
+  one-line `canvasLabel` (segment, Integrity, coordinates, what you're standing on, hostiles in
+  sight); the full mirror is phase 7.
 - **`aria-live="polite"` combat log** — real DOM text (it's a scrolling log anyway), so turn results
   are announced.
 - **`role="img"` + `aria-label`** on the canvas with a one-line summary of the current view.
@@ -225,17 +259,29 @@ view tests need `// @vitest-environment jsdom` (same pragma as `render-safety.te
 | Area | What's asserted |
 |---|---|
 | `rng` | same seed → same sequence; sub-streams are independent and order-insensitive |
-| `mapgen` | every room reachable from spawn; stairs always placed; no orphaned corridors; stable across 1000 seeds |
-| `fov` | symmetry, wall occlusion, no light leaking through corners |
-| `combat` | damage formulas, status stacking/expiry, death, flee odds — exact values via seeded RNG |
+| `mapgen` | every walkable tile reachable from spawn; stairs always placed; no orphaned corridors; stable across 1000 seeds |
+| `fov` | symmetry, wall occlusion, no light spilling sideways through corners |
+| `combat` | damage formulas, guard expiry, death, flee odds — exact values via seeded RNG |
 | `reducer` | illegal actions are no-ops; every transition; exhaustive `GameAction` coverage |
+| `playthrough` | a whole run, driven only through `reduce`, reaches victory *and* reaches death |
 | `storage` | round-trip, migration, corrupt JSON, quota exceeded, `localStorage` absent |
 | `describe` | a11y text matches state |
-| view | mounts, canvas acquires a 2D context, keyboard input dispatches the right action |
+| view | mounts, canvas acquires a 2D context, keyboard input dispatches the right action, idle schedules no frames |
+
+**`mapgen`'s invariant is stronger than "every room is reachable":** every *walkable tile* must be
+reachable from spawn. That single assertion rules out a sealed staircase and an orphaned corridor
+stub at the same time, and generation retries until it holds.
+
+**`combat`'s is that battles end.** A 10k-battle sweep across every enemy, ten player levels, and
+five strategies — including pure turtling and pure fleeing — asserts each one resolves within the
+turn cap with both combatants' Integrity in range. This is why ISOLATE's patch is budgeted
+(`ISOLATE_PATCH_BUDGET`): unlimited healing out-paces a weak enemy's halved chip damage and the
+battle simply never ends.
 
 **`mapgen` is the one worth over-testing.** A generator that produces an unreachable staircase one
-seed in a thousand is a run-ending bug a visitor will hit and never report. Phase 1 includes a
-property test over a large seed sweep.
+seed in a thousand is a run-ending bug a visitor will hit and never report. The property test
+sweeps 1000 seeds × 5 floors and additionally asserts the hardcoded fallback layout is never
+reached on a real seed — the fallback is an emergency floor, not a crutch.
 
 ---
 
@@ -256,7 +302,8 @@ property test over a large seed sweep.
 ## Adding things later
 
 - **New enemy / item / skill:** add to `content/*.ts`. No engine change should be required — if one
-  is, the content schema is too narrow and that's the actual bug to fix.
+  is, the content schema is too narrow and that's the actual bug to fix. Enemy sprites are derived
+  from a hash of the enemy's id, so a new one gets its own stable silhouette for free.
 - **New floor theme:** `content/floors.ts` + a palette entry. Generation params are data.
 - **New mechanic:** engine module + tests first, reducer wiring second, rendering last.
 - **Never** add a server route, a network call, or user-controlled navigation to this feature.

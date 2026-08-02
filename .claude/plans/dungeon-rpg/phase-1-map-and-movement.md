@@ -1,5 +1,10 @@
 # Phase 1 — Map generation, rendering, and movement
 
+> **Shipped.** FOV landed as *symmetric* shadowcasting rather than plain recursive
+> shadowcasting — the plain variant is asymmetric, and the symmetry test in this plan is the
+> property only the symmetric formulation actually provides. See the deviation table in
+> [the roadmap](./README.md#where-phases-02-landed).
+
 **Ships:** a generated floor you can walk around, on a canvas, with fog of war. No enemies yet.
 **Gate:** reachability property test over 1000 seeds; a floor is genuinely explorable.
 
@@ -143,9 +148,9 @@ the route still 404s for visitors.
 
 ## Exit criteria
 
-- [ ] 1000-seed reachability property test passes
-- [ ] A floor can be walked end to end; fog of war reveals and persists as explored
-- [ ] Reload regenerates the identical map from the seed
-- [ ] Idle game schedules no frames (verify in a profiler, not by eye)
-- [ ] Registered in both registry files, still `published: false`, route still 404s for visitors
-- [ ] Lint, types, tests, build all clean
+- [x] 1000-seed reachability property test passes
+- [x] A floor can be walked end to end; fog of war reveals and persists as explored
+- [x] Reload regenerates the identical map from the seed
+- [x] Idle game schedules no frames (verify in a profiler, not by eye)
+- [x] Registered in both registry files, still `published: false`, route still 404s for visitors
+- [x] Lint, types, tests, build all clean

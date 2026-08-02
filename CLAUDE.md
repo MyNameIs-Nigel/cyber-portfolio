@@ -19,8 +19,10 @@ the codebase:
 - `npm run build` — production build
 - `npm start` — serve the production build
 - `npm run lint` — ESLint (flat config, `eslint-config-next` core-web-vitals + typescript)
+- `npm run test` — Vitest (single run); `npm run test:watch` for watch mode
 
-There is no test runner configured in this project.
+Vitest runs with `environment: "node"` over `src/**/*.test.ts{,x}`. Suites that need a DOM opt
+in per-file with a `// @vitest-environment jsdom` pragma (see `render-safety.test.tsx`).
 
 ## Architecture
 
