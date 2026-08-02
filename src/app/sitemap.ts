@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
-import { interactiveProjects } from "@/data/interactiveProjects";
+import { publicInteractiveProjects } from "@/data/interactiveProjects";
 
 const base = "https://nigel-smith.dev";
 
@@ -18,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const interactiveRoutes: MetadataRoute.Sitemap = interactiveProjects.map((p) => ({
+  const interactiveRoutes: MetadataRoute.Sitemap = publicInteractiveProjects.map((p) => ({
     url: `${base}/projects/interactive/${p.slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,

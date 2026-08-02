@@ -4,7 +4,7 @@ import { H1, H2, Paragraph } from "@/components/Typography";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { FakeShellSection } from "@/components/projects/FakeShellSection";
 import { InteractiveProjectsSection } from "@/components/projects/InteractiveProjectsSection";
-import { interactiveProjects } from "@/data/interactiveProjects";
+import { publicInteractiveProjects } from "@/data/interactiveProjects";
 import { projects } from "@/data/projects";
 import { ConsoleLog } from "@/components/ConsoleLog";
 import { thoughtLogMessages, thoughtLogTitle } from "@/data/consoleLogs";
@@ -85,7 +85,7 @@ export default function ProjectsPage() {
 
         <SectionDivider />
 
-        <InteractiveProjectsSection items={interactiveProjects} />
+        <InteractiveProjectsSection items={publicInteractiveProjects} />
       </Container>
     </main>
   );

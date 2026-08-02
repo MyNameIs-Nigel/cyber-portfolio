@@ -2,7 +2,7 @@
  * Slugs that have a shipped interactive experience.
  * Keep in sync with `InteractiveAppHost` — add a slug here when you register its component.
  */
-export const LIVE_INTERACTIVE_SLUGS = ["minesweeper"] as const;
+export const LIVE_INTERACTIVE_SLUGS = ["minesweeper", "subnet-calculator"] as const;
 
 export type LiveInteractiveSlug = (typeof LIVE_INTERACTIVE_SLUGS)[number];
 

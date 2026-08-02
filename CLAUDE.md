@@ -47,10 +47,17 @@ A registry pattern keeps the static project list decoupled from shipped interact
    (server-safe, no component imports).
 2. `InteractiveAppHost.tsx` — `"use client"` map from slug → component (e.g. `minesweeper`).
 
-A project in `interactiveProjects.ts` is rendered live only when its `status` is `"live"` AND
-its slug is registered in both files above; otherwise the page shows a "coming soon" placeholder.
+Visibility is a separate axis from readiness:
+- `published: false` hides a project from visitors entirely. `publicInteractiveProjects` (the
+  filtered export) feeds the projects grid, `sitemap.ts`, and `generateStaticParams()`, and the
+  `[slug]` route looks entries up with `getPublicInteractiveProjectBySlug`, so an unpublished
+  slug 404s. Use it for work in progress.
+- `status: "live"` + the slug registered in both files above renders the actual app; a published
+  project without both shows a "coming soon" placeholder.
+
 Individual apps follow the minesweeper layout: `*.types.ts`, `*.constants.ts`, a `useX` hook for
-logic, and a `*App.tsx` view component.
+logic, and a `*App.tsx` view component (subnet-calculator adds a `*.math.ts` for pure helpers).
+The desktop-only mobile warning modal is scoped to `category === "game"`.
 
 ### Components
 Presentational components in `src/components/` (cards in `src/components/cards/`, project-specific

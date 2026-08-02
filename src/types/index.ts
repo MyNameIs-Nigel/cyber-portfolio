@@ -36,6 +36,12 @@ export interface InteractiveProject {
   /** Short copy for the placeholder detail page. */
   description: string;
   status?: "coming-soon" | "live";
+  /**
+   * Whether visitors can see this project at all. `false` keeps the entry in the
+   * codebase but hides it from the projects grid, the sitemap, and its own route
+   * (which 404s). Use it for experiences that aren't ready to show yet.
+   */
+  published: boolean;
 }
 
 export interface PhotoCardProps {
