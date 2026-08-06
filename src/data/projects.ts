@@ -3,6 +3,39 @@ import type { Project } from "@/types";
 
 export const projects: Project[] = [
   {
+    slug: "photography-portfolio",
+    title: "Photography Portfolio",
+    description: "Side project to showcase my photography skills.",
+    tags: ["Next.js", "Typescript", "Vercel"],
+    link: "https://ndsironwood.com/",
+    image: "/projects/nds-1.png",
+    preview: { mode: "live", url: "https://ndsironwood.com/", previewWidth: 1024 },
+    screenshots: ["/projects/nds-1.png", "/projects/nds-2.png", "/projects/nds-3.png"],
+    content: [
+      "This portfolio showcases photography work in a minimal, image-first layout. The goal was to keep attention on the photos while still providing context and navigation that feels natural on phone and desktop.",
+      "Built with Next.js and TypeScript and hosted on Vercel. Image-heavy routes use responsive loading so visitors aren't waiting on huge assets upfront.",
+      "The site doubles as a playground for refining typography, spacing, and subtle motion without overpowering the art.",
+    ],
+    demoUrl: "https://ndsironwood.com/",
+    repoUrl: "https://github.com/mynameis-nigel/nextjs-portfolio",
+  },
+  {
+    slug: "full-coverage-technology",
+    title: "Full Coverage Technology",
+    description: "Full Coverage Technology is a small business that provides technology solutions to small businesses.",
+    tags: ["Next.js", "TypeScript", "Vercel"],
+    link: "https://fullcoveragetechnology.com/",
+    image: "/projects/fct-1.png",
+    preview: { mode: "live", url: "https://fullcoveragetechnology.com/", previewWidth: 1024 },
+    screenshots: ["/projects/fct-1.png", "/projects/fct-2.png", "/projects/fct-3.png"],
+    content: [
+      "Full Coverage Technology is a small business that provides technology solutions to small businesses. I built this website to showcase their services and get them online.",
+      "I used Next.js and TypeScript for structure and type safety, deployed on Vercel for previews and production. Content and imagery are easy to swap as the business evolves.",
+      "Next steps could include a lightweight CMS or blog if the team wants to publish updates without touching code.",
+    ],
+    demoUrl: "https://fullcoveragetechnology.com/",
+  },
+  {
     slug: "tz-digital",
     title: "TZ Digital Advisors",
     description: "TZ Digital Advisors is a boutique enterprise IT consulting firm based in Athens, GA, offering vendor-agnostic technology advisory services to businesses of all sizes.",
@@ -34,22 +67,6 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/mynameIs-Nigel/ssharcade-web",
   },
   {
-    slug: "full-coverage-technology",
-    title: "Full Coverage Technology",
-    description: "Full Coverage Technology is a small business that provides technology solutions to small businesses.",
-    tags: ["Next.js", "TypeScript", "Vercel"],
-    link: "https://fullcoveragetechnology.com/",
-    image: "/projects/fct-1.png",
-    preview: { mode: "live", url: "https://fullcoveragetechnology.com/", previewWidth: 1024 },
-    screenshots: ["/projects/fct-1.png", "/projects/fct-2.png", "/projects/fct-3.png"],
-    content: [
-      "Full Coverage Technology is a small business that provides technology solutions to small businesses. I built this website to showcase their services and get them online.",
-      "I used Next.js and TypeScript for structure and type safety, deployed on Vercel for previews and production. Content and imagery are easy to swap as the business evolves.",
-      "Next steps could include a lightweight CMS or blog if the team wants to publish updates without touching code.",
-    ],
-    demoUrl: "https://fullcoveragetechnology.com/",
-  },
-  {
     slug: "walton-tax-professionals",
     title: "Walton Tax Professionals",
     description: "Walton Tax Professionals is a CPA firm offering tax preparation, planning, and IRS representation for individuals and small businesses.",
@@ -64,23 +81,6 @@ export const projects: Project[] = [
       "Next steps could include a client portal or scheduling integration so prospective clients can book consultations directly from the site.",
     ],
     demoUrl: "https://www.waltontaxpro.com/",
-  },
-  {
-    slug: "photography-portfolio",
-    title: "Photography Portfolio",
-    description: "Side project to showcase my photography skills.",
-    tags: ["Next.js", "Typescript", "Vercel"],
-    link: "https://ndsironwood.com/",
-    image: "/projects/nds-1.png",
-    preview: { mode: "live", url: "https://ndsironwood.com/", previewWidth: 1024 },
-    screenshots: ["/projects/nds-1.png", "/projects/nds-2.png", "/projects/nds-3.png"],
-    content: [
-      "This portfolio showcases photography work in a minimal, image-first layout. The goal was to keep attention on the photos while still providing context and navigation that feels natural on phone and desktop.",
-      "Built with Next.js and TypeScript and hosted on Vercel. Image-heavy routes use responsive loading so visitors aren't waiting on huge assets upfront.",
-      "The site doubles as a playground for refining typography, spacing, and subtle motion without overpowering the art.",
-    ],
-    demoUrl: "https://ndsironwood.com/",
-    repoUrl: "https://github.com/mynameis-nigel/nextjs-portfolio",
   },
 ];
 
