@@ -1,6 +1,6 @@
 # Nigel Smith — DevOps & Cloud Infrastructure Engineer
 
-> DevOps and cloud infrastructure engineer with a cybersecurity background. Pursuing a B.S. in Cybersecurity at BYU-Idaho (Est. 2027). Based in Idaho Falls, ID. Portfolio at nigel-smith.dev.
+> DevOps and cloud infrastructure engineer who builds and automates just about anything. Pursuing a B.S. in Cybersecurity at BYU-Idaho (Est. 2027) while working in the field. Based in Idaho Falls, ID. Portfolio at https://nigel-smith.dev.
 
 ## Contact
 
@@ -13,21 +13,28 @@
 
 Nigel Smith is a DevOps and cloud infrastructure engineer who specializes in AWS, Infrastructure as Code, and automation. He brings a security-first perspective to infrastructure work and has hands-on experience migrating production systems, reducing cloud costs, and managing IT environments for small businesses.
 
+## What I Work On
+
+- Cloud infrastructure — AWS (IAM, EC2, RDS, S3, Lambda, VPC, Cognito), GCP, CloudFormation & IaC
+- Automation — Python scripts and PowerShell tools
+- Systems & networking — Linux servers, Windows Server, Proxmox, Cisco, Cloudflare
+- Managed IT — M365 tenant admin, Exchange triage, endpoint management, on-prem network infrastructure
+
 ## Education
 
-- B.S. Cybersecurity, BYU-Idaho, Rexburg ID — Anticipated July 2027
+- B.S. Cybersecurity, BYU-Idaho, Rexburg ID — Anticipated 2027
 - Relevant coursework: Network Security, Cloud Architecture, Systems Administration, Cyber Defense
 
 ## Work Experience
 
-### Technical Support / Customer Support — Fybercom (March 2026 – Present)
+### Technical Support — Fybercom (March 2026 – Present)
 Idaho Falls, ID
 - Configures Ubiquiti, Cambium, and Tarana radio and fiber equipment
-- Manages CRM systems to analyze customer networks and resolve connectivity issues
+- Manages customer networks via CRM and troubleshooting through 200+ calls a month
 
 ### DevOps Intern — Roundsphere (November 2025 – May 2026)
 Remote / Athens, GA
-- Migrated production applications from legacy operating systems to AWS CloudFormation (IaC)
+- Migrated production applications to Infrastructure as Code with AWS CloudFormation
 - Reduced cloud expenditure by 14% through AWS RDS infrastructure audit and consolidation
 - Oversaw Google Workspace migrations between organizations
 
@@ -45,24 +52,33 @@ Monroe, GA
 
 - ISC² Certified in Cybersecurity (CC) — Earned
 - CompTIA A+ — Earned
-- CompTIA Security+ — Anticipated July 2026
-- AWS Cloud Practitioner — Anticipated July 2026
+- AWS Cloud Practitioner — Earned
+- CompTIA Security+ — Earned
 
 ## Technical Skills
 
-- Languages & Scripting: Python (APIs, data pipelines, automation), PowerShell (M365/AD management, automation), Bash
-- Cloud & DevOps: AWS (IAM, EC2, RDS, S3, Lambda, VPC, Cognito), GCP (Firebase, IAM, Vertex AI), CloudFormation, IaC, CI/CD
-- Infrastructure: Linux (Debian/Ubuntu), Windows Server (2016/2022/2025), Proxmox CTs/VMs, M365 Admin
-- Security & Networking: Cisco Devices, Cloudflare DNS/Tunnels, Wireshark, Nmap, SecurityOnion, Ubiquiti, Cambium, Tarana
-- AI & Agentic Tooling: Claude Code, Cursor, n8n, Ollama, Openclaw
+- Cloud: AWS · GCP · CloudFormation · IaC
+- Languages: Python · PowerShell · Bash
+- Infra: Linux · Windows Server · Proxmox
+- Networking: Cisco · Cloudflare · Wireshark · Nmap
+- AI Tooling: Claude Code · Cursor · n8n · Ollama
 
 ## Projects
 
-- Full Coverage Technology — Client website built with Next.js, TypeScript, deployed on Vercel
-- Walton Tax Professionals — Client website built with Next.js, TypeScript, deployed on Vercel
+### Highlights
 
-## Career Goals
+- SSH Idlefarmer — Agentic-engineered terminal user interface (TUI) idle farming game playable over SSH. Try `ssh play.ssharcade.dev` (SSH keypair required). Part of SSH Arcade (https://ssharcade.dev/).
+- Personal web portfolio — Full-stack Next.js site at https://nigel-smith.dev with project case studies and interactive demos.
 
-- Targeting DevOps, Platform Engineering, and SRE roles at mid-size SaaS companies
-- Relocating to Utah (Silicon Slopes area) after graduation
+### Other work
+
+- Full Coverage Technology — Client website built with Next.js, TypeScript, deployed on Vercel (https://fullcoveragetechnology.com/)
+- Walton Tax Professionals — Client website built with Next.js, TypeScript, deployed on Vercel (https://www.waltontaxpro.com/)
+- TZ Digital Advisors — IT consulting firm site built with Next.js, TypeScript, deployed on Vercel (https://tz-digital.com/)
+- Photography Portfolio — Image-first Next.js photography site (https://ndsironwood.com/)
+
+## Currently
+
+- Based in Idaho Falls, ID — open to relocation after graduation
 - Building toward AWS Solutions Architect certification
+- Targeting DevOps, Platform Engineering, and cloud security roles
