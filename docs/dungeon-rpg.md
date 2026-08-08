@@ -5,9 +5,11 @@
 > shops, skills, meta-progression, and polish (phases 4–7) are still design. The build plan lives in
 > [`.claude/plans/dungeon-rpg/`](../.claude/plans/dungeon-rpg/README.md).
 >
-> **The publish gate is still shut.** `dungeon-rpg` is `published: false`, so it is absent from the
-> projects grid, the sitemap, and `generateStaticParams()`, and `/projects/interactive/dungeon-rpg`
-> 404s. `publish-gate.test.ts` guards that. Phase 3 opens it.
+> **The publish gate is still shut in production.** `dungeon-rpg` is `published: false`, so on
+> production it is absent from the projects grid, the sitemap, and `generateStaticParams()`, and
+> `/projects/interactive/dungeon-rpg` 404s. Preview deployments run with `ENVIRONMENT=DEV` and show
+> unpublished projects, so the page *is* reachable there (as a "coming soon" placeholder until
+> `status` flips to `"live"`). `publish-gate.test.ts` guards both. Phase 3 opens the gate.
 >
 > When code and this doc disagree, **the code wins and this doc gets fixed.**
 
