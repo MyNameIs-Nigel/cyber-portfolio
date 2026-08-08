@@ -19,8 +19,10 @@ the codebase:
 - `npm run build` — production build
 - `npm start` — serve the production build
 - `npm run lint` — ESLint (flat config, `eslint-config-next` core-web-vitals + typescript)
+- `npm run test` — Vitest (single run); `npm run test:watch` for watch mode
 
-There is no test runner configured in this project.
+Vitest runs with `environment: "node"` over `src/**/*.test.ts{,x}`. Suites that need a DOM opt
+in per-file with a `// @vitest-environment jsdom` pragma (see `render-safety.test.tsx`).
 
 ## Architecture
 
@@ -48,10 +50,15 @@ A registry pattern keeps the static project list decoupled from shipped interact
 2. `InteractiveAppHost.tsx` — `"use client"` map from slug → component (e.g. `minesweeper`).
 
 Visibility is a separate axis from readiness:
-- `published: false` hides a project from visitors entirely. `publicInteractiveProjects` (the
-  filtered export) feeds the projects grid, `sitemap.ts`, and `generateStaticParams()`, and the
-  `[slug]` route looks entries up with `getPublicInteractiveProjectBySlug`, so an unpublished
-  slug 404s. Use it for work in progress.
+- `published: false` hides a project from visitors entirely. `visibleInteractiveProjects` feeds
+  the projects grid and `generateStaticParams()`, and the `[slug]` route looks entries up with
+  `getVisibleInteractiveProjectBySlug`, so an unpublished slug 404s. Use it for work in progress.
+- **Preview deployments show everything.** Vercel sets `ENVIRONMENT=DEV` on previews and
+  `PRODUCTION` on production; `src/lib/environment.ts` reads it, and when it is `DEV`
+  `visibleInteractiveProjects` is the whole list, so unpublished work is reviewable on a preview
+  URL. `publicInteractiveProjects` stays strictly published in every environment and is what
+  `sitemap.ts` uses, because the sitemap emits production URLs. The variable is server-only (no
+  `NEXT_PUBLIC_` prefix), so only server components may import the data module.
 - `status: "live"` + the slug registered in both files above renders the actual app; a published
   project without both shows a "coming soon" placeholder.
 

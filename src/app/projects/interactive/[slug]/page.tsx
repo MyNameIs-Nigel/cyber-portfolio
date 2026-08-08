@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
 import { InteractiveMobileWarningModal } from "@/components/InteractiveMobileWarningModal";
 import { H1, Paragraph } from "@/components/Typography";
-import { getPublicInteractiveProjectBySlug, publicInteractiveProjects } from "@/data/interactiveProjects";
+import { getVisibleInteractiveProjectBySlug, visibleInteractiveProjects } from "@/data/interactiveProjects";
 import { InteractiveAppHost } from "@/features/interactive/InteractiveAppHost";
 import { isLiveInteractiveSlug } from "@/features/interactive/registry-meta";
 import type { InteractiveProjectCategory } from "@/types";
@@ -20,12 +20,12 @@ const categoryLabel: Record<InteractiveProjectCategory, string> = {
 };
 
 export function generateStaticParams() {
-  return publicInteractiveProjects.map((p) => ({ slug: p.slug }));
+  return visibleInteractiveProjects.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const project = getPublicInteractiveProjectBySlug(slug);
+  const project = getVisibleInteractiveProjectBySlug(slug);
   if (!project) {
     return { title: "Interactive project not found" };
   }
@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function InteractiveProjectPage({ params }: Props) {
   const { slug } = await params;
-  const project = getPublicInteractiveProjectBySlug(slug);
+  const project = getVisibleInteractiveProjectBySlug(slug);
   if (!project) {
     notFound();
   }

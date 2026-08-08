@@ -1,6 +1,7 @@
 "use client";
 
 import type { ComponentType } from "react";
+import { DungeonRpgApp } from "@/features/interactive/dungeon-rpg/DungeonRpgApp";
 import { MinesweeperApp } from "@/features/interactive/minesweeper/MinesweeperApp";
 import { SubnetCalculatorApp } from "@/features/interactive/subnet-calculator/SubnetCalculatorApp";
 import { isLiveInteractiveSlug, type LiveInteractiveSlug } from "@/features/interactive/registry-meta";
@@ -8,6 +9,7 @@ import { isLiveInteractiveSlug, type LiveInteractiveSlug } from "@/features/inte
 const apps = {
   minesweeper: MinesweeperApp,
   "subnet-calculator": SubnetCalculatorApp,
+  "dungeon-rpg": DungeonRpgApp,
 } satisfies Record<LiveInteractiveSlug, ComponentType>;
 
 export function InteractiveAppHost({ slug }: { slug: string }) {
