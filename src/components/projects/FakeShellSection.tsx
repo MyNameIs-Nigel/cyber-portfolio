@@ -1,7 +1,7 @@
 "use client";
 
 import { InteractiveMobileWarningModal } from "@/components/InteractiveMobileWarningModal";
-import { H2, Paragraph } from "@/components/Typography";
+import { H2 } from "@/components/Typography";
 import { FakeShellApp } from "@/features/terminal/FakeShellApp";
 import { SHELL_MOBILE_DISMISS_KEY } from "@/features/terminal/shell.constants";
 
@@ -9,10 +9,6 @@ export function FakeShellSection() {
   return (
     <section>
       <H2>Portfolio Shell</H2>
-      <Paragraph muted>
-        Start with <code className="text-accent-1">ls</code> or{" "}
-        <code className="text-accent-1">help</code>.
-      </Paragraph>
       <div className="relative mt-4">
         <InteractiveMobileWarningModal
           contained

@@ -37,7 +37,7 @@ describe("executor", () => {
   it("handles sudo easter egg via hidden command", () => {
     const s = state();
     const out = runShellLine(s, "sudo rm -rf /");
-    expect(out.results[0]?.stderr).toContain("Nice try");
+    expect(out.results[0]?.stderr).toContain("not in the sudoers file");
   });
 
   it("./resume.sh runs script and surfaces navigate", () => {

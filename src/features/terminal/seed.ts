@@ -22,7 +22,7 @@ export function renderProject(p: {
     p.description,
     "",
     `Tags: ${tags}`,
-    `Live: ${p.link ?? "—"}`,
+    `Site: ${p.link ?? "—"}`,
   ];
   if (p.repoUrl) {
     lines.push(`Repo: ${p.repoUrl}`);

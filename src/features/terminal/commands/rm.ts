@@ -22,9 +22,7 @@ export const rmCommand: CommandDef = {
     }
     let code = 0;
     const errors: string[] = [];
-    let cheeky = false;
     for (const p of paths) {
-      if (p === "/" || p === "/*") cheeky = recursive && force;
       const err = removePath(state.fs, cwd, p, recursive, force);
       if (err) {
         const reason =
@@ -37,9 +35,8 @@ export const rmCommand: CommandDef = {
         code = 1;
       }
     }
-    const extra = cheeky ? "Nice try. The base image survives.\n" : "";
     return {
-      stdout: extra,
+      stdout: "",
       stderr: errors.length ? `${errors.join("\n")}\n` : "",
       code,
     };

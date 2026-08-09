@@ -15,10 +15,10 @@ export const helpCommand: CommandDef = {
   usage: "help [command]",
   run: ({ args }) => {
     if (args.length === 0) {
-      const lines = allCommandsIncludingHelp()
+      const names = allCommandsIncludingHelp()
         .filter((c) => !c.hidden)
-        .map((c) => `  ${c.name.padEnd(8)} ${c.summary}`);
-      const body = ["Available commands:", ...lines, "", "Type 'help <command>' for details."].join("\n");
+        .map((c) => c.name);
+      const body = ["Commands:", `  ${names.join("  ")}`, "", "help COMMAND"].join("\n");
       return { stdout: `${body}\n`, stderr: "", code: 0 };
     }
     const name = args[0]!;
@@ -26,6 +26,6 @@ export const helpCommand: CommandDef = {
     if (!cmd) {
       return { stdout: "", stderr: `help: no help topics match '${name}'\n`, code: 1 };
     }
-    return { stdout: `${cmd.usage}\n\n${cmd.summary}\n`, stderr: "", code: 0 };
+    return { stdout: `${cmd.usage}\n`, stderr: "", code: 0 };
   },
 };
