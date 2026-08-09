@@ -4,11 +4,11 @@ import { ContactTerminal } from "@/features/contact/ContactTerminal";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Send Nigel Smith a message through a terminal-themed contact form.",
+  description: "Contact Nigel Smith about DevOps, cloud infrastructure, or web projects.",
   alternates: { canonical: "/contact" },
   openGraph: {
     title: "Contact — Nigel Smith's Portfolio",
-    description: "Send Nigel Smith a message through a terminal-themed contact form.",
+    description: "Contact Nigel Smith about DevOps, cloud infrastructure, or web projects.",
     siteName: "Nigel Smith's Portfolio",
     locale: "en_US",
     type: "website",

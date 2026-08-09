@@ -112,7 +112,7 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-1 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-1" />
             </span>
-            Available for opportunities
+            Open to DevOps / cloud roles
           </span>
           <span className="font-mono text-xs text-muted">
             Rexburg, ID · <LiveClock />

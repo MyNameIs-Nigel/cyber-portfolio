@@ -55,7 +55,7 @@ const personSchema = {
   "@id": "https://nigel-smith.dev/#person",
   name: "Nigel Smith",
   url: "https://nigel-smith.dev",
-  jobTitle: "DevOps & Cloud Infrastructure Engineer",
+  jobTitle: "Technical Support",
   sameAs: [
     "https://github.com/mynameis-nigel",
     "https://www.linkedin.com/in/nigeld-smith/",
