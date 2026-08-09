@@ -43,7 +43,7 @@ There is **no server state**. A canonical, read-only filesystem (the *base image
 create under a writable path is saved as a small *overlay* in `localStorage` and replayed on their
 next visit. One visitor never sees another's files; there is nothing to fill, corrupt, or moderate.
 
-On **first boot** (no overlay for `portfolio-shell-fs:v2`), `storage.ts` also calls `seedProjectFiles()`
+On **first boot** (no overlay for `portfolio-shell-fs:v3`), `storage.ts` also calls `seedProjectFiles()`
 to create writable `~/projects/<slug>.txt` files from `src/data/projects.ts` and persists that overlay
 immediately.
 
@@ -92,7 +92,7 @@ type FsDir = { kind: "dir"; name: string; children: Map<string, FsNode>; readonl
 
 `HOME = /home/guest`, `USER = guest`, `HOSTNAME = portfolio`.
 
-### Base image highlights (`baseImage.ts`, `FS_SCHEMA_VERSION = 2`)
+### Base image highlights (`baseImage.ts`, `FS_SCHEMA_VERSION = 3`)
 
 | Path | Kind | Notes |
 |------|------|-------|
@@ -145,7 +145,7 @@ still works for the curious. Tab completion uses the same visible command list.
 
 ## Persistence (`storage.ts`)
 
-- **Key:** `portfolio-shell-fs:v2` (`FS_SCHEMA_VERSION = 2`).
+- **Key:** `portfolio-shell-fs:v3` (`FS_SCHEMA_VERSION = 3`).
 - **First boot:** `seedProjectFiles()` → `saveShellFs()` so project files live in the overlay.
 - **Return visit:** overlay applied; seeded files are editable/deletable like any user file; no reseed.
 - **Version bump:** new key → clean base image + fresh seed (v1 sandboxes ignored).

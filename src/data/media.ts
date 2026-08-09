@@ -12,10 +12,10 @@ export const musicRotation: MediaItem[] = [
 ];
 
 export const mediaShowcase: MediaItem[] = [
-  { image: sq, title: "Lorem Movie", subtitle: "Studio Lorem", accent: 1 },
-  { image: sq, title: "Lorem Game", subtitle: "PC / Console", accent: 2 },
-  { image: sq, title: "Lorem Album", subtitle: "Artist Ipsum", accent: 3 },
-  { image: sq, title: "Lorem Series", subtitle: "Streaming", accent: 4 },
+  { image: sq, title: "Example Film", subtitle: "Director", accent: 1 },
+  { image: sq, title: "Example Game", subtitle: "PC / Console", accent: 2 },
+  { image: sq, title: "Example Album", subtitle: "Artist", accent: 3 },
+  { image: sq, title: "Example Series", subtitle: "Television", accent: 4 },
 ];
 
 export const photoShowcase = [

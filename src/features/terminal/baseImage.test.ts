@@ -42,7 +42,7 @@ describe("baseImage", () => {
 
   it("puts disclaimer only in README.txt, not in motd", () => {
     const fs = createBaseImage();
-    const disclaimer = "Nothing here is real or executed. Files persist in your browser only.";
+    const disclaimer = "This runs entirely in your browser.";
     const readme = resolvePath(fs, HOME, "README.txt");
     const motd = resolvePath(fs, "/", "/etc/motd");
     expect(readme.ok && readme.node.kind === "file" && readme.node.content).toContain(disclaimer);

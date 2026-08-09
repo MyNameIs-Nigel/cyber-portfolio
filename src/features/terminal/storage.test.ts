@@ -95,8 +95,8 @@ describe("storage", () => {
       expect(resolvePath(second.fs, HOME, `projects/${slug}.txt`).ok).toBe(false);
     });
 
-    it("ignores v1 storage key and reseeds at v2", () => {
-      store["portfolio-shell-fs:v1"] = JSON.stringify({ version: 1, entries: [] });
+    it("ignores stale storage and reseeds at the current version", () => {
+      store["portfolio-shell-fs:v2"] = JSON.stringify({ version: 2, entries: [] });
       const { fs } = loadShellFs();
       expect(store[STORAGE_KEY]).toBeDefined();
       expect(JSON.parse(store[STORAGE_KEY]!).version).toBe(FS_SCHEMA_VERSION);

@@ -46,10 +46,10 @@ export default function HomePage() {
 
         <H1>About Me</H1>
         <Paragraph>
-          I build cloud infrastructure and automate the toil around it. Currently: AWS workloads, IaC, and a cybersecurity degree I&apos;m using as a DevSecOps edge rather than a SOC ticket to punch.
+          I build cloud infrastructure and automate the repetitive work around it. Right now that means AWS, infrastructure as code, and a cybersecurity degree.
         </Paragraph>
         <Paragraph>
-          I&apos;m targeting a DevOps or cloud security role where I can bridge infrastructure automation with security-first thinking.
+          I&apos;m looking for DevOps or cloud security work where I can keep improving both sides of that stack.
         </Paragraph>
 
         <QuoteBlock attribution="— Brené Brown, 2015">
@@ -160,14 +160,8 @@ export default function HomePage() {
 
         <SectionDivider />
 
-        <H2>Some Early Career Successes</H2>
-        <Paragraph>
-          I&apos;ve had the opportunity to work on some projects that I&apos;m proud of.
-        </Paragraph>
-        <AccentList accent={4} items={["Audited and consolidated AWS RDS infrastructure, reducing monthly cloud expenditure by 14% ($700/mo)", "Executed seamless zero-downtime migrations of enterprise Google Workspace environments", "Engineered client-facing web applications from scratch using Next.js, managing DNS and domain controllers."]} />
-        <Paragraph muted className="pt-6">
-        That&apos;s not all I&apos;ve done, but those are some I&apos;m glad to say I oversaw.
-        </Paragraph>
+        <H2>Work I&apos;m Proud Of</H2>
+        <AccentList accent={4} items={["Cut monthly AWS costs by 14% ($700) after auditing and consolidating RDS infrastructure", "Moved enterprise Google Workspace environments without interrupting users", "Built and launched client websites, including their DNS and domain setup"]} />
 
         <SectionDivider />
 

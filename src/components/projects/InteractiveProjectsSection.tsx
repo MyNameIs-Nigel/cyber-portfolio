@@ -35,7 +35,7 @@ export function InteractiveProjectsSection({ items }: { items: InteractiveProjec
         Interactive
       </H2>
       <Paragraph muted className="mt-2 pb-4">
-        Mini games, tools, and experiments you can open in the browser. Hover a tile to see its name.
+        Small games and tools I build for the browser.
       </Paragraph>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {items.map((project) => (

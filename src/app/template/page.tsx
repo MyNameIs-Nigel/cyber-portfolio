@@ -72,12 +72,12 @@ export default function TemplatePage() {
           <H4>Heading Four</H4>
         </Showcase>
         <Showcase name="Typography — Paragraph">
-          <Paragraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Paragraph>
-          <Paragraph muted>Muted paragraph — secondary copy for captions and supporting text.</Paragraph>
+          <Paragraph>This is a standard paragraph used to check type size, spacing, and line length.</Paragraph>
+          <Paragraph muted>This muted paragraph is for captions and secondary details.</Paragraph>
         </Showcase>
 
         <Showcase name="AccentList">
-          <AccentList accent={1} items={["Lorem ipsum dolor", "Sit amet consectetur", "Adipiscing elit sed"]} />
+          <AccentList accent={1} items={["First list item", "Second list item", "Third list item"]} />
           <div className="mt-6">
             <AccentList accent={2} items={["Second accent bullets", "Orange highlights", "For variety"]} />
           </div>
@@ -160,8 +160,8 @@ export default function TemplatePage() {
           <PlusMinus
             plusTitle="Dopamine Sources++"
             minusTitle="Cortisol Triggers--"
-            plusItems={["Lorem shipping small wins", "Ipsum learning in public", "Dolor kind feedback"]}
-            minusItems={["Lorem unclear scope", "Ipsum noisy alerts", "Dolor context switching"]}
+            plusItems={["Shipping small wins", "Learning in public", "Useful feedback"]}
+            minusItems={["Unclear scope", "Noisy alerts", "Context switching"]}
           />
         </Showcase>
 
@@ -174,7 +174,7 @@ export default function TemplatePage() {
         </Showcase>
 
         <Showcase name="Banner">
-          <Banner src={bannerSrc} quote="Lorem ipsum — clarity is a feature." />
+          <Banner src={bannerSrc} quote="Example banner caption" />
         </Showcase>
 
         <Showcase name="Kanban">
@@ -182,8 +182,8 @@ export default function TemplatePage() {
         </Showcase>
 
         <Showcase name="QuoteBlock">
-          <QuoteBlock attribution="— Lorem Ipsum, 20XX">
-            “Design is the silent ambassador of your brand — placeholder edition.”
+          <QuoteBlock attribution="— Example attribution">
+            “A short quotation belongs here.”
           </QuoteBlock>
         </Showcase>
 

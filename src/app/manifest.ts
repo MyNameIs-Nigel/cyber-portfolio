@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Nigel Smith's Portfolio",
     short_name: "Nigel Smith",
     description:
-      "Web Portfolio for Nigel Smith to showcase his skills and projects.",
+      "Cloud infrastructure, automation, websites, and terminal games by Nigel Smith.",
     start_url: "/",
     display: "standalone",
     background_color: "#000000",

@@ -552,7 +552,7 @@ export function ContactTerminal() {
             <span className="terminal-cursor ml-1 inline-block h-7 w-2.5 translate-y-0.5 bg-accent-1 sm:h-8" aria-hidden />
           </h1>
           <p className="mt-2 text-xs text-muted sm:text-sm">
-            Establishing a direct line. Answer each prompt to transmit a message.
+            Leave a message and tell me how to reply.
           </p>
         </motion.div>
 
