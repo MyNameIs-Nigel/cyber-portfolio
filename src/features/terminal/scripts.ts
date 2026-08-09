@@ -7,7 +7,7 @@ const RESUME_SH_STDOUT = `Fetching résumé from https://nigel-smith.dev/resume.
                                  Dload  Upload   Total   Spent    Left  Speed
 100  248k  100  248k    0     0   612k      0 --:--:-- --:--:-- --:--:--  611k
 Saved to /home/guest/Downloads/nigel-smith-resume.pdf
-Opening https://nigel-smith.dev ↗
+xdg-open https://nigel-smith.dev
 `;
 
 function runResumeSh(): CommandResult {

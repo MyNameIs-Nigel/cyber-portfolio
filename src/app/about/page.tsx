@@ -1,7 +1,6 @@
 import { Banner } from "@/components/Banner";
 import { Container } from "@/components/Container";
 import { PersonalityProfile } from "@/components/PersonalityProfile";
-import { QuoteBlock } from "@/components/QuoteBlock";
 import { SectionDivider } from "@/components/SectionDivider";
 import { StatBar } from "@/components/StatBar";
 import { H1, H2, H3, Paragraph } from "@/components/Typography";
@@ -25,11 +24,11 @@ const codeLines = [
 
 export const metadata = {
   title: "About",
-  description: "Nigel's about page.",
+  description: "Nigel Smith's photography, music, side projects, and other interests.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About — Nigel Smith's Portfolio",
-    description: "Nigel's about page.",
+    description: "Nigel Smith's photography, music, side projects, and other interests.",
     siteName: "Nigel Smith's Portfolio",
     locale: "en_US",
     type: "website",
@@ -48,10 +47,10 @@ export const metadata = {
 };
 
 const attentionSegments = [
-  { label: "Building", sublabel: "In the flow state", percentage: 56, accent: 1 as const },
-  { label: "Sustaining", sublabel: "Sleeping (for the weak)", percentage: 3, accent: 2 as const },
-  { label: "Socializing", sublabel: "Relaxing and spending time with friends", percentage: 19, accent: 3 as const },
-  { label: "Exploring", sublabel: "Side quests + new hobbies", percentage: 22, accent: 4 as const },
+  { label: "Building", sublabel: "Code, photos, and side projects", percentage: 56, accent: 1 as const },
+  { label: "Sleeping", percentage: 3, accent: 2 as const },
+  { label: "Friends", percentage: 19, accent: 3 as const },
+  { label: "Trying new things", percentage: 22, accent: 4 as const },
 ];
 
 export default function AboutPage() {
@@ -60,15 +59,7 @@ export default function AboutPage() {
       <Container className="py-12">
         <H1 firstOnPage>More about Nigel</H1>
         <Paragraph>
-          So you made it here, congrats! I&apos;d love to show you a little bit about me.
-        </Paragraph>
-
-        <Paragraph>
-          As a cyber student, I have tons of weird interests. How surprising. But I&apos;m a fun guy, I swear!
-          This page is essentially a collection of my interests and hobbies.
-        </Paragraph>
-        <Paragraph muted>
-          I&apos;m not sure if you&apos;ll find this page entertaining, but I hope you do. If you have any questions, feel free to contact me.
+          This is the less résumé-shaped part of the site: what I listen to, what I shoot, and what I do when I&apos;m away from a cloud console.
         </Paragraph>
 
         <div className="mt-6">
@@ -80,10 +71,10 @@ export default function AboutPage() {
         <H2>My Hobbies</H2>
         <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {[
-            { title: "Music", desc: "I love listening to music, and I'm always looking for new music to listen to.", tags: ["Metal", "Electronic", "Rock", "Pop"] },
-            { title: "Coding", desc: "Yep, I like to code. I'm not always the best, but I'm getting better!", tags: ["Python", "C#", "Typescript"] },
-            { title: "Photography", desc: "I love to shoot with my Sony a6700, but I shoot film too.", tags: ["Film", "Digital"] },
-            { title: "Cars", desc: "I love working on, modfying, and driving cars. RIP my wallet :(", tags: ["BMW"] },
+            { title: "Music", desc: "My rotation moves between metal, electronic, rock, and pop.", tags: ["Metal", "Electronic", "Rock", "Pop"] },
+            { title: "Coding", desc: "Most of my side projects start as an excuse to learn one unfamiliar thing.", tags: ["Python", "C#", "TypeScript"] },
+            { title: "Photography", desc: "I carry a Sony a6700 most often, but I still shoot film when I can.", tags: ["Film", "Digital"] },
+            { title: "Cars", desc: "I like working on, modifying, and driving cars. My wallet likes this less.", tags: ["BMW"] },
           ].map((p) => (
             <div key={p.title} className="rounded-xl border border-border bg-surface p-5 transition-colors duration-200 hover:border-accent-1/50">
               <h3 className="text-base font-semibold text-fg">{p.title}</h3>
@@ -119,10 +110,6 @@ export default function AboutPage() {
 
         <H2>Some of my favorite Shots</H2>
 
-        <Paragraph>
-          I love to shoot film and digital photography. Here are some of my favorite shots.
-        </Paragraph>
-
         <CardGrid columns={2} gap="md">
             {photoShowcase.map((p, i) => (
               <PhotoCard key={i} {...p} />
@@ -143,14 +130,6 @@ export default function AboutPage() {
         <div className="mt-4">
           <StatBar segments={attentionSegments} />
         </div>
-
-
-        <SectionDivider />
-
-
-        <QuoteBlock attribution="— Cursor Autocomplete, 2026">
-          &ldquo;If you&apos;re not having fun, you&apos;re doing it wrong.&rdquo;
-        </QuoteBlock>
       </Container>
     </main>
   );

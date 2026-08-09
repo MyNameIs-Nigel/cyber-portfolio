@@ -74,7 +74,6 @@ export function useShell(onNavigate?: NavigateHandler) {
         }
 
         if (outcome.navigate && onNavigate) {
-          pushScrollback(draft, [{ text: "Redirecting…\n", variant: "normal" }]);
           setInputLocked(true);
           onNavigate(outcome.navigate.href, outcome.navigate.delayMs);
         }

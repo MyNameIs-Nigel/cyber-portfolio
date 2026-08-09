@@ -24,7 +24,7 @@ export function DevLoop() {
         </span>
       </div>
       <p className="mt-4 text-center font-mono text-sm italic text-muted">
-        Lorem ipsum dolor sit amet — iterate until the loop feels honest.
+        Make it work, check it, then make it clearer.
       </p>
     </div>
   );

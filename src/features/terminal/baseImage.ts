@@ -4,7 +4,7 @@ import type { FsDir, FsFile, FsNode } from "@/features/terminal/shell.types";
 const NOW = 1_700_000_000_000;
 
 const RESUME_SH = `#!/usr/bin/env bash
-# resume.sh — pull the latest copy of my résumé and open the site
+# fetch résumé PDF, open site
 set -euo pipefail
 RESUME_URL="https://nigel-smith.dev/resume.pdf"
 DEST="\${HOME}/Downloads/nigel-smith-resume.pdf"
@@ -14,22 +14,14 @@ echo "Saved to \${DEST}"
 command -v xdg-open >/dev/null && xdg-open "https://nigel-smith.dev" || open "https://nigel-smith.dev"
 `;
 
-const README_TXT = `Welcome to my portfolio shell.
+const README_TXT = `Portfolio shell
 
-This is a browser-only playground — nothing here is real or executed on a server.
-Files you create under ~/ persist in your browser only.
-
-Nothing here is real or executed. Files persist in your browser only.
-
-Try: help, ls -la, cat resume.sh, ./resume.sh
+This runs entirely in your browser. Files under ~/ stay in this browser.
 `;
 
-const MOTD_STATIC = `Welcome to Nigel's Portfolio Shell
+const MOTD_STATIC = `Nigel's portfolio
 
- * Documentation:  https://help.ubuntu.com
- * Management:     https://nigel-smith.dev
- * Support:        https://nigel-smith.dev/contact
- * New here?       Run \`help\` to see what this shell can do.
+Type \`help\` for commands.
 `;
 
 type FileOpts = { readonly?: boolean; hidden?: boolean; executable?: boolean; mtime?: number };
@@ -107,7 +99,7 @@ truncation_length = 3
                 {
                   "flag.txt": file(
                     "flag.txt",
-                    "portfolio{easter_egg_found}\nYou found the hidden flag. Nice work.",
+                    "portfolio{easter_egg_found}\n",
                     { readonly: true, hidden: true },
                   ),
                 },
@@ -190,8 +182,8 @@ SUPPORT_URL="https://help.ubuntu.com/"
             {
               "portfolio.log": file(
                 "portfolio.log",
-                `2026-05-28T14:02:11Z INFO  portfolio-shell session start user=guest
-2026-05-29T09:41:03Z INFO  static export OK routes=12
+                `2026-05-28T14:02:11Z INFO  sshd: session opened for guest
+2026-05-29T09:41:03Z INFO  systemd: Started portfolio.service
 `,
                 { readonly: true },
               ),

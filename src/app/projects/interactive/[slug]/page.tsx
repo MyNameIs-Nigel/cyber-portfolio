@@ -89,17 +89,11 @@ export default async function InteractiveProjectPage({ params }: Props) {
 
         <Paragraph className="mt-4">{project.description}</Paragraph>
 
-        {isComingSoon ? (
-          <Paragraph muted className="mt-4">
-            This page is a placeholder. The interactive experience will load here once it&apos;s built.
-          </Paragraph>
-        ) : null}
-
         {showInteractive ? <InteractiveAppHost slug={slug} /> : null}
 
         {!isComingSoon && !showInteractive ? (
           <Paragraph muted className="mt-4">
-            This project is marked live, but no interactive module is registered for this slug yet.
+            This project is temporarily unavailable.
           </Paragraph>
         ) : null}
       </Container>

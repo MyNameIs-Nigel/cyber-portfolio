@@ -7,7 +7,7 @@ export const sudoCommand: CommandDef = {
   usage: "sudo COMMAND [ARGS...]",
   run: () => ({
     stdout: "",
-    stderr: "Nice try. This incident will be reported. 🙂\n",
+    stderr: "guest is not in the sudoers file. This incident will be reported.\n",
     code: 1,
   }),
 };

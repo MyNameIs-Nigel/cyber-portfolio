@@ -122,7 +122,7 @@ export function mkdirPath(
 
   const name = parts.at(-1)!;
   if (!isValidName(name)) return { message: "Invalid file name" };
-  if (isBlacklisted(name)) return { message: "content blocked" };
+  if (isBlacklisted(name)) return { message: "Operation not permitted" };
 
   const parentPath = parts.length === 1 ? "/" : `/${parts.slice(0, -1).join("/")}`;
   const parentRes = resolvePath(root, "/", parentPath);
@@ -165,7 +165,7 @@ export function touchFile(root: FsDir, cwd: string, target: string): FsError | n
   if (parts.length === 0) return { message: "Invalid path" };
   const name = parts.at(-1)!;
   if (!isValidName(name)) return { message: "Invalid file name" };
-  if (isBlacklisted(name)) return { message: "content blocked" };
+  if (isBlacklisted(name)) return { message: "Operation not permitted" };
 
   const parentPath = parts.length === 1 ? "/" : `/${parts.slice(0, -1).join("/")}`;
   const parentRes = resolvePath(root, "/", parentPath);
@@ -195,13 +195,13 @@ export function writeFileContent(
   content: string,
   append: boolean,
 ): FsError | null {
-  if (isBlacklisted(content)) return { message: "content blocked" };
+  if (isBlacklisted(content)) return { message: "Operation not permitted" };
   const path = normalizePath(cwd, target);
   const parts = path.split("/").filter(Boolean);
   if (parts.length === 0) return { message: "Is a directory" };
   const name = parts.at(-1)!;
   if (!isValidName(name)) return { message: "Invalid file name" };
-  if (isBlacklisted(name)) return { message: "content blocked" };
+  if (isBlacklisted(name)) return { message: "Operation not permitted" };
 
   const parentPath = parts.length === 1 ? "/" : `/${parts.slice(0, -1).join("/")}`;
   const parentRes = resolvePath(root, "/", parentPath);

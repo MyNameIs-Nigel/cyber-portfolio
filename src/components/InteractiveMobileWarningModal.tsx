@@ -99,13 +99,12 @@ export function InteractiveMobileWarningModal({
         </button>
 
         <h2 id="interactive-mobile-warning-title" className="pr-10 text-xl font-semibold text-accent-2">
-          Warning
+          Desktop recommended
         </h2>
         <p id="interactive-mobile-warning-desc" className="mt-3 text-sm leading-relaxed text-muted">
           {description ?? (
             <>
-              <span className="font-semibold text-fg">WARNING!</span> interactive experiences are designed for use on
-              desktop browsers, this game will likely not work on mobile!
+              This project uses keyboard and mouse controls and may not work well on a phone.
             </>
           )}
         </p>

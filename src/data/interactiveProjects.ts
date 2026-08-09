@@ -6,7 +6,7 @@ export const interactiveProjects: InteractiveProject[] = [
     title: "Retro Tetris",
     category: "game",
     icon: "/projects/interactive/retro-tetris.svg",
-    description: "A retro-styled Tetris experience. Placeholder route — gameplay coming soon.",
+    description: "Tetris with a deliberately chunky, late-night-arcade look.",
     status: "coming-soon",
   },
   {
@@ -14,7 +14,7 @@ export const interactiveProjects: InteractiveProject[] = [
     title: "Dungeon RPG",
     category: "game",
     icon: "/projects/interactive/dungeon-rpg.svg",
-    description: "A small dungeon crawler with EarthBound-inspired vibes. Placeholder route — adventure coming soon.",
+    description: "A small dungeon crawler inspired by EarthBound.",
     status: "coming-soon",
   },
   {
@@ -22,7 +22,7 @@ export const interactiveProjects: InteractiveProject[] = [
     title: "Minesweeper",
     category: "game",
     icon: "/projects/interactive/minesweeper.svg",
-    description: "Classic Minesweeper in the browser — pick a difficulty, flag mines, and clear the grid.",
+    description: "Classic Minesweeper with three difficulty levels.",
     status: "live",
   },
   {
@@ -30,7 +30,7 @@ export const interactiveProjects: InteractiveProject[] = [
     title: "Subnet Calculator",
     category: "tool",
     icon: "/projects/interactive/subnet-calculator.svg",
-    description: "Network subnet and CIDR helpers. Placeholder route — calculator UI coming soon.",
+    description: "Quick subnet and CIDR calculations for IPv4 networks.",
     status: "coming-soon",
   },
 ];

@@ -3,17 +3,17 @@ import type { ValueCardProps } from "@/types";
 export const valueCards: ValueCardProps[] = [
   {
     title: "Intentionality",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Every commit should answer why.",
+    description: "Know what a change is for before making it.",
     accent: 1,
   },
   {
     title: "Pragmatism",
-    description: "Ut enim ad minim veniam — ship useful things, refine with feedback.",
+    description: "Ship the useful version, then improve it with real feedback.",
     accent: 2,
   },
   {
     title: "Kindness",
-    description: "Duis aute irure dolor in code review — assume good intent.",
+    description: "Be direct in code review without making it personal.",
     accent: 3,
   },
 ];

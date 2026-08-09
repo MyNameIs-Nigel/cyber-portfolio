@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s — Nigel Smith's Portfolio",
     default: "Nigel Smith's Portfolio",
   },
-  description: "Web Portfolio for Nigel Smith to showcase his skills and projects.",
+  description: "Nigel Smith builds cloud infrastructure, automation, websites, and terminal games.",
   alternates: { canonical: "/" },
   robots: {
     index: true,
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Nigel Smith's Portfolio",
-    description: "Web Portfolio to showcase my skills and projects.",
+    description: "Cloud infrastructure, automation, websites, and terminal games by Nigel Smith.",
     siteName: "Nigel Smith's Portfolio",
     locale: "en_US",
     type: "website",
@@ -55,7 +55,7 @@ const personSchema = {
   "@id": "https://nigel-smith.dev/#person",
   name: "Nigel Smith",
   url: "https://nigel-smith.dev",
-  jobTitle: "DevOps & Cloud Infrastructure Engineer",
+  jobTitle: "Technical Support",
   sameAs: [
     "https://github.com/mynameis-nigel",
     "https://www.linkedin.com/in/nigeld-smith/",

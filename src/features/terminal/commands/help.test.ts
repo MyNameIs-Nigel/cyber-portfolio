@@ -9,7 +9,7 @@ describe("help command", () => {
     expect(result.stdout).not.toContain("nothing here is real");
     expect(result.stdout).not.toContain("sudo");
     expect(result.stdout).not.toContain("whoami");
-    expect(result.stdout).toContain("help <command>");
+    expect(result.stdout).toContain("help COMMAND");
   });
 
   it("help sudo still resolves hidden commands", () => {

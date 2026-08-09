@@ -450,8 +450,8 @@ function ResultStep({ api }: { api: ContactFormApi }) {
         <div className="space-y-3 rounded-lg border border-accent-1/40 bg-accent-1/5 p-5">
           <p className="text-base font-semibold text-accent-1">✓ Message transmitted</p>
           <p className="text-sm leading-relaxed text-fg">
-            Thanks, {api.values.name.split(" ")[0] || api.values.name}. Your message landed in my
-            inbox — I&apos;ll reply via {methodLabel} as soon as I can.
+            Got it, {api.values.name.split(" ")[0] || api.values.name}. I&apos;ll reply via{" "}
+            {methodLabel} when I&apos;m back at my desk.
           </p>
           <p className="font-mono text-xs text-muted">process exited with code 0</p>
           <Link
@@ -552,7 +552,7 @@ export function ContactTerminal() {
             <span className="terminal-cursor ml-1 inline-block h-7 w-2.5 translate-y-0.5 bg-accent-1 sm:h-8" aria-hidden />
           </h1>
           <p className="mt-2 text-xs text-muted sm:text-sm">
-            Establishing a direct line. Answer each prompt to transmit a message.
+            Leave a message and tell me how to reply.
           </p>
         </motion.div>
 

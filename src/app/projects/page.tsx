@@ -12,11 +12,11 @@ import { thoughtLogMessages, thoughtLogTitle } from "@/data/consoleLogs";
 
 export const metadata = {
   title: "Projects",
-  description: "Project showcase for Nigel Smith's portfolio.",
+  description: "Websites, terminal games, and browser experiments built by Nigel Smith.",
   alternates: { canonical: "/projects" },
   openGraph: {
     title: "Projects — Nigel Smith's Portfolio",
-    description: "Project showcase for Nigel Smith's portfolio.",
+    description: "Websites, terminal games, and browser experiments built by Nigel Smith.",
     siteName: "Nigel Smith's Portfolio",
     locale: "en_US",
     type: "website",
@@ -40,7 +40,7 @@ export default function ProjectsPage() {
       <Container className="py-12">
         <H1 firstOnPage>Projects</H1>
         <Paragraph muted className="pb-6">
-          A curated collection of work spanning frontend, backend, and everything in between. Feel free to look around and see what I&apos;ve been working on.
+          Websites I&apos;ve shipped, plus a few games and tools in progress.
         </Paragraph>
 
         <FakeShellSection />
@@ -57,15 +57,12 @@ export default function ProjectsPage() {
         <SectionDivider />
 
         <H2>Other Work</H2>
-        <Paragraph muted>
-          Smaller experiments, open-source contributions, and side projects that didn&#39;t make the featured cut — but still worth a look.
-        </Paragraph>
         <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {[
-            { title: "SSH-IdleFarmer", desc: "A calming Terminal UI game that you can SSH into. Try ssh farm.ssharcade.dev now! (SSH Keys needed)", tags: ["Go", "Terminal UI"] },
-            { title: "Contextual LLMcord", desc: "Fully vibe coded Discord bot that takes the chat as context, saves memories on users, and will occasionally make fun of you.", tags: ["Node.js", "LLM", "Discord"] },
-            { title: "This Portfolio", desc: "This website you are on now!", tags: ["Next.js", "Vercel"] },
-            { title: "Other Contributions", desc: "My other contributions and projects can be found on my GitHub at MyNameIs-Nigel", tags: ["Many More..."] },
+            { title: "SSH-IdleFarmer", desc: "A quiet farming game that runs in your terminal. Connect with `ssh farm.ssharcade.dev`.", tags: ["Go", "Terminal UI"] },
+            { title: "Contextual LLMcord", desc: "A Discord bot that reads recent chat, remembers regulars, and occasionally roasts them.", tags: ["Node.js", "LLM", "Discord"] },
+            { title: "This Portfolio", desc: "The site you're browsing, including its fake shell and interactive projects.", tags: ["Next.js", "Vercel"] },
+            { title: "GitHub", desc: "Smaller projects and contributions live under MyNameIs-Nigel.", tags: ["More projects"] },
           ].map((p) => (
             <div key={p.title} className="rounded-xl border border-border bg-surface p-5 transition-colors duration-200 hover:border-accent-1/50">
               <h3 className="text-base font-semibold text-fg">{p.title}</h3>
