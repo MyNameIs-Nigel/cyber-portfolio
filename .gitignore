@@ -43,3 +43,5 @@ next-env.d.ts
 # cursor
 .cursor
 PLAN.md
+# WSL/Windows alternate-data-stream metadata
+*:Zone.Identifier
