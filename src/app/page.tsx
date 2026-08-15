@@ -8,6 +8,8 @@ import { H1, H2, H3, Paragraph } from "@/components/Typography";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { SkillCard } from "@/components/cards/SkillCard";
 import { Roadmap } from "@/components/Roadmap";
+import { CertificationsSection } from "@/components/CertificationsSection";
+import { earnedCertifications } from "@/data/certifications";
 import { projects } from "@/data/projects";
 import Link from "next/link";
 import { roadmapSections } from "@/data/roadmap";
@@ -17,21 +19,13 @@ import { QuoteBlock } from "@/components/QuoteBlock";
 
 const heroStats: Stat[] = [
   { value: 14, suffix: "%", label: "AWS cost reduced", accent: 1 },
-  { value: 4, label: "Certifications", accent: 4 },
+  { value: earnedCertifications.length, label: "Certifications", accent: 4 },
   { value: 11, label: "Web apps shipped", accent: 3 },
   { value: 3, suffix: "+", label: "Years in tech", accent: 2 },
 ];
 
 // Terminal-style path label per skill category (index-aligned with skillCategories).
 const skillTags = ["~/cloud", "~/scripting", "~/infra", "~/security"];
-
-const certifications: { name: string; status: "earned" | "anticipated"; note?: string }[] = [
-  { name: "ISC² Certified in Cybersecurity (CC)", status: "earned" },
-  { name: "CompTIA A+", status: "earned" },
-  { name: "CompTIA Security+", status: "earned" },
-  { name: "AWS Cloud Practitioner", status: "earned" },
-  { name: "CompTIA Network+", status: "anticipated", note: "August 2026" },
-];
 
 export default function HomePage() {
   return (
@@ -131,32 +125,7 @@ export default function HomePage() {
 
         <SectionDivider />
 
-        <H3>Certifications</H3>
-        <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
-          {certifications.map((cert) => (
-            <li
-              key={cert.name}
-              className="group flex items-center justify-between gap-3 rounded-lg border border-border bg-surface px-4 py-3 transition-colors duration-200 hover:border-accent-1/50"
-            >
-              <span className="flex items-center gap-2.5">
-                <span
-                  className={`h-2 w-2 shrink-0 rounded-full ${cert.status === "earned" ? "bg-accent-1" : "bg-accent-2"}`}
-                  aria-hidden
-                />
-                <span className="text-sm font-medium text-fg">{cert.name}</span>
-              </span>
-              {cert.status === "earned" ? (
-                <span className="shrink-0 rounded-full border border-accent-1/30 bg-accent-1/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-accent-1">
-                  Earned
-                </span>
-              ) : (
-                <span className="shrink-0 rounded-full border border-accent-2/30 bg-accent-2/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-accent-2">
-                  {cert.note}
-                </span>
-              )}
-            </li>
-          ))}
-        </ul>
+        <CertificationsSection />
 
         <SectionDivider />
 

@@ -50,10 +50,13 @@ Monroe, GA
 
 ## Certifications
 
-- ISC² Certified in Cybersecurity (CC) — Earned
-- CompTIA A+ — Earned
-- AWS Cloud Practitioner — Earned
-- CompTIA Security+ — Earned
+- CompTIA Security+ — CompTIA — Earned July 2026
+- AWS Certified Cloud Practitioner — Amazon Web Services — Earned July 2026
+- CompTIA A+ — CompTIA — Earned May 2026
+- ISC² Certified in Cybersecurity (CC) — ISC² — Earned August 2025
+- CompTIA Network+ — CompTIA — Anticipated August 2026
+
+Verify: https://www.credly.com/users/nigeld-smith
 
 ## Technical Skills
 

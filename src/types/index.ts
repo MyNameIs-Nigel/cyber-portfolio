@@ -187,6 +187,14 @@ export interface MediaItem {
   accent?: Accent;
 }
 
+export interface Certification {
+  name: string;
+  issuer: string;
+  /** Month + year, e.g. "Jul 2026". For anticipated certs, the target date. */
+  date: string;
+  status: "earned" | "anticipated";
+}
+
 export interface SkillCategory {
   title: string;
   items: string[];
