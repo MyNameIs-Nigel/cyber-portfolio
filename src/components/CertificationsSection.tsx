@@ -43,7 +43,7 @@ export function CertificationsSection() {
 
       <div className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-[13rem_1fr] sm:gap-6">
         <figure className="m-0">
-          <div className="relative mx-auto aspect-square w-40 overflow-hidden rounded-xl border border-border bg-surface sm:mx-0 sm:w-full">
+          <div className="relative mx-auto aspect-[5/7] w-40 overflow-hidden rounded-xl border border-border bg-surface sm:mx-0 sm:w-full">
             <Image
               src="/headshot.jpg"
               alt="Nigel Smith"
