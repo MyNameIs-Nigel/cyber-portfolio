@@ -8,6 +8,7 @@ import "@fontsource/inter/700.css";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
+import { CREDLY_PROFILE_URL, earnedCertifications } from "@/data/certifications";
 
 export const viewport: Viewport = {
   themeColor: "#000000",
@@ -59,7 +60,14 @@ const personSchema = {
   sameAs: [
     "https://github.com/mynameis-nigel",
     "https://www.linkedin.com/in/nigeld-smith/",
+    CREDLY_PROFILE_URL,
   ],
+  hasCredential: earnedCertifications.map((cert) => ({
+    "@type": "EducationalOccupationalCredential",
+    credentialCategory: "certificate",
+    name: cert.name,
+    recognizedBy: { "@type": "Organization", name: cert.issuer },
+  })),
 };
 
 export default function RootLayout({
