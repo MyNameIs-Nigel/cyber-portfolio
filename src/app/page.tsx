@@ -68,23 +68,6 @@ export default function HomePage() {
 
         <SectionDivider />
 
-        <section id="projects">
-          <H2>Featured Web Apps</H2>
-          <div className="mt-4 grid grid-cols-1 gap-3">
-            {projects.slice(0, 2).map((p) => (
-              <ProjectCard key={p.slug} {...p} />
-            ))}
-          </div>
-          <Link
-            href="/projects"
-            className="mt-4 inline-block text-sm font-medium text-accent-1 transition-colors hover:text-accent-2"
-          >
-            See More →
-          </Link>
-        </section>
-
-        <SectionDivider />
-
         <H3>Education</H3>
         <div className="mt-4 space-y-8">
           <div>
@@ -131,6 +114,23 @@ export default function HomePage() {
 
         <H2>Work I&apos;m Proud Of</H2>
         <AccentList accent={4} items={["Cut monthly AWS costs by 14% ($700) after auditing and consolidating RDS infrastructure", "Moved enterprise Google Workspace environments without interrupting users", "Built and launched client websites, including their DNS and domain setup"]} />
+
+        <SectionDivider />
+
+        <section id="projects">
+          <H2>Featured Web Apps</H2>
+          <div className="mt-4 grid grid-cols-1 gap-3">
+            {projects.slice(0, 2).map((p) => (
+              <ProjectCard key={p.slug} {...p} />
+            ))}
+          </div>
+          <Link
+            href="/projects"
+            className="mt-4 inline-block text-sm font-medium text-accent-1 transition-colors hover:text-accent-2"
+          >
+            See More →
+          </Link>
+        </section>
 
         <SectionDivider />
 
