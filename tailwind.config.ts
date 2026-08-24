@@ -14,9 +14,12 @@ const config = {
         "accent-4": "var(--color-accent-4)",
         surface: "var(--color-surface)",
         border: "var(--color-border)",
+        band: "var(--color-band)",
+        rail: "var(--color-rail)",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono Variable", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
     },
   },

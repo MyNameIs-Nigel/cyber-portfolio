@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import { LiveClock } from "@/components/LiveClock";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 const ROLES = [
   "DevOps Engineer",
@@ -10,19 +11,6 @@ const ROLES = [
   "IaC Automation",
   "Cybersecurity Student",
 ];
-
-/** SSR-safe subscription to the user's reduced-motion preference. */
-function usePrefersReducedMotion() {
-  return useSyncExternalStore(
-    (onChange) => {
-      const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-      mq.addEventListener("change", onChange);
-      return () => mq.removeEventListener("change", onChange);
-    },
-    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-    () => false
-  );
-}
 
 /**
  * Typewriter effect that types out each word, holds, deletes, then advances.

@@ -11,6 +11,12 @@
   --color-accent-4: #38bdf8;
   --color-surface: #141414;
   --color-border: #262626;
+  /* Full-bleed band ground: one step off --color-bg so a section that breaks the
+     768px column reads as a different surface without needing a hard edge. */
+  --color-band: #0d0d0d;
+  /* Pipeline track. Sits between --color-surface and --color-border so the rail
+     reads as material the stages are mounted on, not as another divider. */
+  --color-rail: #1f1f1f;
 }
 
 html {

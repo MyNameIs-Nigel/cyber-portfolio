@@ -206,3 +206,42 @@ export interface ToolItem {
   name: string;
   detail: string;
 }
+
+/**
+ * The ssharcade fleet section on /projects. The stack is drawn three times in
+ * three shapes because its three parts are structurally different things: the
+ * delivery path is a line, durability is a loop, and the host is a nest.
+ */
+
+/** One ordered stage of the delivery path. Order carries meaning here. */
+export interface PipelineStage {
+  /** Two-digit marker. The deploy genuinely is a sequence, so it is numbered. */
+  number: string;
+  /** Real GitHub Actions job name, or the git action that starts the run. */
+  label: string;
+  /** `runs-on` value, when this stage is an Actions job. */
+  runner?: string;
+  /** Real commands, tags and flags — never paraphrased. */
+  artifacts: string[];
+  /** One line on why the stage is built the way it is. */
+  annotation: string;
+  accent: Accent;
+}
+
+/** One hop of the replication cycle. Deliberately unnumbered — a loop has no first step. */
+export interface RecoveryStep {
+  label: string;
+  detail: string;
+  accent: Accent;
+}
+
+/** One service inside the host, drawn as containment rather than sequence. */
+export interface TopologyNode {
+  name: string;
+  /** Published port mapping, or the reason there is none. */
+  ports: string;
+  status: "online" | "offline";
+  /** Hardening chips read off deploy/docker-compose.yml. */
+  posture: string[];
+  accent: Accent;
+}
