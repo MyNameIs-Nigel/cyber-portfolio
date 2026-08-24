@@ -7,7 +7,7 @@ import { SHELL_MOBILE_DISMISS_KEY } from "@/features/terminal/shell.constants";
 
 export function FakeShellSection({ headingClassName = "" }: { headingClassName?: string }) {
   return (
-    <section>
+    <section id="shell" className="scroll-mt-16">
       <H2 className={headingClassName}>Portfolio Shell</H2>
       <div className="relative mt-4">
         <InteractiveMobileWarningModal

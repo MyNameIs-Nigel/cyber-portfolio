@@ -25,7 +25,7 @@ export function HostTopology({
 
   return (
     <figure className="m-0 rounded-xl border border-border bg-surface p-5 sm:p-6">
-      <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-2">
+      <p className="font-mono text-[11px] font-semibold tracking-[0.08em] text-accent-2">
         Topology
       </p>
       <h3 className="mt-2 text-lg font-semibold text-fg">One public port, everything else private</h3>
@@ -56,7 +56,7 @@ export function HostTopology({
         </div>
       </div>
 
-      <figcaption className="mt-6 text-sm leading-relaxed text-muted">{caption}</figcaption>
+      <figcaption className="mt-6 max-w-[68ch] text-sm leading-relaxed text-muted">{caption}</figcaption>
     </figure>
   );
 }

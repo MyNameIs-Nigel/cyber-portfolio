@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Container } from "@/components/Container";
 import { Stats } from "@/components/Stats";
 import {
   FLEET_EYEBROW,
@@ -23,10 +24,9 @@ import { accentText } from "./accents";
 /**
  * ssharcade — the delivery pipeline.
  *
- * The only full-bleed section on the site. It sits outside the page's 768px
- * Container rather than escaping it with a transform, so there is no `100vw`
- * scrollbar overflow to work around; reading content inside still returns to a
- * comfortable measure.
+ * The band is full-bleed, but the content inside it uses the same `Container` as
+ * every other section on the site. The colour change alone marks the section;
+ * a second, wider measure inside it only reads as two competing page widths.
  *
  * The stack is drawn three times in three shapes because its three parts are
  * structurally different: the delivery path is a line, durability is a loop,
@@ -34,10 +34,14 @@ import { accentText } from "./accents";
  */
 export function FleetSection() {
   return (
-    <section className="border-y border-border bg-band py-14 sm:py-16" aria-labelledby="fleet-heading">
-      <div className="mx-auto w-full max-w-[1180px] px-6">
+    <section
+      id="fleet"
+      className="scroll-mt-16 border-y border-border bg-band py-14 sm:py-16"
+      aria-labelledby="fleet-heading"
+    >
+      <Container>
         <header className="max-w-[62ch]">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-2">
+          <p className="font-mono text-[11px] font-semibold tracking-[0.08em] text-accent-2">
             {FLEET_EYEBROW}
           </p>
           <h2 id="fleet-heading" className="mt-3 text-balance text-2xl font-semibold leading-tight tracking-tight text-fg sm:text-3xl">
@@ -50,15 +54,20 @@ export function FleetSection() {
           <DeliveryPipeline stages={pipelineStages} trigger={FLEET_TRIGGER} />
         </div>
 
-        {/* The rail shows what the machine does. These are the calls behind it. */}
-        <div className="mt-12 grid grid-cols-1 items-start gap-4 md:grid-cols-2">
+        {/*
+          One column. These three are the same kind of object — a full-width
+          panel — so side-by-side pairs would only make the second of each pair
+          look like a footnote to the first.
+        */}
+        <div className="mt-12 flex flex-col gap-4">
+          {/* The rail shows what the machine does. This is the call behind it. */}
           {fleetDecisions.map((decision) => (
             <article key={decision.label} className="rounded-xl border border-border bg-surface p-5 sm:p-6">
-              <p className={`font-mono text-[11px] font-semibold uppercase tracking-[0.18em] ${accentText[decision.accent]}`}>
+              <p className={`font-mono text-[11px] font-semibold tracking-[0.08em] ${accentText[decision.accent]}`}>
                 {decision.label}
               </p>
               <h3 className="mt-2 text-lg font-semibold text-fg">{decision.headline}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{decision.body}</p>
+              <p className="mt-3 max-w-[68ch] text-sm leading-relaxed text-muted">{decision.body}</p>
               {decision.code ? (
                 <pre className="mt-4 overflow-x-auto rounded-lg border border-rail bg-band p-3 font-mono text-[11px] leading-relaxed text-fg/75">
                   <code>{decision.code}</code>
@@ -66,9 +75,7 @@ export function FleetSection() {
               ) : null}
             </article>
           ))}
-        </div>
 
-        <div className="mt-4 grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
           <RecoveryLoop steps={recoverySteps} caption={RECOVERY_CAPTION} limitation={RECOVERY_LIMIT} />
           <HostTopology nodes={topologyNodes} chain={TOPOLOGY_CHAIN} caption={TOPOLOGY_CAPTION} />
         </div>
@@ -93,7 +100,7 @@ export function FleetSection() {
             ssharcade.dev
           </a>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

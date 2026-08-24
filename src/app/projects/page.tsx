@@ -35,6 +35,19 @@ export const metadata = {
   },
 };
 
+/**
+ * Jump links. The page runs long enough that a visitor who came for one thing
+ * should not have to scroll past the other four to find it. Order matches the
+ * document, so the nav doubles as an outline.
+ */
+const sections = [
+  { href: "#fleet", label: "SSH Arcade fleet" },
+  { href: "#shell", label: "Portfolio shell" },
+  { href: "#web-apps", label: "Web apps" },
+  { href: "#thought-log", label: "Thought log" },
+  { href: "#interactive", label: "Interactive" },
+] as const;
+
 export default function ProjectsPage() {
   return (
     <main>
@@ -43,12 +56,25 @@ export default function ProjectsPage() {
         <Paragraph muted className="mb-0">
           Infrastructure I run, websites I&apos;ve shipped, and a few games and tools in progress.
         </Paragraph>
+
+        <nav aria-label="On this page" className="mt-6 flex flex-wrap gap-2">
+          {sections.map(({ href, label }) => (
+            <a
+              key={href}
+              href={href}
+              className="rounded-full border border-border bg-surface px-3 py-1.5 font-mono text-[11px] tracking-[0.04em] text-fg/60 transition-colors duration-200 hover:border-accent-1/50 hover:text-accent-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-1 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
       </Container>
 
       {/*
         Full-bleed: FleetSection sits outside Container rather than escaping it
         with a `w-screen` transform, which would add a horizontal scrollbar
-        wherever a vertical one is present.
+        wherever a vertical one is present. Its own contents use the same
+        Container, so the band changes the colour but not the measure.
       */}
       <FleetSection />
 
@@ -57,20 +83,26 @@ export default function ProjectsPage() {
 
         <SectionDivider />
 
-        <H2>Featured Web Applications</H2>
-        <div className="mt-4 grid grid-cols-1 gap-4">
-          {projects.map((p) => (
-            <ProjectCard key={p.slug} {...p} />
-          ))}
+        <section id="web-apps" className="scroll-mt-16">
+          <H2>Featured Web Applications</H2>
+          <div className="mt-4 grid grid-cols-1 gap-4">
+            {projects.map((p) => (
+              <ProjectCard key={p.slug} {...p} />
+            ))}
+          </div>
+        </section>
+
+        <SectionDivider />
+
+        <section id="thought-log" className="scroll-mt-16">
+          <ConsoleLog title={thoughtLogTitle} messages={thoughtLogMessages} />
+        </section>
+
+        <SectionDivider />
+
+        <div id="interactive" className="scroll-mt-16">
+          <InteractiveProjectsSection items={interactiveProjects} />
         </div>
-
-        <SectionDivider />
-
-        <ConsoleLog title={thoughtLogTitle} messages={thoughtLogMessages} />
-
-        <SectionDivider />
-
-        <InteractiveProjectsSection items={interactiveProjects} />
       </Container>
     </main>
   );

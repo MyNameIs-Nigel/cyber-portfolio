@@ -51,7 +51,7 @@ export default function SshArcadeFleetPage() {
           </Link>
         </p>
 
-        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-2">
+        <p className="font-mono text-[11px] font-semibold tracking-[0.08em] text-accent-2">
           Infrastructure · ssharcade
         </p>
         <H1 firstOnPage className="mt-3">
@@ -70,7 +70,7 @@ export default function SshArcadeFleetPage() {
 
         {caseStudySections.map((section) => (
           <section key={section.id} className="mt-12">
-            <p className={`font-mono text-[11px] font-semibold uppercase tracking-[0.18em] ${accentText[section.accent]}`}>
+            <p className={`font-mono text-[11px] font-semibold tracking-[0.08em] ${accentText[section.accent]}`}>
               {section.eyebrow}
             </p>
             <H2 className="mt-2">{section.title}</H2>
@@ -94,7 +94,7 @@ export default function SshArcadeFleetPage() {
               <dl className="mt-6 grid grid-cols-1 gap-x-6 gap-y-3 rounded-xl border border-border bg-surface p-5 sm:grid-cols-[auto_1fr]">
                 {section.specs.map((spec) => (
                   <div key={spec.term} className="contents">
-                    <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-fg/50 sm:pt-0.5">
+                    <dt className="font-mono text-[11px] tracking-[0.04em] text-fg/50 sm:pt-0.5">
                       {spec.term}
                     </dt>
                     <dd className="font-mono text-xs leading-relaxed text-fg/80 sm:mb-0">{spec.value}</dd>
@@ -106,7 +106,7 @@ export default function SshArcadeFleetPage() {
         ))}
 
         <section className="mt-12">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
+          <p className="font-mono text-[11px] font-semibold tracking-[0.08em] text-muted">
             What this does not claim
           </p>
           <H2 className="mt-2">Where the story stops</H2>
@@ -120,7 +120,7 @@ export default function SshArcadeFleetPage() {
         </section>
 
         <div className="mt-12 flex flex-col gap-3 border-t border-border pt-8">
-          <p className="font-mono text-xs uppercase tracking-widest text-muted">Links</p>
+          <p className="font-mono text-xs tracking-[0.08em] text-muted">Links</p>
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
             {FLEET_LINKS.map((link) => (
               <a

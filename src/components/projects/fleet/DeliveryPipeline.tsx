@@ -7,8 +7,17 @@ import { PipelineNode } from "./PipelineNode";
 
 const RUN_DURATION_MS = 1900;
 
+const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
+
 /**
  * The line: the delivery path from a push to a live service.
+ *
+ * Drawn as a top-to-bottom spine at every width rather than a row of columns.
+ * At the page's 768px measure five columns would crush the artifact strings —
+ * `go test -race ./...` is the whole point, and it has to fit — and a
+ * five-column rail always stops at the last column's *start*, leaving a fifth of
+ * the section visibly empty on the right. A spine spans the full measure and
+ * gives each stage a line of its own.
  *
  * The rail runs exactly once, when it first scrolls into view, and then stops —
  * a deploy runs once, so the animation does too. Ambient motion would say
@@ -29,6 +38,7 @@ export function DeliveryPipeline({ stages, trigger }: { stages: PipelineStage[];
     someone who will never see it should not be left looking at an unlit rail.
   */
   const progress = reduce ? 1 : runProgress;
+  const lastIndex = stages.length - 1;
 
   // Start on first intersection only — scrolling away and back must not replay it.
   useEffect(() => {
@@ -62,9 +72,8 @@ export function DeliveryPipeline({ stages, trigger }: { stages: PipelineStage[];
     return () => cancelAnimationFrame(raf);
   }, [started, reduce]);
 
-  const lastIndex = stages.length - 1;
-  const reached = (i: number) => progress >= (lastIndex === 0 ? 0 : i / lastIndex);
-  const running = progress > 0 && progress < 1;
+  // Progress in stage units: 2.4 means the run is 40% of the way from 03 to 04.
+  const head = progress * lastIndex;
 
   return (
     <figure ref={ref} className="m-0">
@@ -72,38 +81,22 @@ export function DeliveryPipeline({ stages, trigger }: { stages: PipelineStage[];
         <span className="text-accent-1">$</span> {trigger}
       </p>
 
-      <div className="relative">
-        {/*
-          Desktop rail. Columns are exactly 20% wide with no grid gap, so every
-          marker centre lands at `i * 20% + 18px` and the track can span a flat
-          80% between the first and last without measuring the DOM.
-        */}
-        <div aria-hidden className="pointer-events-none absolute left-[18px] top-[18px] hidden h-px w-4/5 bg-rail lg:block">
-          <div
-            className="h-full bg-gradient-to-r from-accent-3 via-accent-1 to-accent-2 transition-none"
-            style={{ width: `${progress * 100}%` }}
-          />
-          {running ? (
-            <span
-              className="absolute top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-fg shadow-[0_0_8px_2px_rgba(229,229,229,0.5)]"
-              style={{ left: `${progress * 100}%` }}
-            />
-          ) : null}
-        </div>
-
-        <ol className="grid grid-cols-1 lg:grid-cols-5">
-          {stages.map((stage, i) => (
-            <li key={stage.number} className="lg:pr-6">
+      <ol>
+        {stages.map((stage, i) => {
+          const fill = clamp01(head - i);
+          return (
+            <li key={stage.number}>
               <PipelineNode
                 stage={stage}
-                lit={reached(i)}
-                spineLit={reached(i + 1)}
-                last={i === lastIndex}
+                lit={head >= i}
+                nextAccent={i === lastIndex ? null : stages[i + 1].accent}
+                fill={fill}
+                dot={i < lastIndex && fill > 0 && fill < 1 ? fill : null}
               />
             </li>
-          ))}
-        </ol>
-      </div>
+          );
+        })}
+      </ol>
 
       <figcaption className="sr-only">
         The delivery path, in order: {stages.map((s) => s.label).join(", then ")}. Each stage lists the

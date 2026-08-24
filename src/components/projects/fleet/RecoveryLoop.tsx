@@ -25,7 +25,7 @@ export function RecoveryLoop({
 
   return (
     <figure className="m-0 flex flex-col rounded-xl border border-border bg-surface p-5 sm:p-6">
-      <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-4">
+      <p className="font-mono text-[11px] font-semibold tracking-[0.08em] text-accent-4">
         Durability
       </p>
       <h3 className="mt-2 text-lg font-semibold text-fg">The instance is disposable</h3>
@@ -60,7 +60,7 @@ export function RecoveryLoop({
         </div>
       </div>
 
-      <figcaption className="mt-8 space-y-3">
+      <figcaption className="mt-8 max-w-[68ch] space-y-3">
         <p className="text-sm leading-relaxed text-muted">{caption}</p>
         <p className="border-l-2 border-rail pl-3 text-xs leading-relaxed text-fg/50">{limitation}</p>
       </figcaption>

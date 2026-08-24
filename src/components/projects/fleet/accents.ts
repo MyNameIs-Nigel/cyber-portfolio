@@ -5,7 +5,7 @@ import type { Accent } from "@/types";
  * lookup maps — the same pattern used by Roadmap, Stats and SkillCard.
  *
  * On this section accent is layer identity, not decoration:
- * 3 = source · 1 = CI/healthy · 2 = host · 4 = data.
+ * 3 = source · 4 = verified (the suite, and the replicated data) · 1 = CI/healthy · 2 = host.
  */
 export const accentText: Record<Accent, string> = {
   1: "text-accent-1",
@@ -14,25 +14,20 @@ export const accentText: Record<Accent, string> = {
   4: "text-accent-4",
 };
 
-export const accentBorder: Record<Accent, string> = {
-  1: "border-accent-1/40",
-  2: "border-accent-2/40",
-  3: "border-accent-3/40",
-  4: "border-accent-4/40",
-};
-
+/** Marker outline. Kept separate from the wash so the wash can sit on its own opaque layer. */
 export const accentRing: Record<Accent, string> = {
-  1: "border-accent-1 bg-accent-1/15",
-  2: "border-accent-2 bg-accent-2/15",
-  3: "border-accent-3 bg-accent-3/15",
-  4: "border-accent-4 bg-accent-4/15",
+  1: "border-accent-1",
+  2: "border-accent-2",
+  3: "border-accent-3",
+  4: "border-accent-4",
 };
 
-export const accentDot: Record<Accent, string> = {
-  1: "bg-accent-1",
-  2: "bg-accent-2",
-  3: "bg-accent-3",
-  4: "bg-accent-4",
+/** Translucent wash. Always layered over an opaque ground, never over the rail. */
+export const accentFill: Record<Accent, string> = {
+  1: "bg-accent-1/15",
+  2: "bg-accent-2/15",
+  3: "bg-accent-3/15",
+  4: "bg-accent-4/15",
 };
 
 export const accentChip: Record<Accent, string> = {

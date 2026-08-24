@@ -11,7 +11,8 @@ import type { Stat } from "@/components/Stats";
  * is that a reader who knows Actions or Compose recognises these on sight.
  *
  * Accent is layer identity, held consistently across the rail, the loop, the
- * topology and the stats: 3 = source, 1 = CI/healthy, 2 = host, 4 = data.
+ * topology and the stats: 3 = source, 4 = verified (the suite, and the data that
+ * is replicated off the box), 1 = CI/healthy, 2 = host.
  */
 
 export const FLEET_EYEBROW = "One host · four repos · zero manual steps";
@@ -39,7 +40,7 @@ export const pipelineStages: PipelineStage[] = [
     runner: "ubuntu-latest",
     artifacts: ["go vet ./...", "go build ./...", "go test -race ./..."],
     annotation: "Runs again on release. Never skipped.",
-    accent: 1,
+    accent: 4,
   },
   {
     number: "03",
@@ -52,7 +53,7 @@ export const pipelineStages: PipelineStage[] = [
   {
     number: "04",
     label: "Deploy",
-    runner: "self-hosted · production",
+    runner: "[self-hosted, production]",
     artifacts: ["docker compose pull", "docker compose up -d"],
     annotation: "Runs on the box, not over SSH.",
     accent: 2,
@@ -67,9 +68,10 @@ export const pipelineStages: PipelineStage[] = [
 ];
 
 /**
- * The two decisions the rail cannot show. Everything above is what the machine
- * does; this is why it was built that way — including the release race that
- * only surfaced in production.
+ * The decision the rail cannot show. Everything above is what the machine does;
+ * this is why it was built that way. The release race that broke production
+ * lives on the deep-dive page rather than here — one card next to the diagrams
+ * reads as a note, two read as a second section.
  */
 export interface FleetDecision {
   label: string;
@@ -89,18 +91,6 @@ export const fleetDecisions: FleetDecision[] = [
       "Registering the runner as a service on the box instead means the deploy reaches production " +
       "without anything having to be let in.",
     accent: 2,
-  },
-  {
-    label: "What broke in production",
-    headline: "Two green runs, and the older one won",
-    body:
-      "Two PRs merged eleven seconds apart. Both workflows reported success, but each deploy copies " +
-      "its own checkout over the live directory, so the winner was whichever finished last — not " +
-      "whichever commit was newer. Production silently reverted to the previous registry. One " +
-      "workflow-level concurrency group fixed it: at most one release in flight, and a newer merge " +
-      "supersedes an older one rather than queueing behind it.",
-    code: "concurrency:\n  group: release-production\n  cancel-in-progress: true",
-    accent: 3,
   },
 ];
 
