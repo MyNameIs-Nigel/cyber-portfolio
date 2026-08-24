@@ -70,7 +70,7 @@ Verify: https://www.credly.com/users/nigeld-smith
 
 ### Highlights
 
-- SSH Idlefarmer — Agentic-engineered terminal user interface (TUI) idle farming game playable over SSH. Try `ssh play.ssharcade.dev` (SSH keypair required). Part of SSH Arcade (https://ssharcade.dev/).
+- SSH Arcade fleet — Four Go services (an SSH router plus three terminal games) shipped by GitHub Actions onto a single AWS EC2 instance, with SQLite replicated to S3 by Litestream so the host is disposable. The deploy job runs on a self-hosted runner on the box itself, so CI opens no inbound port. Case study: https://nigel-smith.dev/projects/ssh-arcade-fleet · Play: `ssh play.ssharcade.dev` (SSH keypair required) · https://ssharcade.dev/
 - Personal web portfolio — Full-stack Next.js site at https://nigel-smith.dev with project case studies and interactive demos.
 
 ### Other work

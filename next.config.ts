@@ -17,6 +17,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        // The old card covered ssharcade.dev (the marketing site); the fleet
+        // case study replaced it. Keep the indexed URL working.
+        source: "/projects/ssharcade",
+        destination: "/projects/ssh-arcade-fleet",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

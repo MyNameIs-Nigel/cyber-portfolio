@@ -96,7 +96,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         ))}
 
         <div className="mt-8 flex flex-col gap-3 border-t border-border pt-8">
-          <p className="text-xs font-mono uppercase tracking-widest text-muted">Links</p>
+          <p className="text-xs font-mono tracking-[0.08em] text-muted">Links</p>
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
             {project.link ? (
               <a

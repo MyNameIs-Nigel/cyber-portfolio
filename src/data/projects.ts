@@ -48,22 +48,6 @@ export const projects: Project[] = [
     demoUrl: "https://tz-digital.com/",
   },
   {
-    slug: "ssharcade",
-    title: "SSH Arcade",
-    description: "Terminal games you can play over SSH, with nothing to install.",
-    tags: ["Next.js", "TypeScript", "Vercel"],
-    link: "https://ssharcade.dev/",
-    preview: { mode: "live", url: "https://ssharcade.dev/", previewWidth: 1024 },
-    screenshots: ["/projects/arcade-1.png", "/projects/arcade-2.png", "/projects/arcade-3.png"],
-    content: [
-      "SSH Arcade started with one idea: copy an SSH command and land directly in a game. There is no account, launcher, or client to install.",
-      "The website lists the available games and gives each one a command visitors can paste into a terminal.",
-      "The first live game is Farm, an idle-style farming game. Moon Mine and Packet Derby are in development. The open-source repo backs the website content; the game server infrastructure lives separately.",
-    ],
-    demoUrl: "https://ssharcade.dev/",
-    repoUrl: "https://github.com/mynameIs-Nigel/ssharcade-web",
-  },
-  {
     slug: "walton-tax-professionals",
     title: "Walton Tax Professionals",
     description: "A website for a CPA firm handling complex individual and small-business taxes.",
