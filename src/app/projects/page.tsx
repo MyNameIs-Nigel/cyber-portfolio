@@ -53,35 +53,14 @@ export default function ProjectsPage() {
       <FleetSection />
 
       <Container className="py-12">
-        <H2 className="mt-0">Featured Web Applications</H2>
+        <FakeShellSection headingClassName="mt-0" />
+
+        <SectionDivider />
+
+        <H2>Featured Web Applications</H2>
         <div className="mt-4 grid grid-cols-1 gap-4">
           {projects.map((p) => (
             <ProjectCard key={p.slug} {...p} />
-          ))}
-        </div>
-
-        <SectionDivider />
-
-        <FakeShellSection />
-
-        <SectionDivider />
-
-        <H2>Other Work</H2>
-        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {[
-            { title: "Contextual LLMcord", desc: "A Discord bot that reads recent chat, remembers regulars, and occasionally roasts them.", tags: ["Node.js", "LLM", "Discord"] },
-            { title: "This Portfolio", desc: "The site you're browsing, including its fake shell and interactive projects.", tags: ["Next.js", "Vercel"] },
-            { title: "GitHub", desc: "Smaller projects and contributions live under MyNameIs-Nigel.", tags: ["More projects"] },
-          ].map((p) => (
-            <div key={p.title} className="rounded-xl border border-border bg-surface p-5 transition-colors duration-200 hover:border-accent-1/50">
-              <h3 className="text-base font-semibold text-fg">{p.title}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-muted">{p.desc}</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {p.tags.map((tag) => (
-                  <span key={tag} className="rounded-full bg-accent-1/10 px-2.5 py-1 text-xs text-accent-1">{tag}</span>
-                ))}
-              </div>
-            </div>
           ))}
         </div>
 
