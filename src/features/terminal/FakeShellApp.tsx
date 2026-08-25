@@ -134,7 +134,7 @@ export function FakeShellApp() {
           ))}
         </div>
 
-        <div className="mt-3 flex items-baseline border-t border-border/40 pt-3">
+        <div className="mt-3 flex items-center border-t border-border/40 pt-3">
           <span className="shrink-0 whitespace-pre text-accent-1">{prompt}</span>
           <input
             ref={inputRef}
