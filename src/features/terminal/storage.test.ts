@@ -14,6 +14,7 @@ describe("storage", () => {
       cwd: HOME,
       oldpwd: HOME,
       vars: new Map(),
+      aliases: new Map(),
       scrollback: [],
       history: [],
     };
@@ -33,6 +34,7 @@ describe("storage", () => {
       cwd: HOME,
       oldpwd: HOME,
       vars: new Map(),
+      aliases: new Map(),
       scrollback: [],
       history: [],
     };
@@ -87,6 +89,7 @@ describe("storage", () => {
         cwd: HOME,
         oldpwd: HOME,
         vars: new Map(),
+        aliases: new Map(),
         scrollback: [],
         history: [],
       };

@@ -55,6 +55,7 @@ export function useShell(onNavigate?: NavigateHandler) {
           ...prev,
           fs: cloneNode(prev.fs) as FsDir,
           vars: new Map(prev.vars),
+          aliases: new Map(prev.aliases),
           scrollback: [...prev.scrollback],
           history: [...prev.history],
         };

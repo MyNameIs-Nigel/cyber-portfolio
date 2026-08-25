@@ -27,7 +27,8 @@ export function completeLine(state: ShellState, line: string, cursor: number): C
   const fragment = endsWithSpace ? "" : (tokens[tokenIndex] ?? "");
 
   if (tokenIndex === 0) {
-    const matches = commandNames().filter((n) => n.startsWith(fragment));
+    const names = new Set([...commandNames(), ...state.aliases.keys()]);
+    const matches = [...names].filter((n) => n.startsWith(fragment)).sort();
     if (!matches.length) return { value: line };
     const prefix = commonPrefix(matches);
     if (prefix.length > fragment.length) {

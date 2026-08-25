@@ -29,6 +29,8 @@ export type ShellState = {
   cwd: string;
   oldpwd: string;
   vars: Map<string, string>;
+  /** Session aliases (seeded from ~/.bashrc; in-memory only, like vars). */
+  aliases: Map<string, string>;
   scrollback: OutputLine[];
   history: string[];
 };

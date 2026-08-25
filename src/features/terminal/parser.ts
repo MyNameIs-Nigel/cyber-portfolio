@@ -109,7 +109,7 @@ function expandTokens(tokens: string[], vars: Map<string, string>): string[] {
   return tokens.map((t) => expandVariables(t, vars));
 }
 
-function extractRedirect(argv: string[]): { argv: string[]; redirect?: PipelineSegment["redirect"] } {
+export function extractRedirect(argv: string[]): { argv: string[]; redirect?: PipelineSegment["redirect"] } {
   const out = [...argv];
   let redirect: PipelineSegment["redirect"];
   for (let i = out.length - 1; i >= 0; i--) {
@@ -156,14 +156,11 @@ export function parseLine(raw: string, vars: Map<string, string>): ParsedLine | 
     const tokResult = tokenize(part);
     if ("message" in tokResult) return tokResult;
     const expanded = expandTokens(tokResult, vars);
-    const joined = expanded.join(" ");
-    const expandedLine = expandVariables(joined, vars);
-    if (expandedLine.length > MAX_EXPANDED_LEN) {
+    const expandedLen = expanded.reduce((n, t) => n + t.length, 0);
+    if (expandedLen > MAX_EXPANDED_LEN) {
       return { message: "line too long after expansion" };
     }
-    const reTokenized = tokenize(expandedLine);
-    if ("message" in reTokenized) return reTokenized;
-    const { argv, redirect } = extractRedirect(reTokenized);
+    const { argv, redirect } = extractRedirect(expanded);
     if (argv.includes(">") || argv.includes(">>")) {
       return { message: "syntax error near unexpected token" };
     }

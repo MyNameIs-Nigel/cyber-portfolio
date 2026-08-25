@@ -11,6 +11,7 @@ describe("completion", () => {
     cwd: HOME,
     oldpwd: HOME,
     vars: new Map(),
+    aliases: new Map([["ll", "ls -la"]]),
     scrollback: [],
     history: [],
   };
@@ -23,5 +24,10 @@ describe("completion", () => {
   it("help cmd returns usage (D10)", () => {
     const cmd = getCommand("pwd");
     expect(cmd?.usage).toContain("pwd");
+  });
+
+  it("completes alias names alongside commands", () => {
+    const r = completeLine(state, "l", 1);
+    expect(r.options).toEqual(expect.arrayContaining(["ll", "ls"]));
   });
 });
