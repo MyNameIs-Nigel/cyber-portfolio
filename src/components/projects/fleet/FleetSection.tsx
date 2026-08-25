@@ -2,35 +2,38 @@ import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Stats } from "@/components/Stats";
 import {
+  FLEET_CONNECT,
+  FLEET_CONNECT_NOTE,
   FLEET_EYEBROW,
-  FLEET_LEDE,
-  FLEET_TITLE,
+  FLEET_HEADLINE,
+  FLEET_SUBHEAD,
   FLEET_TRIGGER,
-  RECOVERY_CAPTION,
-  RECOVERY_LIMIT,
-  TOPOLOGY_CAPTION,
-  TOPOLOGY_CHAIN,
-  fleetDecisions,
+  IDENTITY_BODY,
+  IDENTITY_HEADLINE,
+  PIPELINE_CAPTION,
+  SHIPS_ITSELF,
+  fleetCabinets,
   fleetStats,
   pipelineStages,
-  recoverySteps,
-  topologyNodes,
 } from "@/data/fleet";
+import { CabinetRow } from "./CabinetRow";
+import { ConnectBar } from "./ConnectBar";
 import { DeliveryPipeline } from "./DeliveryPipeline";
-import { HostTopology } from "./HostTopology";
-import { RecoveryLoop } from "./RecoveryLoop";
-import { accentText } from "./accents";
+import { HeroCast } from "./HeroCast";
 
 /**
- * ssharcade — the delivery pipeline.
+ * ssharcade on /projects.
  *
  * The band is full-bleed, but the content inside it uses the same `Container` as
  * every other section on the site. The colour change alone marks the section;
  * a second, wider measure inside it only reads as two competing page widths.
  *
- * The stack is drawn three times in three shapes because its three parts are
- * structurally different: the delivery path is a line, durability is a loop,
- * and the host is a nest. Only the line is numbered.
+ * The section is in the order of a visit: the arcade, the command that opens it,
+ * the cabinets behind the door, and what your key means once you are in. Only
+ * then the machinery — the rule below the arcade is the hinge, and everything
+ * after it answers a question the arcade has already earned. The durability loop
+ * and the host topology are on the write-up now: they are answers to the third
+ * or fourth question, and they were being asked first.
  */
 export function FleetSection() {
   return (
@@ -44,40 +47,52 @@ export function FleetSection() {
           <p className="font-mono text-[11px] font-semibold tracking-[0.08em] text-accent-2">
             {FLEET_EYEBROW}
           </p>
-          <h2 id="fleet-heading" className="mt-3 text-balance text-2xl font-semibold leading-tight tracking-tight text-fg sm:text-3xl">
-            {FLEET_TITLE}
+          <h2
+            id="fleet-heading"
+            className="mt-3 text-balance text-2xl font-semibold leading-tight tracking-tight text-fg sm:text-3xl"
+          >
+            {FLEET_HEADLINE}
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-muted">{FLEET_LEDE}</p>
+          <p className="mt-4 text-base leading-relaxed text-muted">{FLEET_SUBHEAD}</p>
         </header>
 
-        <div className="mt-12">
-          <DeliveryPipeline stages={pipelineStages} trigger={FLEET_TRIGGER} />
+        <div className="mt-8">
+          <HeroCast />
+        </div>
+
+        <div className="mt-6">
+          <ConnectBar command={FLEET_CONNECT} note={FLEET_CONNECT_NOTE} />
+        </div>
+
+        <div className="mt-8">
+          <CabinetRow cabinets={fleetCabinets} />
         </div>
 
         {/*
-          One column. These three are the same kind of object — a full-width
-          panel — so side-by-side pairs would only make the second of each pair
-          look like a footnote to the first.
+          The one fact that turns three cabinets into one arcade. It was only in
+          the docs, which is the wrong place for the answer to "do I lose my save
+          when I switch games".
         */}
-        <div className="mt-12 flex flex-col gap-4">
-          {/* The rail shows what the machine does. This is the call behind it. */}
-          {fleetDecisions.map((decision) => (
-            <article key={decision.label} className="rounded-xl border border-border bg-surface p-5 sm:p-6">
-              <p className={`font-mono text-[11px] font-semibold tracking-[0.08em] ${accentText[decision.accent]}`}>
-                {decision.label}
-              </p>
-              <h3 className="mt-2 text-lg font-semibold text-fg">{decision.headline}</h3>
-              <p className="mt-3 max-w-[68ch] text-sm leading-relaxed text-muted">{decision.body}</p>
-              {decision.code ? (
-                <pre className="mt-4 overflow-x-auto rounded-lg border border-rail bg-band p-3 font-mono text-[11px] leading-relaxed text-fg/75">
-                  <code>{decision.code}</code>
-                </pre>
-              ) : null}
-            </article>
-          ))}
+        <div className="mt-8 max-w-[68ch] border-l-2 border-accent-3/40 pl-4">
+          <p className="text-base font-semibold text-fg">{IDENTITY_HEADLINE}</p>
+          <p className="mt-2 text-sm leading-relaxed text-muted">{IDENTITY_BODY}</p>
+        </div>
 
-          <RecoveryLoop steps={recoverySteps} caption={RECOVERY_CAPTION} limitation={RECOVERY_LIMIT} />
-          <HostTopology nodes={topologyNodes} chain={TOPOLOGY_CHAIN} caption={TOPOLOGY_CAPTION} />
+        {/* The hinge. Everything above is the arcade; everything below is how it stays up. */}
+        <div className="mt-14 flex items-center gap-4" aria-hidden>
+          <span className="h-px flex-1 bg-rail" />
+          <span className="font-mono text-[11px] italic tracking-[0.08em] text-fg/45">
+            {SHIPS_ITSELF}
+          </span>
+          <span className="h-px flex-1 bg-rail" />
+        </div>
+
+        <div className="mt-10">
+          <DeliveryPipeline
+            stages={pipelineStages}
+            trigger={FLEET_TRIGGER}
+            caption={PIPELINE_CAPTION}
+          />
         </div>
 
         <div className="mt-10">
