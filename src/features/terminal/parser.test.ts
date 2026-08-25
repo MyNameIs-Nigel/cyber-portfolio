@@ -23,6 +23,17 @@ describe("parser", () => {
     }
   });
 
+  it("keeps quoted spaces as a single token", () => {
+    const parsed = parseLine("echo 'a b'", vars);
+    if ("kind" in parsed && parsed.kind === "pipeline") {
+      expect(parsed.segments[0]?.argv).toEqual(["echo", "a b"]);
+    }
+    const aliasLine = parseLine("alias greet='echo hello'", vars);
+    if ("kind" in aliasLine && aliasLine.kind === "pipeline") {
+      expect(aliasLine.segments[0]?.argv).toEqual(["alias", "greet=echo hello"]);
+    }
+  });
+
   it("detects assignments", () => {
     const parsed = parseLine("GREETING=howdy", vars);
     expect(parsed).toEqual({ kind: "assignment", name: "GREETING", value: "howdy", exportAlias: false });

@@ -19,12 +19,13 @@ src/features/terminal/
   seed.ts               first-boot seeding of ~/projects/*.txt from src/data/projects.ts
   sanitize.ts           input cleaning: clamp length, strip control/ANSI chars, blacklist, byte counting
   parser.ts             tokenize (quote-aware) → expand vars → split pipeline → extract redirections
+  aliases.ts            parse ~/.bashrc alias lines; first-word expansion; alias/unalias helpers
   filesystem.ts         PURE tree ops: resolvePath, normalize, mkdir, write, rm, list, permString
   storage.ts            localStorage load/save: versioned base-image + user overlay, quota-safe
   commandRegistry.ts    name → CommandDef; visible commands for help + Tab completion
-  executor.ts           runs a ParsedLine: path execution, pipes, redirects, navigate threading
-  completion.ts         pure Tab-completion helper (command names + paths)
-  commands/             ls, cd, mkdir, touch, rm, cat, echo, clear, pwd, help, hidden sudo/whoami
+  executor.ts           runs a ParsedLine: alias expansion, path execution, pipes, redirects, navigate
+  completion.ts         pure Tab-completion helper (command names + aliases + paths)
+  commands/             ls, cd, mkdir, touch, rm, cat, echo, clear, pwd, help, alias, unalias, hidden sudo/whoami
   useShell.ts           React hook: ShellState, persistence, runLine(), history, vars, Tab, Ctrl+C/L
   FakeShellApp.tsx      "use client" view — chrome, scrollback, input, useRouter redirect
 
@@ -55,6 +56,7 @@ FakeShellApp (UI + useRouter)
        └─ runShellLine(state, raw)            executor.ts
             ├─ parseLine(raw, vars)           parser.ts   → ParsedLine | ParseError
             └─ per pipeline segment:
+                 ├─ expand aliases (first word, ~/.bashrc + session)
                  ├─ path execution (./x, /bin/ls) or command.run(ctx)
                  │     scripts.ts for registered executables (resume.sh)
                  ├─ apply redirection (> / >>) filesystem.ts
@@ -98,7 +100,7 @@ type FsDir = { kind: "dir"; name: string; children: Map<string, FsNode>; readonl
 |------|------|-------|
 | `/home/guest/README.txt` | file (ro) | how-to; **only** place with the “nothing is real” disclaimer |
 | `/home/guest/resume.sh` | file (ro, **exec**) | believable curl script; `./resume.sh` runs `scripts.ts` handler |
-| `/home/guest/.bashrc` | file (hidden) | aliases + PS1 |
+| `/home/guest/.bashrc` | file (hidden) | aliases (`ll`, `la`, `..`) + PS1; sourced into the session at boot |
 | `/home/guest/.config/starship.toml` | file (hidden, ro) | prompt config flavor |
 | `/home/guest/projects/*.txt` | files (writable) | seeded on first boot from `projects.ts` (overlay, not base) |
 | `/etc/motd` | file (ro) | portfolio welcome banner (`cat` shows this only) |
@@ -132,14 +134,21 @@ Bare `resume.sh` (no `./`) → `command not found` (127), like real bash.
 
 | Command | In `help`? | Summary |
 |---------|------------|---------|
-| `pwd` `echo` `clear` `help` `ls` `cd` `mkdir` `touch` `cat` `rm` | yes | core utilities |
+| `pwd` `echo` `clear` `help` `ls` `cd` `mkdir` `touch` `cat` `rm` `alias` `unalias` | yes | core utilities |
 | `sudo` | no (hidden) | cheeky refusal |
 | `whoami` | no (hidden) | prints `guest` |
 
 `help` lists **non-hidden** commands only — no operator line, no simulated-shell disclaimer. `help sudo`
-still works for the curious. Tab completion uses the same visible command list.
+still works for the curious. Tab completion uses the same visible command list plus session aliases.
 
-`ls -l` uses `permString()` including `-r-xr-xr-x` for read-only executables.
+`ls -l` uses `permString()` including `-r-xr-xr-x` for read-only executables. `ls -a` includes `.` and
+`..`; `ls -A` shows hidden names without those two entries (`la` in `~/.bashrc` maps to `-A`).
+
+On boot, `createInitialState()` loads `alias name='value'` lines from `~/.bashrc` into
+`ShellState.aliases` (session-only, same as vars). The first word of each pipeline segment is
+expanded through that map before dispatch, with recursion blocked so `alias ls='ls -l'` still runs
+`ls`. Extra arguments are appended (`ll /tmp` → `ls -la /tmp`). `alias` / `unalias` define or drop
+session aliases; they are not written back to `~/.bashrc`.
 
 ---
 
@@ -150,7 +159,7 @@ still works for the curious. Tab completion uses the same visible command list.
 - **Return visit:** overlay applied; seeded files are editable/deletable like any user file; no reseed.
 - **Version bump:** new key → clean base image + fresh seed (v1 sandboxes ignored).
 
-Session variables remain in-memory only.
+Session variables and aliases remain in-memory only.
 
 ---
 
@@ -164,6 +173,7 @@ Unchanged caps in `shell.constants.ts` (`MAX_FILE_BYTES`, `MAX_NODES`, etc.). Ad
 | Timer leak | `FakeShellApp` clears `setTimeout` on unmount |
 | User executables | No code path sets `executable` on writes; no `chmod` |
 | `/bin/*` dispatch | Only maps to already-registered pure commands |
+| Alias expansion | First-word only; depth/count/name/value caps; no `eval`; replacement re-tokenized through the existing parser |
 
 No `fetch`, `eval`, or `dangerouslySetInnerHTML` in this feature.
 
@@ -178,7 +188,7 @@ locks input, then `router.push("/")` after ~1.2s.
 
 ## Testing
 
-Vitest suites include `scripts`, `seed`, `baseImage`, `commands/help`, plus extended `executor`,
+Vitest suites include `scripts`, `seed`, `baseImage`, `commands/help`, `aliases`, plus extended `executor`,
 `filesystem`, and `storage` tests. Run `npm run test`, `npm run lint`, `npm run build`.
 
 ---
@@ -186,6 +196,7 @@ Vitest suites include `scripts`, `seed`, `baseImage`, `commands/help`, plus exte
 ## Adding or changing things
 
 - **New command:** add `commands/<name>.ts`, register in `commands/builtins.ts` (or `help` separately). Set `hidden: true` to omit from `help`/Tab.
+- **New alias:** add an `alias name='…'` line to `~/.bashrc` in `baseImage.ts` (names: letters, digits, `_`, `.`, `-`). Expansion is first-word only; keep the replacement a simple command (no `|`).
 - **New executable script:** add ro+exec file in `baseImage.ts` + `BASE_NODE_PATHS`, handler in `scripts.ts`. Do not allow user-created executables.
 - **Base-image change:** bump `FS_SCHEMA_VERSION` so visitors reseed.
 - **Never** add server routes, `fetch`, `eval`, or user-controlled `router.push` targets in this feature.

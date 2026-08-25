@@ -1,3 +1,4 @@
+import { aliasCommand, unaliasCommand } from "@/features/terminal/commands/alias";
 import { catCommand } from "@/features/terminal/commands/cat";
 import { cdCommand } from "@/features/terminal/commands/cd";
 import { clearCommand } from "@/features/terminal/commands/clear";
@@ -22,6 +23,8 @@ export const BUILTIN_COMMANDS: CommandDef[] = [
   touchCommand,
   catCommand,
   rmCommand,
+  aliasCommand,
+  unaliasCommand,
   sudoCommand,
   whoamiCommand,
 ];

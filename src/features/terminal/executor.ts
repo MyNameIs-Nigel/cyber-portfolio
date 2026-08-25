@@ -1,6 +1,7 @@
 import { getCommand } from "@/features/terminal/commandRegistry";
 import { writeFileContent, resolvePath } from "@/features/terminal/filesystem";
-import { applyAssignment, parseLine } from "@/features/terminal/parser";
+import { applyAssignment, extractRedirect, parseLine } from "@/features/terminal/parser";
+import { expandAliasArgv } from "@/features/terminal/aliases";
 import { getScriptHandler } from "@/features/terminal/scripts";
 import { saveShellFs } from "@/features/terminal/storage";
 import type { CommandResult, ParsedLine, ShellState } from "@/features/terminal/shell.types";
@@ -85,7 +86,16 @@ export function executeParsedLine(state: ShellState, parsed: ParsedLine): Execut
   for (let i = 0; i < parsed.segments.length; i++) {
     const segment = parsed.segments[i]!;
     const isLast = i === parsed.segments.length - 1;
-    let result = runSegment(state, segment.argv, stdin);
+
+    const expanded = expandAliasArgv(segment.argv, state.aliases);
+    if ("message" in expanded) {
+      results.push({ stdout: "", stderr: `${expanded.message}\n`, code: 2 });
+      break;
+    }
+    const { argv, redirect: aliasRedirect } = extractRedirect(expanded);
+    const redirect = aliasRedirect ?? segment.redirect;
+
+    let result = runSegment(state, argv, stdin);
 
     if (result.navigate) {
       navigate = result.navigate;
@@ -95,16 +105,16 @@ export function executeParsedLine(state: ShellState, parsed: ParsedLine): Execut
       state.scrollback = [];
     }
 
-    if (segment.redirect && result.stdout.length > 0) {
+    if (redirect && result.stdout.length > 0) {
       const err = writeFileContent(
         state.fs,
         state.cwd,
-        segment.redirect.target,
+        redirect.target,
         result.stdout,
-        segment.redirect.mode === ">>",
+        redirect.mode === ">>",
       );
       if (err) {
-        result = { stdout: "", stderr: `${segment.redirect.target}: ${err.message}\n`, code: 1 };
+        result = { stdout: "", stderr: `${redirect.target}: ${err.message}\n`, code: 1 };
       } else {
         mutated = true;
         result = { stdout: "", stderr: result.stderr, code: result.code };
@@ -116,13 +126,13 @@ export function executeParsedLine(state: ShellState, parsed: ParsedLine): Execut
     }
 
     exitCode = result.code;
-    stdin = segment.redirect ? "" : result.stdout;
+    stdin = redirect ? "" : result.stdout;
 
-    if (isLast && !segment.redirect && result.stdout) {
+    if (isLast && !redirect && result.stdout) {
       results.push({ stdout: result.stdout, stderr: "", code: result.code });
     }
 
-    if (segmentMutates(segment.argv, Boolean(segment.redirect))) {
+    if (segmentMutates(argv, Boolean(redirect))) {
       mutated = true;
     }
   }

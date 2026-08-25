@@ -11,6 +11,7 @@ function ctx(): { state: ShellState } {
       cwd: HOME,
       oldpwd: HOME,
       vars: new Map(),
+      aliases: new Map(),
       scrollback: [],
       history: [],
     },

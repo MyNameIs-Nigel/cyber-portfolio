@@ -1,6 +1,7 @@
 import { BASE_NODE_PATHS, createBaseImage } from "@/features/terminal/baseImage";
 import { FS_SCHEMA_VERSION, HOME, STORAGE_KEY } from "@/features/terminal/shell.constants";
 import { mkdirPath, resolvePath, writeFileContent } from "@/features/terminal/filesystem";
+import { loadAliasesFromFs } from "@/features/terminal/aliases";
 import { seedProjectFiles } from "@/features/terminal/seed";
 import type { FsDir, OverlayEntry, PersistedOverlay, ShellState } from "@/features/terminal/shell.types";
 
@@ -118,6 +119,7 @@ export function loadShellFs(): { fs: FsDir; cwd: string } {
         cwd,
         oldpwd: cwd,
         vars: new Map(),
+        aliases: new Map(),
         scrollback: [],
         history: [],
       };
@@ -166,6 +168,7 @@ export function createInitialState(): ShellState {
       ["OLDPWD", cwd],
       ["HOSTNAME", "portfolio"],
     ]),
+    aliases: loadAliasesFromFs(fs),
     scrollback: [],
     history: [],
   };

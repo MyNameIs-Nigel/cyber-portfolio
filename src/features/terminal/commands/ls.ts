@@ -2,22 +2,26 @@ import { formatMtime, listDirEntries, permString, resolvePath } from "@/features
 import { byteLength } from "@/features/terminal/sanitize";
 import type { CommandCtx, CommandDef, FsDir } from "@/features/terminal/shell.types";
 
-function parseFlags(args: string[]): { long: boolean; all: boolean; paths: string[] } | { error: string; code: number } {
+function parseFlags(
+  args: string[],
+): { long: boolean; all: boolean; almostAll: boolean; paths: string[] } | { error: string; code: number } {
   let long = false;
   let all = false;
+  let almostAll = false;
   const paths: string[] = [];
   for (const arg of args) {
     if (arg.startsWith("-") && arg.length > 1) {
       for (const ch of arg.slice(1)) {
         if (ch === "l") long = true;
         else if (ch === "a") all = true;
+        else if (ch === "A") almostAll = true;
         else return { error: `ls: invalid option -- '${ch}'`, code: 2 };
       }
     } else {
       paths.push(arg);
     }
   }
-  return { long, all, paths };
+  return { long, all, almostAll, paths };
 }
 
 function formatEntry(node: import("@/features/terminal/shell.types").FsNode, long: boolean, owner: string): string {
@@ -28,7 +32,13 @@ function formatEntry(node: import("@/features/terminal/shell.types").FsNode, lon
   return `${permString(node)}  ${owner.padEnd(5)} ${group.padEnd(5)} ${String(size).padStart(5)} ${formatMtime(node.mtime)} ${name}`;
 }
 
-function listOne(ctx: CommandCtx, target: string, long: boolean, all: boolean): { out: string[]; err: string[]; code: number } {
+function listOne(
+  ctx: CommandCtx,
+  target: string,
+  long: boolean,
+  showHidden: boolean,
+  showDots: boolean,
+): { out: string[]; err: string[]; code: number } {
   const res = resolvePath(ctx.state.fs, ctx.cwd, target);
   if (!res.ok) {
     return { out: [], err: [`ls: cannot access '${target}': No such file or directory`], code: 2 };
@@ -39,8 +49,8 @@ function listOne(ctx: CommandCtx, target: string, long: boolean, all: boolean): 
     return { out, err: [], code: 0 };
   }
   const dir = res.node as FsDir;
-  const entries = listDirEntries(dir, all);
-  if (all) {
+  const entries = listDirEntries(dir, showHidden);
+  if (showDots) {
     out.push(formatEntry({ kind: "dir", name: ".", children: dir.children, mtime: dir.mtime }, long, "guest"));
     out.push(formatEntry({ kind: "dir", name: "..", children: new Map(), mtime: dir.mtime }, long, "root"));
   }
@@ -53,19 +63,21 @@ function listOne(ctx: CommandCtx, target: string, long: boolean, all: boolean): 
 export const lsCommand: CommandDef = {
   name: "ls",
   summary: "List directory contents",
-  usage: "ls [-la] [paths…]",
+  usage: "ls [-alA] [paths…]",
   run: (ctx) => {
     const flags = parseFlags(ctx.args);
     if ("error" in flags) {
       return { stdout: "", stderr: `${flags.error}\n`, code: flags.code };
     }
+    const showHidden = flags.all || flags.almostAll;
+    const showDots = flags.all;
     const paths = flags.paths.length ? flags.paths : ["."];
     const lines: string[] = [];
     const errors: string[] = [];
     let code = 0;
     for (const p of paths) {
       const target = p === "." ? ctx.cwd : p;
-      const result = listOne(ctx, target, flags.long, flags.all);
+      const result = listOne(ctx, target, flags.long, showHidden, showDots);
       errors.push(...result.err);
       if (result.err.length) code = 2;
       lines.push(...result.out);

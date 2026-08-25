@@ -20,6 +20,7 @@ describe("render safety (S7)", () => {
       cwd: HOME,
       oldpwd: HOME,
       vars: new Map(),
+      aliases: new Map(),
       scrollback: [],
       history: [],
     };
