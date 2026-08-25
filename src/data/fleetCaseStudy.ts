@@ -86,6 +86,7 @@ export const caseStudySections: CaseStudySection[] = [
       { term: "Image tags", value: ":latest and :sha-<short>" },
       { term: "Runners", value: "ubuntu-latest for test and publish, self-hosted for deploy" },
       { term: "Credential", value: "the run's own GITHUB_TOKEN, packages: write" },
+      { term: "Suite", value: "1,472 tests across four repos — roughly 42% of the code" },
     ],
   },
   {

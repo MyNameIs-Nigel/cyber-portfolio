@@ -208,10 +208,27 @@ export interface ToolItem {
 }
 
 /**
- * The ssharcade fleet section on /projects. The stack is drawn three times in
- * three shapes because its three parts are structurally different things: the
- * delivery path is a line, durability is a loop, and the host is a nest.
+ * The ssharcade fleet.
+ *
+ * /projects leads with the arcade — a recorded cast, the connect string, the
+ * cabinets — and keeps only the delivery line of the infrastructure. The loop
+ * (durability) and the nest (the host) are drawn on the write-up, where a reader
+ * who has asked for the machinery will find them.
  */
+
+/** One game on the arcade menu, as a player meets it. */
+export interface FleetCabinet {
+  /** Display name. */
+  name: string;
+  /** The entry as it appears in the router's menu. */
+  slug: string;
+  /** What the game is, in a player's words rather than an operator's. */
+  tagline: string;
+  status: "online" | "offline";
+  /** Shown in place of the port line when the cabinet is not up yet. */
+  note?: string;
+  accent: Accent;
+}
 
 /** One ordered stage of the delivery path. Order carries meaning here. */
 export interface PipelineStage {

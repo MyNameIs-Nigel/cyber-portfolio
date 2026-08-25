@@ -1,8 +1,9 @@
-import type { Accent, PipelineStage, RecoveryStep, TopologyNode } from "@/types";
+import type { FleetCabinet, PipelineStage, RecoveryStep, TopologyNode } from "@/types";
 import type { Stat } from "@/components/Stats";
 
 /**
- * ssharcade — the delivery pipeline behind a four-repo Go fleet.
+ * ssharcade — a three-cabinet arcade you reach over SSH, and the pipeline that
+ * keeps it shipped.
  *
  * Every string here is a real artifact read off the repos: job names from
  * `.github/workflows/release.yml`, tags from the publish step, hardening flags
@@ -10,18 +11,109 @@ import type { Stat } from "@/components/Stats";
  * Nothing is paraphrased and nothing is invented — the section's whole argument
  * is that a reader who knows Actions or Compose recognises these on sight.
  *
+ * Order of the section is the order of a visit: you see the arcade, you get the
+ * command that opens it, you see what is behind the door. The delivery pipeline
+ * is the last thing, because it is the answer to "how does that stay true",
+ * which is not a question anyone asks before they have seen the thing.
+ *
  * Accent is layer identity, held consistently across the rail, the loop, the
  * topology and the stats: 3 = source, 4 = verified (the suite, and the data that
  * is replicated off the box), 1 = CI/healthy, 2 = host.
  */
 
 export const FLEET_EYEBROW = "One host · four repos · zero manual steps";
+
+/** The headline on /projects. Names the arcade, not the box. */
+export const FLEET_HEADLINE = "Three games. One SSH command.";
+
+/** The box is still the interesting engineering — it is just not the hook. */
+export const FLEET_SUBHEAD =
+  "Four Go services behind a single SSH port on one EC2 instance, and every save streamed to S3 " +
+  "so the box underneath is one I can throw away.";
+
+/** The write-up's own title. The deep-dive is allowed to lead with the box. */
 export const FLEET_TITLE = "Shipping a Go fleet to a box I can throw away";
 
-export const FLEET_LEDE =
-  "Four Go services live behind one SSH port on a single EC2 instance. Merging to main builds " +
-  "the image, ships it, and restarts the service on the host itself — and every save is streamed " +
-  "to S3 so the instance underneath is replaceable.";
+/* ---------------------------------------------------------------- the cast */
+
+/**
+ * The recorded session that opens the section.
+ *
+ * `src` is null until the cast is recorded, and `HeroCast` renders a placeholder
+ * in that case rather than an empty player — the layout, the chrome and the
+ * scene list are all final, so dropping the file in is the only remaining step.
+ * Target is ~60s, auto-play, looping, no audio.
+ */
+export const CAST = {
+  src: null as string | null,
+  title: "play.ssharcade.dev — recorded session",
+  duration: "~60s",
+  /** The run the cast records, in order. Doubles as the placeholder's caption. */
+  scenes: [
+    "lobby",
+    "Moon Miner · belt",
+    "mining · radar",
+    "CONNECTION LOST",
+    "run summary",
+  ],
+};
+
+/* ------------------------------------------------------------- the arcade */
+
+export const FLEET_CONNECT = "ssh play.ssharcade.dev";
+
+export const FLEET_CONNECT_NOTE =
+  "No account, no client, no install. If you have an SSH client you already have everything.";
+
+/**
+ * The cabinets, as the router's menu lists them.
+ *
+ * Accent stays 1 for all three because on this page accent means layer, not
+ * game — the games are the healthy service layer, the same colour they carry in
+ * the topology. `chess` shows OFFLINE because that is its true state today: it
+ * is in the registry ahead of its first deploy, and the prober degrades it in
+ * the menu rather than breaking the arcade. Showing that is better evidence
+ * than hiding it.
+ *
+ * Status is static, read off the fleet as it stands. The shape is the shape a
+ * live prober would fill in, so wiring one up later is a data change.
+ */
+export const fleetCabinets: FleetCabinet[] = [
+  {
+    name: "Farm",
+    slug: "farm",
+    tagline: "Plant, water, wait. A save that keeps growing while you are gone.",
+    status: "online",
+    accent: 1,
+  },
+  {
+    name: "Moon Miner",
+    slug: "moonminer",
+    tagline: "Work an asteroid belt on radar. Cycle views with V.",
+    status: "online",
+    accent: 1,
+  },
+  {
+    name: "Chess",
+    slug: "chess",
+    tagline: "Play the board over the wire.",
+    status: "offline",
+    note: "awaiting first release",
+    accent: 1,
+  },
+];
+
+/** Item 5 of the section: the thing that makes three games feel like one place. */
+export const IDENTITY_HEADLINE = "Your key is your account.";
+export const IDENTITY_BODY =
+  "Same key, same saves, any game. The router hashes your public key and forwards that identity " +
+  "inward, so there is nothing to sign up for and nothing to remember — and no game ever sees the " +
+  "key itself.";
+
+/** The turn from the arcade to the machinery. Set as a rule across the measure. */
+export const SHIPS_ITSELF = "and it ships itself";
+
+/* ----------------------------------------------------------- the pipeline */
 
 export const FLEET_TRIGGER = "git push origin main";
 
@@ -67,32 +159,10 @@ export const pipelineStages: PipelineStage[] = [
   },
 ];
 
-/**
- * The decision the rail cannot show. Everything above is what the machine does;
- * this is why it was built that way. The release race that broke production
- * lives on the deep-dive page rather than here — one card next to the diagrams
- * reads as a note, two read as a second section.
- */
-export interface FleetDecision {
-  label: string;
-  headline: string;
-  body: string;
-  code?: string;
-  accent: Accent;
-}
+/** Shown beside the rail's trigger line, so the track carries its own scale. */
+export const PIPELINE_CAPTION = "Hover a stage for the commands it runs.";
 
-export const fleetDecisions: FleetDecision[] = [
-  {
-    label: "Why the runner lives on the host",
-    headline: "CI opens no inbound port",
-    body:
-      "The host's real sshd is locked to a single IP, and GitHub-hosted runners come from an " +
-      "ever-changing range that will never match it — a dial-in deploy job would just time out. " +
-      "Registering the runner as a service on the box instead means the deploy reaches production " +
-      "without anything having to be let in.",
-    accent: 2,
-  },
-];
+/* ------------------------------------------- drawn on the write-up, not here */
 
 /** The loop: cyclic, continuous, never "completes". Unnumbered on purpose. */
 export const recoverySteps: RecoveryStep[] = [
@@ -150,12 +220,18 @@ export const TOPOLOGY_CAPTION =
   "only place rate limiting has to happen. A game that is down degrades to OFFLINE in the menu " +
   "instead of breaking the arcade.";
 
-/** One stat per layer, so the colour coding carries all the way through. */
+/* --------------------------------------------------------------- the stats */
+
+/**
+ * What the arrangement bought, one number each: the host, the data, the loop
+ * that keeps it current, and the size of the attack surface. The test count
+ * moved to the write-up — it is evidence for a claim this strip no longer makes.
+ */
 export const fleetStats: Stat[] = [
-  { value: 20, prefix: "$", suffix: "/mo", label: "Flat hosting cost, whatever the game count", accent: 2 },
+  { value: 0, prefix: "$", suffix: "/mo", label: "Marginal cost of the next game on the box", accent: 2 },
   { value: 12, suffix: "s", label: "Measured RPO in a kill-drill (60s budget)", accent: 4 },
-  { value: 0, label: "Inbound ports opened for CI", accent: 1 },
-  { value: 1472, label: "Tests across four repos, ~42% of the code", accent: 3 },
+  { value: 15, prefix: "~", suffix: "s", label: "Merge to live, tests included", accent: 1 },
+  { value: 1, label: "Public port for the whole fleet", accent: 2 },
 ];
 
 export function getPipelineStage(number: string): PipelineStage | undefined {

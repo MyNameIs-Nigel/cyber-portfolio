@@ -1,9 +1,20 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { H1, H2, Paragraph } from "@/components/Typography";
 import { accentText } from "@/components/projects/fleet/accents";
-import { FLEET_TITLE } from "@/data/fleet";
+import { HostTopology } from "@/components/projects/fleet/HostTopology";
+import { RecoveryLoop } from "@/components/projects/fleet/RecoveryLoop";
+import {
+  FLEET_TITLE,
+  RECOVERY_CAPTION,
+  RECOVERY_LIMIT,
+  TOPOLOGY_CAPTION,
+  TOPOLOGY_CHAIN,
+  recoverySteps,
+  topologyNodes,
+} from "@/data/fleet";
 import {
   FLEET_LIMITS,
   FLEET_LINKS,
@@ -36,6 +47,24 @@ export const metadata: Metadata = {
     images: [{ url: "/opengraph.png", width: 1200, height: 630 }],
   },
   twitter: { card: "summary_large_image" },
+};
+
+/**
+ * The two diagrams that used to open the section on /projects.
+ *
+ * They are the right pictures for the wrong audience there: a reader who has not
+ * yet seen a game does not need the container tree. Here they sit beside the
+ * prose that argues for them — the nest under the runtime it describes, the loop
+ * under the durability claim it is evidence for.
+ *
+ * Keyed by section id rather than positioned by index, so reordering
+ * `caseStudySections` cannot silently move a diagram off its argument.
+ */
+const sectionFigures: Record<string, ReactNode> = {
+  image: <HostTopology nodes={topologyNodes} chain={TOPOLOGY_CHAIN} caption={TOPOLOGY_CAPTION} />,
+  durability: (
+    <RecoveryLoop steps={recoverySteps} caption={RECOVERY_CAPTION} limitation={RECOVERY_LIMIT} />
+  ),
 };
 
 export default function SshArcadeFleetPage() {
@@ -101,6 +130,10 @@ export default function SshArcadeFleetPage() {
                   </div>
                 ))}
               </dl>
+            ) : null}
+
+            {sectionFigures[section.id] ? (
+              <div className="mt-6">{sectionFigures[section.id]}</div>
             ) : null}
           </section>
         ))}
