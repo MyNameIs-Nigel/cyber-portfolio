@@ -21,10 +21,10 @@ import type { Stat } from "@/components/Stats";
  * is replicated off the box), 1 = CI/healthy, 2 = host.
  */
 
-export const FLEET_EYEBROW = "One host · four repos · zero manual steps";
+export const FLEET_EYEBROW = "one host · four repos · ci/cd pipeline";
 
 /** The headline on /projects. Names the arcade, not the box. */
-export const FLEET_HEADLINE = "Three games. One SSH command.";
+export const FLEET_HEADLINE = "Three games accessible by one SSH command.";
 
 /** The box is still the interesting engineering — it is just not the hook. */
 export const FLEET_SUBHEAD =
@@ -33,30 +33,6 @@ export const FLEET_SUBHEAD =
 
 /** The write-up's own title. The deep-dive is allowed to lead with the box. */
 export const FLEET_TITLE = "Shipping a Go fleet to a box I can throw away";
-
-/* ---------------------------------------------------------------- the cast */
-
-/**
- * The recorded session that opens the section.
- *
- * `src` is null until the cast is recorded, and `HeroCast` renders a placeholder
- * in that case rather than an empty player — the layout, the chrome and the
- * scene list are all final, so dropping the file in is the only remaining step.
- * Target is ~60s, auto-play, looping, no audio.
- */
-export const CAST = {
-  src: null as string | null,
-  title: "play.ssharcade.dev — recorded session",
-  duration: "~60s",
-  /** The run the cast records, in order. Doubles as the placeholder's caption. */
-  scenes: [
-    "lobby",
-    "Moon Miner · belt",
-    "mining · radar",
-    "CONNECTION LOST",
-    "run summary",
-  ],
-};
 
 /* ------------------------------------------------------------- the arcade */
 
