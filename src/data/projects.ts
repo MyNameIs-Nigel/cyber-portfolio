@@ -34,20 +34,6 @@ export const projects: Project[] = [
     demoUrl: "https://fullcoveragetechnology.com/",
   },
   {
-    slug: "tz-digital",
-    title: "TZ Digital Advisors",
-    description: "A website for an independent IT advisory firm in Athens, Georgia.",
-    tags: ["Next.js", "TypeScript", "Vercel"],
-    link: "https://tz-digital.com/",
-    preview: { mode: "live", url: "https://tz-digital.com/", previewWidth: 1024 },
-    screenshots: ["/projects/tz-1.png", "/projects/tz-2.png", "/projects/tz-3.png"],
-    content: [
-      "TZ Digital Advisors has more than 25 years of enterprise IT experience across 15 countries. I built the site around the firm's five service areas and its vendor-independent approach.",
-      "The design is restrained and direct: explain the work, establish the firm's experience, and make it easy to request a consultation.",
-    ],
-    demoUrl: "https://tz-digital.com/",
-  },
-  {
     slug: "walton-tax-professionals",
     title: "Walton Tax Professionals",
     description: "A website for a CPA firm handling complex individual and small-business taxes.",
