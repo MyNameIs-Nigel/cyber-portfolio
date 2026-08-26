@@ -7,8 +7,6 @@ import { FleetSection } from "@/components/projects/fleet/FleetSection";
 import { InteractiveProjectsSection } from "@/components/projects/InteractiveProjectsSection";
 import { interactiveProjects } from "@/data/interactiveProjects";
 import { projects } from "@/data/projects";
-import { ConsoleLog } from "@/components/ConsoleLog";
-import { thoughtLogMessages, thoughtLogTitle } from "@/data/consoleLogs";
 
 
 export const metadata = {
@@ -44,7 +42,6 @@ const sections = [
   { href: "#fleet", label: "SSH Arcade fleet" },
   { href: "#shell", label: "Portfolio shell" },
   { href: "#web-apps", label: "Web apps" },
-  { href: "#thought-log", label: "Thought log" },
   { href: "#interactive", label: "Interactive" },
 ] as const;
 
@@ -90,12 +87,6 @@ export default function ProjectsPage() {
               <ProjectCard key={p.slug} {...p} />
             ))}
           </div>
-        </section>
-
-        <SectionDivider />
-
-        <section id="thought-log" className="scroll-mt-16">
-          <ConsoleLog title={thoughtLogTitle} messages={thoughtLogMessages} />
         </section>
 
         <SectionDivider />

@@ -77,7 +77,6 @@ Verify: https://www.credly.com/users/nigeld-smith
 
 - Full Coverage Technology — Client website built with Next.js, TypeScript, deployed on Vercel (https://fullcoveragetechnology.com/)
 - Walton Tax Professionals — Client website built with Next.js, TypeScript, deployed on Vercel (https://www.waltontaxpro.com/)
-- TZ Digital Advisors — IT consulting firm site built with Next.js, TypeScript, deployed on Vercel (https://tz-digital.com/)
 - Photography Portfolio — Image-first Next.js photography site (https://ndsironwood.com/)
 
 ## Currently
