@@ -18,7 +18,7 @@ export const certifications: Certification[] = [
     date: "Aug 2025",
     status: "earned",
   },
-  { name: "CompTIA Network+", issuer: "CompTIA", date: "Aug 2026", status: "anticipated" },
+  { name: "CompTIA Network+", issuer: "CompTIA", date: "Sep 2026", status: "anticipated" },
 ];
 
 export const earnedCertifications = certifications.filter((c) => c.status === "earned");
