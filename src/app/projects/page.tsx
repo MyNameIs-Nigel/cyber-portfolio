@@ -89,11 +89,11 @@ export default function ProjectsPage() {
           </div>
         </section>
 
-        <SectionDivider />
+        {/* <SectionDivider />
 
         <div id="interactive" className="scroll-mt-16">
           <InteractiveProjectsSection items={interactiveProjects} />
-        </div>
+        </div> */}
       </Container>
     </main>
   );
