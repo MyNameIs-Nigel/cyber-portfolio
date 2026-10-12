@@ -1,5 +1,7 @@
-/** The backdrops one page load can draw from. Order is only used for docs and tests. */
+/** Every backdrop; `?ambient=<id>` pins any of them. Order is only used for docs and tests. */
 export const AMBIENT_SCENES = ["storm", "night", "fireflies"] as const;
+/** What every visitor sees unless the URL asks for something else. */
+export const DEFAULT_SCENE = "night" satisfies (typeof AMBIENT_SCENES)[number];
 
 /** Width of the centered content column (see `Container`). */
 export const CONTENT_WIDTH = 768;
@@ -21,7 +23,5 @@ export const PIXEL_BUDGET = 2_500_000;
 /** Everything here moves slowly; 30fps looks the same and costs half. */
 export const FRAME_INTERVAL_MS = 1000 / 30;
 
-/** Remembers the last scene so a reload always shows something different. */
-export const LAST_SCENE_STORAGE_KEY = "ambient:last-scene";
 /** `?ambient=night` pins a scene, for previews and screenshots. */
 export const SCENE_QUERY_PARAM = "ambient";

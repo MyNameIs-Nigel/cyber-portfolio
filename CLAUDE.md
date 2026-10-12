@@ -73,9 +73,9 @@ for the full architecture, command model, persistence, and safety budget before 
 Planned enhancements live in `.claude/plans/fake-shell-enhancements.md`.
 
 ### Ambient backdrop (`src/features/ambient/`)
-Decorative scene in the side gutters, mounted once in `layout.tsx` (so client navigations keep it). Each
-full page load picks one of `AMBIENT_SCENES` (`storm`, `night`, `fireflies`), never the one shown last
-(`localStorage`); `?ambient=<id>` pins a scene for previews. Two gutter-sized canvases sit behind the page
+Decorative scene in the side gutters, mounted once in `layout.tsx` (so client navigations keep it). It shows
+`DEFAULT_SCENE` (`night`); `?ambient=<id>` switches to any of `AMBIENT_SCENES` (`storm`, `night`, `fireflies`)
+for that page load. Two gutter-sized canvases sit behind the page
 (`-z-10`, `pointer-events: none`, `aria-hidden`), sized from `computeStage()` so the 768px column stays clear;
 nothing runs below `MIN_VIEWPORT_WIDTH`, and reduced motion paints a single still frame. Scenes live in
 `scenes/*Scene.ts` and implement `AmbientScene` (`resize` / `update` / `draw`); to add one, write a factory and

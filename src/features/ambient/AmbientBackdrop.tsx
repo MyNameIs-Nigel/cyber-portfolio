@@ -1,32 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { FRAME_INTERVAL_MS, LAST_SCENE_STORAGE_KEY, SCENE_QUERY_PARAM } from "./ambient.constants";
-import type { AmbientSceneId, Span, Stage } from "./ambient.types";
-import { pickScene } from "./pickScene";
+import { FRAME_INTERVAL_MS, SCENE_QUERY_PARAM } from "./ambient.constants";
+import type { Span, Stage } from "./ambient.types";
+import { resolveScene } from "./resolveScene";
 import { SCENE_FACTORIES } from "./scenes";
 import { backingScale, computeStage, GUTTER_MASKS } from "./stage";
 
-function chooseScene(): AmbientSceneId {
-  const override = new URLSearchParams(window.location.search).get(SCENE_QUERY_PARAM);
-  let previous: string | null = null;
-  try {
-    previous = window.localStorage.getItem(LAST_SCENE_STORAGE_KEY);
-  } catch {
-    // Storage blocked (private mode, cookie settings): every load is a fresh roll.
-  }
-  const scene = pickScene(Math.random, previous, override);
-  try {
-    window.localStorage.setItem(LAST_SCENE_STORAGE_KEY, scene);
-  } catch {
-    // See above.
-  }
-  return scene;
-}
-
 /**
- * Decorative scene in the side gutters, behind the page. One is picked per page
- * load (client navigations keep it) and drawn onto two canvases, one per gutter,
+ * Decorative scene in the side gutters, behind the page: the night sky unless
+ * `?ambient=` asks for another. It is drawn onto two canvases, one per gutter,
  * so the content column costs nothing to redraw. Nothing runs on viewports too
  * narrow to have gutters, and with reduced motion it paints one still frame.
  */
@@ -46,7 +29,7 @@ export function AmbientBackdrop() {
       view: { x0: 0, x1: 0 } as Span,
     }));
 
-    const id = chooseScene();
+    const id = resolveScene(new URLSearchParams(window.location.search).get(SCENE_QUERY_PARAM));
     root.dataset.scene = id;
     const scene = SCENE_FACTORIES[id](Math.random);
     for (const { canvas } of layers) canvas.style.backgroundImage = scene.backdrop ?? "";
