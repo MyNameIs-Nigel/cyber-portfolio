@@ -8,6 +8,7 @@ import "@fontsource/inter/700.css";
 import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
+import { AmbientBackdrop } from "@/features/ambient/AmbientBackdrop";
 import { Navbar } from "@/components/Navbar";
 import { CREDLY_PROFILE_URL, earnedCertifications } from "@/data/certifications";
 import { profile } from "@/data/profile";
@@ -86,6 +87,7 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
+        <AmbientBackdrop />
         <Navbar />
         <div id="main-content" className="flex-1">{children}</div>
         <Footer />
