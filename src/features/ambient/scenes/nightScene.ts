@@ -108,6 +108,15 @@ function litRegion(ctx: CanvasRenderingContext2D, r: number, moon: MoonPhase): v
   ctx.closePath();
 }
 
+const LABEL_FONT = '10px "JetBrains Mono Variable", ui-monospace, monospace';
+
+function measureLabel(text: string): number {
+  const ctx = document.createElement("canvas").getContext("2d");
+  if (!ctx) return text.length * 7;
+  ctx.font = LABEL_FONT;
+  return ctx.measureText(text).width;
+}
+
 interface MoonSprite {
   canvas: HTMLCanvasElement;
   x: number;
@@ -126,22 +135,25 @@ function paintMoon(cx: number, cy: number, r: number, dpr: number, date: Date): 
   }
   const southern = isSouthernHemisphereZone(zone);
 
+  const label = `${moon.name} · ${Math.round(moon.illumination * 100)}%`;
   const halo = r * 4;
   const labelGap = r + 20;
-  const w = halo * 2;
+  // On narrow gutters the Moon shrinks but its caption doesn't, so size for whichever is wider.
+  const w = Math.max(halo * 2, Math.ceil(measureLabel(label)) + 8);
+  const mid = w / 2;
   const h = halo + Math.max(halo, labelGap + 6);
   const sprite = createSprite(w, h, dpr);
   if (!sprite) return null;
   const { ctx } = sprite;
 
-  const glow = ctx.createRadialGradient(halo, halo, r * 0.9, halo, halo, halo);
+  const glow = ctx.createRadialGradient(mid, halo, r * 0.9, mid, halo, halo);
   glow.addColorStop(0, `rgba(225,228,240,${0.05 + 0.1 * moon.illumination})`);
   glow.addColorStop(1, "rgba(225,228,240,0)");
   ctx.fillStyle = glow;
-  ctx.fillRect(0, 0, halo * 2, halo * 2);
+  ctx.fillRect(0, 0, w, halo * 2);
 
   ctx.save();
-  ctx.translate(halo, halo);
+  ctx.translate(mid, halo);
   // South of the equator the whole Moon — maria, lit limb and all — appears upside down.
   if (southern) ctx.rotate(Math.PI);
 
@@ -157,13 +169,13 @@ function paintMoon(cx: number, cy: number, r: number, dpr: number, date: Date): 
   ctx.restore();
   ctx.restore();
 
-  ctx.font = '10px "JetBrains Mono Variable", ui-monospace, monospace';
+  ctx.font = LABEL_FONT;
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
   ctx.fillStyle = "rgba(229,229,229,0.28)";
-  ctx.fillText(`${moon.name} · ${Math.round(moon.illumination * 100)}%`, halo, halo + labelGap);
+  ctx.fillText(label, mid, halo + labelGap);
 
-  return { canvas: sprite.canvas, x: cx - halo, y: cy - halo, w, h };
+  return { canvas: sprite.canvas, x: cx - mid, y: cy - halo, w, h };
 }
 
 export const createNightScene: SceneFactory = (random) => {
