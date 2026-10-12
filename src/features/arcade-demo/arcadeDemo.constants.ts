@@ -2,7 +2,7 @@ import type { DemoCrop, Segment } from "./arcadeDemo.types";
 
 /* ------------------------------------------------------------------ *
  * The script for the hero demo: one loop of a real visit to
- * play.ssharcade.dev, rebuilt in the DOM rather than recorded.
+ * ssharcade.dev, rebuilt in the DOM rather than recorded.
  *
  * Every number here is either a beat of the run or a value read off the
  * real ssh-farm TUI (seed costs, grow times, sale prices, the wording of
@@ -39,8 +39,8 @@ export const SPEED = 6;
 export const STRIP = ["ssh", "lobby", "the farm", "plant", "board"] as const;
 
 const ZSH_TITLE = "ndsmith — -zsh — 120×40";
-const LOBBY_TITLE = "ndsmith — SSHARCADE — ssh play.ssharcade.dev — 120×40";
-const FARM_TITLE = "ndsmith — ssh-farm 🌾 — ssh play.ssharcade.dev — 120×40";
+const LOBBY_TITLE = "ndsmith — SSHARCADE — ssh ssharcade.dev — 120×40";
+const FARM_TITLE = "ndsmith — ssh-farm 🌾 — ssh ssharcade.dev — 120×40";
 
 /** Beats of the loop, in milliseconds from its start. */
 export const SEGMENTS: Segment[] = [
@@ -60,7 +60,7 @@ export const LOOP_LABEL = "~39s";
 
 /* --------------------------------------------------------- the beats */
 
-export const CONNECT_COMMAND = "ssh play.ssharcade.dev";
+export const CONNECT_COMMAND = "ssh ssharcade.dev";
 /** Typing rate, then a beat on the finished line before the screen clears. */
 export const TYPE_MS = 85;
 

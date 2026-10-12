@@ -61,7 +61,7 @@ export function ImageSlideshow({
   if (len === 0) {
     return (
       <div
-        className="flex aspect-video w-full items-center justify-center rounded-lg border border-border bg-surface text-sm text-muted"
+        className="flex aspect-[3/2] w-full items-center justify-center rounded-lg border border-border bg-surface text-sm text-muted"
         role="img"
         aria-label={alt}
       >
@@ -76,7 +76,7 @@ export function ImageSlideshow({
   return (
     <div className="w-full">
       <div
-        className="group relative aspect-video w-full overflow-hidden rounded-lg border border-border bg-surface"
+        className="group relative aspect-[3/2] w-full overflow-hidden rounded-lg border border-border bg-surface"
         role="region"
         aria-roledescription="carousel"
         aria-label={alt}

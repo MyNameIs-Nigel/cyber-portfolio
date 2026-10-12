@@ -47,7 +47,7 @@ export function HeroCast() {
       <div
         className="relative aspect-[4/3] sm:aspect-[16/10]"
         role="img"
-        aria-label="A recreation of a session on play.ssharcade.dev: connecting over SSH, choosing Idle Farmer from the arcade menu, harvesting a ripe turnip, planting a carrot, and checking the leaderboard."
+        aria-label="A recreation of a session on ssharcade.dev: connecting over SSH, choosing Idle Farmer from the arcade menu, harvesting a ripe turnip, planting a carrot, and checking the leaderboard."
       >
         <ArcadeScreen frame={frame} />
       </div>

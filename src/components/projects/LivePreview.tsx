@@ -64,7 +64,7 @@ export function LivePreview({ url, previewWidth = 1024, fallbackImage }: Props) 
     >
       {/* Static screenshot — always present as the base layer / fallback */}
       {fallbackImage && (
-        <Image src={fallbackImage} alt="" fill className="object-cover" sizes="768px" />
+        <Image src={fallbackImage} alt="" fill className="object-cover object-top" sizes="768px" />
       )}
 
       {/* Live iframe — mounted in-viewport, fades in once the page has loaded */}

@@ -21,7 +21,7 @@ export const FLEET_TITLE = "Shipping a Go fleet to a box I can throw away";
 
 /* ------------------------------------------------------------- the arcade */
 
-export const FLEET_CONNECT = "ssh play.ssharcade.dev";
+export const FLEET_CONNECT = "ssh ssharcade.dev";
 
 export const FLEET_CONNECT_NOTE =
   "Use an SSH client and a keypair for persistent saves. Guest access for Farm and Moon Miner depends on server configuration; guest progress is discarded. Game status snapshot: October 11, 2026 (public API); check the lobby for current availability.";

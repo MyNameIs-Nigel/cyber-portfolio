@@ -44,7 +44,7 @@ There is **no server state**. A canonical, read-only filesystem (the *base image
 create under a writable path is saved as a small *overlay* in `localStorage` and replayed on their
 next visit. One visitor never sees another's files; there is nothing to fill, corrupt, or moderate.
 
-On **first boot** (no overlay for `portfolio-shell-fs:v4`), `storage.ts` also calls `seedProjectFiles()`
+On **first boot** (no overlay for `portfolio-shell-fs:v5`), `storage.ts` also calls `seedProjectFiles()`
 to create writable `~/projects/<slug>.txt` files from `src/data/projects.ts`, plus the SSH Arcade summary, and persists that overlay
 immediately.
 
@@ -94,7 +94,7 @@ type FsDir = { kind: "dir"; name: string; children: Map<string, FsNode>; readonl
 
 `HOME = /home/guest`, `USER = guest`, `HOSTNAME = portfolio`.
 
-### Base image highlights (`baseImage.ts`, `FS_SCHEMA_VERSION = 4`)
+### Base image highlights (`baseImage.ts`, `FS_SCHEMA_VERSION = 5`)
 
 | Path | Kind | Notes |
 |------|------|-------|
@@ -154,7 +154,7 @@ session aliases; they are not written back to `~/.bashrc`.
 
 ## Persistence (`storage.ts`)
 
-- **Key:** `portfolio-shell-fs:v4` (`FS_SCHEMA_VERSION = 4`).
+- **Key:** `portfolio-shell-fs:v5` (`FS_SCHEMA_VERSION = 5`).
 - **First boot:** `seedProjectFiles()` → `saveShellFs()` so project files live in the overlay.
 - **Return visit:** overlay applied; seeded files are editable/deletable like any user file; no reseed.
 - **Version bump:** new key → clean base image + fresh seed (older sandboxes ignored).
@@ -220,3 +220,9 @@ The base image now prints a career summary instead of claiming a download of a n
 and `/llms.txt`. The shell still makes no network request and retains its fixed homepage redirect.
 Version 4 reseeds the updated project files, including SSH Arcade. Prior sandbox overlays are left
 in their old localStorage key and are not loaded into the new sandbox.
+
+## October 2026 featured web apps
+
+The featured web apps were replaced (Photography Portfolio, SSH Arcade Website, BUS 321 Goal Tracker,
+Full Coverage Technology), and the portfolio's slug changed to `ndsironwood`. Version 5 reseeds so
+returning visitors get the current `~/projects/*.txt` set instead of the old slugs.
