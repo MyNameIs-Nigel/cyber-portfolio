@@ -85,17 +85,17 @@ export const LOBBY_CABINETS = [
   {
     name: "IDLE FARMER",
     tagline: "Crops grow while you're away.",
-    meta: "idle · prestige · market · leaderboard · v2.2.2 beta",
+    meta: "idle · prestige · market · leaderboard · key-based saves",
   },
   {
     name: "MOON MINER",
     tagline: "Drill asteroids, dodge pirates.",
-    meta: "extraction · 4 worlds · push-your-luck · v1.6.2 alpha",
+    meta: "extraction · 4 worlds · push-your-luck · key-based saves",
   },
   {
     name: "GAMBIT",
     tagline: "Bots or humans. Real clocks.",
-    meta: "chess · strategy · multiplayer · v1.0.0 alpha",
+    meta: "chess · strategy · multiplayer · SSH key required",
   },
 ];
 
@@ -159,7 +159,7 @@ export const LOBBY_KEYS = "↑↓ SELECT · ENTER PLAY · R REFRESH · ? ABOUT �
 /* ------------------------------------------------------------ the board */
 
 /**
- * The leaderboard as it actually stands — including the two farms several
+ * A historical leaderboard snapshot used by the scripted demo — including the two farms several
  * rebirths deep that make the demo's 48 coins look like what they are.
  */
 export const BOARD_ROWS = [

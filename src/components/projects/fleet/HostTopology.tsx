@@ -6,10 +6,7 @@ import { accentChip, accentText } from "./accents";
  * real nesting rather than arrows — the point is what is inside what, not what
  * happens first. Unnumbered, for the same reason.
  *
- * `chess` renders OFFLINE because that is its true state today: it is listed in
- * the registry ahead of its first deploy, and the health prober degrades it in
- * the menu rather than breaking the arcade. Showing that is better evidence
- * than hiding it.
+ * Availability is the dated public-API snapshot in fleet.ts, not a live probe.
  */
 export function HostTopology({
   nodes,
@@ -28,7 +25,7 @@ export function HostTopology({
       <p className="font-mono text-[11px] font-semibold tracking-[0.08em] text-accent-2">
         Topology
       </p>
-      <h3 className="mt-2 text-lg font-semibold text-fg">One public port, everything else private</h3>
+      <h3 className="mt-2 text-lg font-semibold text-fg">One public SSH port, private game services</h3>
 
       <div aria-hidden className="mt-6">
         <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[11px] text-fg/55">

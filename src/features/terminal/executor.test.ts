@@ -46,7 +46,7 @@ describe("executor", () => {
   it("./resume.sh runs script and surfaces navigate", () => {
     const s = state();
     const out = runShellLine(s, "./resume.sh");
-    expect(out.results.some((r) => r.stdout.includes("Fetching résumé"))).toBe(true);
+    expect(out.results.some((r) => r.stdout.includes("Expected July 2027"))).toBe(true);
     expect(out.navigate).toEqual({ href: "/", delayMs: 1200 });
   });
 

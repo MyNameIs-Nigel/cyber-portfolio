@@ -20,7 +20,7 @@ the codebase:
 - `npm start` — serve the production build
 - `npm run lint` — ESLint (flat config, `eslint-config-next` core-web-vitals + typescript)
 
-There is no test runner configured in this project.
+`npm test` runs the Vitest suites, including shell behavior and content consistency.
 
 ## Architecture
 

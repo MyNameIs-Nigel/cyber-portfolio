@@ -8,9 +8,8 @@ import { accentText } from "./accents";
  * does not rank them and neither should the page. Each carries its own status,
  * so the row is also the fleet's health at a glance.
  *
- * Status is static data today. It is drawn as a prober readout because that is
- * what it will be: the same fields, filled in from a live check rather than from
- * `fleet.ts`. Nothing here has to be redrawn when that happens.
+ * Status is a dated snapshot in fleet.ts. The connection note labels its date
+ * and directs visitors to the lobby for live availability.
  */
 export function CabinetRow({ cabinets }: { cabinets: FleetCabinet[] }) {
   return (

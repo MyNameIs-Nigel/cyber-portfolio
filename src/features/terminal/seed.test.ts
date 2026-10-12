@@ -27,5 +27,7 @@ describe("seed", () => {
         expect(res.node.content).toContain(p.title);
       }
     }
+    const fleet = resolvePath(fs, HOME, "projects/ssh-arcade-fleet.txt");
+    expect(fleet.ok && fleet.node.kind === "file" && fleet.node.content).toContain("GitHub OIDC and AWS SSM");
   });
 });

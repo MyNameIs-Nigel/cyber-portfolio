@@ -1,18 +1,11 @@
 import type { CommandCtx, CommandResult } from "@/features/terminal/shell.types";
+import { renderCareerSummary } from "@/data/careerText";
 
 const RESUME_SH_PATH = "/home/guest/resume.sh";
 
-const RESUME_SH_STDOUT = `Fetching résumé from https://nigel-smith.dev/resume.pdf ...
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100  248k  100  248k    0     0   612k      0 --:--:-- --:--:-- --:--:--  611k
-Saved to /home/guest/Downloads/nigel-smith-resume.pdf
-xdg-open https://nigel-smith.dev
-`;
-
 function runResumeSh(): CommandResult {
   return {
-    stdout: `${RESUME_SH_STDOUT}\n`,
+    stdout: `${renderCareerSummary()}\nOpening the portfolio homepage…\n`,
     stderr: "",
     code: 0,
     navigate: { href: "/", delayMs: 1200 },

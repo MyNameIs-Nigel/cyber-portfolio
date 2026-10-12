@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LiveClock } from "@/components/LiveClock";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { profile } from "@/data/profile";
 
 const ROLES = [
   "DevOps Engineer",
@@ -103,7 +104,7 @@ export function Hero() {
             Open to DevOps / cloud roles
           </span>
           <span className="font-mono text-xs text-muted">
-            Rexburg, ID · <LiveClock />
+            {profile.location} · <LiveClock />
           </span>
         </div>
 
