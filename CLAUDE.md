@@ -72,6 +72,16 @@ image" plus a per-visitor `localStorage` overlay. **See [`docs/fake-shell.md`](d
 for the full architecture, command model, persistence, and safety budget before touching it.**
 Planned enhancements live in `.claude/plans/fake-shell-enhancements.md`.
 
+### Ambient backdrop (`src/features/ambient/`)
+Decorative scene in the side gutters, mounted once in `layout.tsx` (so client navigations keep it). Each
+full page load picks one of `AMBIENT_SCENES` (`storm`, `night`, `fireflies`), never the one shown last
+(`localStorage`); `?ambient=<id>` pins a scene for previews. Two gutter-sized canvases sit behind the page
+(`-z-10`, `pointer-events: none`, `aria-hidden`), sized from `computeStage()` so the 768px column stays clear;
+nothing runs below `MIN_VIEWPORT_WIDTH`, and reduced motion paints a single still frame. Scenes live in
+`scenes/*Scene.ts` and implement `AmbientScene` (`resize` / `update` / `draw`); to add one, write a factory and
+register it in `scenes/index.ts` and `AMBIENT_SCENES`. The night scene's moon uses `moonPhase.ts` (real phase,
+flipped for southern-hemisphere time zones); firefly synchrony is the Kuramoto model in `scenes/fireflySync.ts`.
+
 ### Health check
 `src/app/_selfcheck/route.ts` — `force-dynamic` JSON endpoint. Returns basic status publicly;
 returns runtime/memory/deployment detail only with a valid `Bearer` token matching the
