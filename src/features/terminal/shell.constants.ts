@@ -23,7 +23,7 @@ export const MAX_ALIAS_NAME_LEN = 64;
 export const MAX_ALIAS_VALUE_LEN = 1_024;
 export const MAX_ALIAS_DEPTH = 16;
 export const MAX_SCROLLBACK_LINES = 1_000;
-export const MAX_LINE_RENDER_LEN = 4_000;
+export const MAX_LINE_RENDER_LEN = 8_000;
 export const MAX_HISTORY = 200;
 
 export const RESERVED_NAMES = new Set(["__proto__", "constructor", "prototype"]);

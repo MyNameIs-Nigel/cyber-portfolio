@@ -6,7 +6,14 @@ import type { FsDir } from "@/features/terminal/shell.types";
 import { completeLine } from "@/features/terminal/completion";
 import { displayPath } from "@/features/terminal/filesystem";
 import { runShellLine } from "@/features/terminal/executor";
-import { HOSTNAME, MAX_HISTORY, MAX_INPUT_LEN, MAX_SCROLLBACK_LINES, USER } from "@/features/terminal/shell.constants";
+import {
+  HOSTNAME,
+  MAX_HISTORY,
+  MAX_INPUT_LEN,
+  MAX_LINE_RENDER_LEN,
+  MAX_SCROLLBACK_LINES,
+  USER,
+} from "@/features/terminal/shell.constants";
 import { truncateForDisplay } from "@/features/terminal/sanitize";
 import { createInitialState } from "@/features/terminal/storage";
 import type { OutputLine, ShellState } from "@/features/terminal/shell.types";
@@ -39,7 +46,7 @@ export function useShell(onNavigate?: NavigateHandler) {
       pushScrollback(draft, [{ text: promptLine, variant: "prompt" }]);
     }
     if (stdout) {
-      pushScrollback(draft, [{ text: truncateForDisplay(stdout, 4000), variant: "normal" }]);
+      pushScrollback(draft, [{ text: truncateForDisplay(stdout, MAX_LINE_RENDER_LEN), variant: "normal" }]);
     }
     if (stderr) {
       pushScrollback(draft, [{ text: stderr, variant: "error" }]);
