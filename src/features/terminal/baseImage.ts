@@ -1,16 +1,14 @@
 import { HOME } from "@/features/terminal/shell.constants";
 import type { FsDir, FsFile, FsNode } from "@/features/terminal/shell.types";
+import { renderCareerSummary } from "@/data/careerText";
 
 const NOW = 1_700_000_000_000;
 
 const RESUME_SH = `#!/usr/bin/env bash
-# fetch résumé PDF, open site
+# print career summary, open site
 set -euo pipefail
-RESUME_URL="https://nigel-smith.dev/resume.pdf"
-DEST="\${HOME}/Downloads/nigel-smith-resume.pdf"
-echo "Fetching résumé from \${RESUME_URL} ..."
-curl -fsSL --retry 3 -o "\${DEST}" "\${RESUME_URL}"
-echo "Saved to \${DEST}"
+cat <<'PORTFOLIO_RESUME'
+${renderCareerSummary()}PORTFOLIO_RESUME
 command -v xdg-open >/dev/null && xdg-open "https://nigel-smith.dev" || open "https://nigel-smith.dev"
 `;
 

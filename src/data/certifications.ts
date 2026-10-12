@@ -1,8 +1,9 @@
 import type { Certification } from "@/types";
+import { profile } from "@/data/profile";
 
 export const CREDLY_PROFILE_URL = "https://www.credly.com/users/nigeld-smith";
 
-/** Earned certs first, most recent to oldest; anticipated certs last. */
+/** Earned certs first; undated study plans are never counted as credentials. */
 export const certifications: Certification[] = [
   { name: "CompTIA Security+", issuer: "CompTIA", date: "Jul 2026", status: "earned" },
   {
@@ -18,7 +19,7 @@ export const certifications: Certification[] = [
     date: "Aug 2025",
     status: "earned",
   },
-  { name: "CompTIA Network+", issuer: "CompTIA", date: "Sep 2026", status: "anticipated" },
+  { name: profile.certificationStudy.name, issuer: profile.certificationStudy.issuer, status: "in-progress" },
 ];
 
 export const earnedCertifications = certifications.filter((c) => c.status === "earned");

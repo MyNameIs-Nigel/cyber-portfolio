@@ -36,7 +36,8 @@ describe("baseImage", () => {
     if (sh.ok && sh.node.kind === "file") {
       expect(sh.node.executable).toBe(true);
       expect(sh.node.readonly).toBe(true);
-      expect(sh.node.content).toContain("curl");
+      expect(sh.node.content).toContain("Cloud & IT Consultant");
+      expect(sh.node.content).not.toContain("resume.pdf");
     }
   });
 

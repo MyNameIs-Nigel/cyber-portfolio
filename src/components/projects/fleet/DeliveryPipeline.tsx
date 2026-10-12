@@ -9,7 +9,7 @@ import { PipelineNode } from "./PipelineNode";
 const RUN_DURATION_MS = 1900;
 
 /**
- * The line: the delivery path from a push to a live service.
+ * The delivery path from a published release to a verified service.
  *
  * Drawn as one horizontal track. It used to be a top-to-bottom spine with every
  * stage's commands listed beside it, which was honest but made the pipeline the
@@ -183,7 +183,7 @@ export function DeliveryPipeline({
           </div>
         ) : (
           <p className="text-xs leading-relaxed text-muted">
-            Five stages, one way, once per merge to <span className="font-mono text-fg/60">main</span>.
+            Five stages, once per published <span className="font-mono text-fg/60">release</span>.
             Pick a stage to see the commands it runs, or read the{" "}
             <span className="font-mono text-fg/60">release.yml</span> walkthrough in the write-up.
           </p>

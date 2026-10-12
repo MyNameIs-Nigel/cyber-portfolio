@@ -4,8 +4,6 @@ import { H1, H2, Paragraph } from "@/components/Typography";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { FakeShellSection } from "@/components/projects/FakeShellSection";
 import { FleetSection } from "@/components/projects/fleet/FleetSection";
-import { InteractiveProjectsSection } from "@/components/projects/InteractiveProjectsSection";
-import { interactiveProjects } from "@/data/interactiveProjects";
 import { projects } from "@/data/projects";
 
 
@@ -42,7 +40,6 @@ const sections = [
   { href: "#fleet", label: "SSH Arcade fleet" },
   { href: "#shell", label: "Portfolio shell" },
   { href: "#web-apps", label: "Web apps" },
-  { href: "#interactive", label: "Interactive" },
 ] as const;
 
 export default function ProjectsPage() {

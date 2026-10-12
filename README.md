@@ -26,8 +26,8 @@ Analytics and Speed Insights
 **Requirements:** Node.js 20.9 or later and npm.
 
 ```bash
-git clone https://github.com/mynameis-nigel/nextjs-portfolio.git
-cd nextjs-portfolio
+git clone https://github.com/mynameis-nigel/cyber-portfolio.git
+cd cyber-portfolio
 npm install
 npm run dev
 ```
@@ -100,3 +100,11 @@ usually means editing `src/data/`, not reshaping a page.
 - New live interactive projects must be registered in both
   `src/features/interactive/registry-meta.ts` and
   `src/features/interactive/InteractiveAppHost.tsx`.
+
+## Professional content
+
+`src/data/profile.ts` holds résumé-aligned education and experience. Certifications, skills,
+and fleet facts live in their corresponding data modules. `/llms.txt` is statically generated
+by `src/app/llms.txt/route.ts` from these sources, rather than maintained as a separate public
+file. The browser shell uses the same career summary and seeds an SSH Arcade project file.
+See [the content audit](docs/content-reconciliation.md) for the evidence and unresolved limits.

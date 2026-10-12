@@ -10,6 +10,7 @@ import "./globals.css";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { CREDLY_PROFILE_URL, earnedCertifications } from "@/data/certifications";
+import { profile } from "@/data/profile";
 
 export const viewport: Viewport = {
   themeColor: "#000000",
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s — Nigel Smith's Portfolio",
     default: "Nigel Smith's Portfolio",
   },
-  description: "Nigel Smith builds cloud infrastructure, automation, websites, and terminal games.",
+  description: profile.summary,
   alternates: { canonical: "/" },
   robots: {
     index: true,
@@ -55,12 +56,12 @@ const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   "@id": "https://nigel-smith.dev/#person",
-  name: "Nigel Smith",
-  url: "https://nigel-smith.dev",
-  jobTitle: "Technical Support",
+  name: profile.name,
+  url: profile.website,
+  jobTitle: profile.experience.filter((job) => job.dates.endsWith("Present")).map((job) => job.title),
   sameAs: [
-    "https://github.com/mynameis-nigel",
-    "https://www.linkedin.com/in/nigeld-smith/",
+    profile.github,
+    profile.linkedin,
     CREDLY_PROFILE_URL,
   ],
   hasCredential: earnedCertifications.map((cert) => ({

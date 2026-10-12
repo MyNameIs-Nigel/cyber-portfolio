@@ -1,24 +1,9 @@
 import type { FleetCabinet, PipelineStage, RecoveryStep, TopologyNode } from "@/types";
 import type { Stat } from "@/components/Stats";
 
-/**
- * ssharcade — a three-cabinet arcade you reach over SSH, and the pipeline that
- * keeps it shipped.
- *
- * Every string here is a real artifact read off the repos: job names from
- * `.github/workflows/release.yml`, tags from the publish step, hardening flags
- * from `deploy/docker-compose.yml`, and the RPO from a recorded kill-drill.
- * Nothing is paraphrased and nothing is invented — the section's whole argument
- * is that a reader who knows Actions or Compose recognises these on sight.
- *
- * Order of the section is the order of a visit: you see the arcade, you get the
- * command that opens it, you see what is behind the door. The delivery pipeline
- * is the last thing, because it is the answer to "how does that stay true",
- * which is not a question anyone asks before they have seen the thing.
- *
- * Accent is layer identity, held consistently across the rail, the loop, the
- * topology and the stats: 3 = source, 4 = verified (the suite, and the data that
- * is replicated off the box), 1 = CI/healthy, 2 = host.
+/** Fleet content verified against the public repositories on October 11, 2026.
+ * Availability is a dated public-API snapshot, not a live health feed.
+ * Recovery figures describe the previously recorded local MinIO drill.
  */
 
 export const FLEET_EYEBROW = "one host · four repos · ci/cd pipeline";
@@ -39,21 +24,9 @@ export const FLEET_TITLE = "Shipping a Go fleet to a box I can throw away";
 export const FLEET_CONNECT = "ssh play.ssharcade.dev";
 
 export const FLEET_CONNECT_NOTE =
-  "No account, no client, no install. If you have an SSH client you already have everything.";
+  "Use an SSH client and a keypair for persistent saves. Guest access for Farm and Moon Miner depends on server configuration; guest progress is discarded. Game status snapshot: October 11, 2026 (public API); check the lobby for current availability.";
 
-/**
- * The cabinets, as the router's menu lists them.
- *
- * Accent stays 1 for all three because on this page accent means layer, not
- * game — the games are the healthy service layer, the same colour they carry in
- * the topology. `chess` shows OFFLINE because that is its true state today: it
- * is in the registry ahead of its first deploy, and the prober degrades it in
- * the menu rather than breaking the arcade. Showing that is better evidence
- * than hiding it.
- *
- * Status is static, read off the fleet as it stands. The shape is the shape a
- * live prober would fill in, so wiring one up later is a data change.
- */
+/** Cabinet names match the registry; online status was observed on October 11, 2026. */
 export const fleetCabinets: FleetCabinet[] = [
   {
     name: "Farm",
@@ -70,11 +43,11 @@ export const fleetCabinets: FleetCabinet[] = [
     accent: 1,
   },
   {
-    name: "Chess",
+    name: "GAMBIT",
     slug: "chess",
     tagline: "Play the board over the wire.",
-    status: "offline",
-    note: "awaiting first release",
+    status: "online",
+    note: "Chess · SSH key required · alpha warning",
     accent: 1,
   },
 ];
@@ -82,24 +55,24 @@ export const fleetCabinets: FleetCabinet[] = [
 /** Item 5 of the section: the thing that makes three games feel like one place. */
 export const IDENTITY_HEADLINE = "Your key is your account.";
 export const IDENTITY_BODY =
-  "Same key, same saves, any game. The router hashes your public key and forwards that identity " +
+  "Same key, same game-specific saves on reconnect. The router hashes your public key and forwards that identity " +
   "inward, so there is nothing to sign up for and nothing to remember — and no game ever sees the " +
-  "key itself.";
+  "key itself. Guest sessions, when enabled, have no persistent saves; GAMBIT requires a key.";
 
 /** The turn from the arcade to the machinery. Set as a rule across the measure. */
 export const SHIPS_ITSELF = "and it ships itself";
 
 /* ----------------------------------------------------------- the pipeline */
 
-export const FLEET_TRIGGER = "git push origin main";
+export const FLEET_TRIGGER = "gh release create vX.Y.Z";
 
-/** The line: ordered, one-way, runs once per merge. */
+/** Release validation, verification, publication, deployment, and banner check. */
 export const pipelineStages: PipelineStage[] = [
   {
     number: "01",
-    label: "Commit",
-    artifacts: ["task branch → PR", "never main"],
-    annotation: "main deploys for real.",
+    label: "Release",
+    artifacts: ["vMAJOR.MINOR.PATCH", "release: published"],
+    annotation: "Non-prerelease only; tagged commit must be on main.",
     accent: 3,
   },
   {
@@ -107,30 +80,30 @@ export const pipelineStages: PipelineStage[] = [
     label: "Test",
     runner: "ubuntu-latest",
     artifacts: ["go vet ./...", "go build ./...", "go test -race ./..."],
-    annotation: "Runs again on release. Never skipped.",
+    annotation: "Release verification gates image publication.",
     accent: 4,
   },
   {
     number: "03",
     label: "Publish",
     runner: "ubuntu-latest",
-    artifacts: ["ghcr.io/…:latest", ":sha-b8315db"],
+    artifacts: ["ghcr.io/…:vX.Y.Z", "@sha256:<digest>"],
     annotation: "Auth is the run's own token. Nothing stored.",
     accent: 1,
   },
   {
     number: "04",
     label: "Deploy",
-    runner: "[self-hosted, production]",
-    artifacts: ["docker compose pull", "docker compose up -d"],
-    annotation: "Runs on the box, not over SSH.",
+    runner: "ubuntu-latest",
+    artifacts: ["GitHub OIDC → AWS role", "aws ssm send-command"],
+    annotation: "SSM runs the host script with the immutable image digest.",
     accent: 2,
   },
   {
     number: "05",
     label: "Live",
-    artifacts: ["● ONLINE", "~15s"],
-    annotation: "Prober confirms the new version.",
+    artifacts: ["SSH banner version", "rollback on failure"],
+    annotation: "Deployment checks the expected release version.",
     accent: 1,
   },
 ];
@@ -150,7 +123,7 @@ export const recoverySteps: RecoveryStep[] = [
 
 export const RECOVERY_CAPTION =
   "The volume is a cache; the bucket is the fleet's data. Credentials come from the EC2 instance " +
-  "role, so no AWS key exists in any image or compose file. Drilled locally against MinIO — a hard " +
+  "role, so no AWS key exists in any image or compose file. Previously drilled locally against MinIO — a hard " +
   "kill plus a volume delete restored clean, with a measured 12s RPO against an enforced 60s budget.";
 
 export const RECOVERY_LIMIT =
@@ -182,8 +155,8 @@ export const topologyNodes: TopologyNode[] = [
   {
     name: "chess",
     ports: "no published ports",
-    status: "offline",
-    posture: ["awaiting first release", "512m"],
+    status: "online",
+    posture: ["read_only", "uid 65532", "cap_drop: ALL", "512m"],
     accent: 1,
   },
 ];
@@ -192,22 +165,18 @@ export const TOPOLOGY_CHAIN = ["Route 53", "Elastic IP", "t3.small · us-east-1"
 
 export const TOPOLOGY_CAPTION =
   "The router terminates the player's SSH, then opens a second connection to the chosen game on a " +
-  "private bridge network. Games publish nothing, so the router is the only public listener and the " +
-  "only place rate limiting has to happen. A game that is down degrades to OFFLINE in the menu " +
-  "instead of breaking the arcade.";
+  "private bridge network. Games publish nothing, so the router is the only public SSH listener and the " +
+  "entry point for connection rate limiting. A game that is down degrades to OFFLINE in the menu " +
+  "instead of breaking the arcade. Statuses are the October 11, 2026 public-API snapshot; a separate Caddy service exposes web ports 80 and 443.";
 
 /* --------------------------------------------------------------- the stats */
 
-/**
- * What the arrangement bought, one number each: the host, the data, the loop
- * that keeps it current, and the size of the attack surface. The test count
- * moved to the write-up — it is evidence for a claim this strip no longer makes.
- */
+/** Avoid unmeasured cost and deployment-time claims. */
 export const fleetStats: Stat[] = [
-  { value: 0, prefix: "$", suffix: "/mo", label: "Marginal cost of the next game on the box", accent: 2 },
-  { value: 12, suffix: "s", label: "Measured RPO in a kill-drill (60s budget)", accent: 4 },
-  { value: 15, prefix: "~", suffix: "s", label: "Merge to live, tests included", accent: 1 },
-  { value: 1, label: "Public port for the whole fleet", accent: 2 },
+  { value: 3, label: "Games in the fleet", accent: 2 },
+  { value: 12, suffix: "s", label: "RPO in the recorded local kill-drill (60s budget)", accent: 4 },
+  { value: 4, label: "Independently released Go services", accent: 1 },
+  { value: 1, label: "Public SSH port (web uses 80/443)", accent: 2 },
 ];
 
 export function getPipelineStage(number: string): PipelineStage | undefined {

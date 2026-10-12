@@ -59,7 +59,7 @@ export function HeroCast() {
             <span className={i === frame.strip ? "text-accent-1" : undefined}>{scene}</span>
           </span>
         ))}
-        <span className="ml-auto tabular-nums text-fg/35">{LOOP_LABEL} · loops</span>
+        <span className="ml-auto tabular-nums text-fg/35">Scripted demo · {LOOP_LABEL} · loops</span>
       </figcaption>
     </figure>
   );

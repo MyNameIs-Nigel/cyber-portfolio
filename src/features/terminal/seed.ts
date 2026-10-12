@@ -2,6 +2,7 @@ import { projects } from "@/data/projects";
 import { mkdirPath, writeFileContent } from "@/features/terminal/filesystem";
 import { SEED_VERSION } from "@/features/terminal/shell.constants";
 import type { FsDir } from "@/features/terminal/shell.types";
+import { FLEET_SUMMARY, FLEET_TAGS } from "@/data/fleetCaseStudy";
 
 export { SEED_VERSION };
 
@@ -42,4 +43,12 @@ export function seedProjectFiles(root: FsDir): void {
       false,
     );
   }
+  writeFileContent(root, "/", "/home/guest/projects/ssh-arcade-fleet.txt", renderProject({
+    title: "SSH Arcade",
+    description: FLEET_SUMMARY,
+    tags: FLEET_TAGS,
+    link: "https://ssharcade.dev/",
+    repoUrl: "https://github.com/mynameis-nigel/ssh-arcadelobby",
+    content: ["Case study: https://nigel-smith.dev/projects/ssh-arcade-fleet"],
+  }), false);
 }

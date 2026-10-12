@@ -4,27 +4,28 @@ import Link from "next/link";
 import { H2 } from "@/components/Typography";
 import { CREDLY_PROFILE_URL, certifications } from "@/data/certifications";
 import type { Certification } from "@/types";
+import { profile } from "@/data/profile";
 
 type Status = Certification["status"];
 
 const hoverBorder: Record<Status, string> = {
   earned: "hover:border-accent-1/50",
-  anticipated: "hover:border-accent-2/50",
+  "in-progress": "hover:border-accent-2/50",
 };
 
 const dotColor: Record<Status, string> = {
   earned: "bg-accent-1",
-  anticipated: "bg-accent-2",
+  "in-progress": "bg-accent-2",
 };
 
 const chipStyle: Record<Status, string> = {
   earned: "border-accent-1/30 bg-accent-1/10 text-accent-1",
-  anticipated: "border-accent-2/30 bg-accent-2/10 text-accent-2",
+  "in-progress": "border-accent-2/30 bg-accent-2/10 text-accent-2",
 };
 
 const chipLabel: Record<Status, string> = {
   earned: "Earned",
-  anticipated: "Expected",
+  "in-progress": "Studying",
 };
 
 /** Verified-badge rosette, in the hand-rolled inline-SVG style used in Footer.tsx. */
@@ -54,7 +55,7 @@ export function CertificationsSection() {
           </div>
           <figcaption className="mt-3 text-center sm:text-left">
             <p className="text-sm font-semibold text-fg">Nigel Smith</p>
-            <p className="text-xs text-muted">B.S. Cybersecurity · BYU–Idaho</p>
+            <p className="text-xs text-muted">{profile.education.degree} student · BYU–Idaho</p>
           </figcaption>
         </figure>
 
@@ -72,7 +73,7 @@ export function CertificationsSection() {
                 <span className="min-w-0">
                   <span className="block text-sm font-medium text-fg">{cert.name}</span>
                   <span className="mt-0.5 block font-mono text-xs text-muted">
-                    {cert.issuer} · {cert.date}
+                    {cert.issuer}{cert.date ? ` · ${cert.date}` : ""}
                   </span>
                 </span>
               </span>

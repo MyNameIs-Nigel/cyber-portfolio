@@ -44,8 +44,8 @@ There is **no server state**. A canonical, read-only filesystem (the *base image
 create under a writable path is saved as a small *overlay* in `localStorage` and replayed on their
 next visit. One visitor never sees another's files; there is nothing to fill, corrupt, or moderate.
 
-On **first boot** (no overlay for `portfolio-shell-fs:v3`), `storage.ts` also calls `seedProjectFiles()`
-to create writable `~/projects/<slug>.txt` files from `src/data/projects.ts` and persists that overlay
+On **first boot** (no overlay for `portfolio-shell-fs:v4`), `storage.ts` also calls `seedProjectFiles()`
+to create writable `~/projects/<slug>.txt` files from `src/data/projects.ts`, plus the SSH Arcade summary, and persists that overlay
 immediately.
 
 ### Data flow
@@ -94,15 +94,15 @@ type FsDir = { kind: "dir"; name: string; children: Map<string, FsNode>; readonl
 
 `HOME = /home/guest`, `USER = guest`, `HOSTNAME = portfolio`.
 
-### Base image highlights (`baseImage.ts`, `FS_SCHEMA_VERSION = 3`)
+### Base image highlights (`baseImage.ts`, `FS_SCHEMA_VERSION = 4`)
 
 | Path | Kind | Notes |
 |------|------|-------|
 | `/home/guest/README.txt` | file (ro) | how-to; **only** place with the “nothing is real” disclaimer |
-| `/home/guest/resume.sh` | file (ro, **exec**) | believable curl script; `./resume.sh` runs `scripts.ts` handler |
+| `/home/guest/resume.sh` | file (ro, **exec**) | career summary script; `./resume.sh` runs `scripts.ts` handler |
 | `/home/guest/.bashrc` | file (hidden) | aliases (`ll`, `la`, `..`) + PS1; sourced into the session at boot |
 | `/home/guest/.config/starship.toml` | file (hidden, ro) | prompt config flavor |
-| `/home/guest/projects/*.txt` | files (writable) | seeded on first boot from `projects.ts` (overlay, not base) |
+| `/home/guest/projects/*.txt` | files (writable) | seeded on first boot from `projects.ts` and fleet data (overlay, not base) |
 | `/etc/motd` | file (ro) | portfolio welcome banner (`cat` shows this only) |
 | `/etc/os-release`, `/etc/hostname` | files (ro) | consistent with MOTD |
 | `/usr/bin/{curl,git,node,vim}` | exec stubs | `Exec format error` if run |
@@ -154,10 +154,10 @@ session aliases; they are not written back to `~/.bashrc`.
 
 ## Persistence (`storage.ts`)
 
-- **Key:** `portfolio-shell-fs:v3` (`FS_SCHEMA_VERSION = 3`).
+- **Key:** `portfolio-shell-fs:v4` (`FS_SCHEMA_VERSION = 4`).
 - **First boot:** `seedProjectFiles()` → `saveShellFs()` so project files live in the overlay.
 - **Return visit:** overlay applied; seeded files are editable/deletable like any user file; no reseed.
-- **Version bump:** new key → clean base image + fresh seed (v1 sandboxes ignored).
+- **Version bump:** new key → clean base image + fresh seed (older sandboxes ignored).
 
 Session variables and aliases remain in-memory only.
 
@@ -181,7 +181,7 @@ No `fetch`, `eval`, or `dangerouslySetInnerHTML` in this feature.
 
 ## The view (`FakeShellApp.tsx`)
 
-Same terminal chrome as before. After `./resume.sh`, prints curl-style output, a dim `Redirecting…` line,
+Same terminal chrome as before. After `./resume.sh`, prints the same career summary served at `/llms.txt`, a dim `Redirecting…` line,
 locks input, then `router.push("/")` after ~1.2s.
 
 ---
@@ -212,3 +212,11 @@ Vitest suites include `scripts`, `seed`, `baseImage`, `commands/help`, `aliases`
 5. **`open` / `xdg-open`** — portfolio-aware `router.push` to case-study pages.
 6. **`history`** — print in-memory history.
 7. **`man`** — longer help pager.
+
+## October 2026 content reconciliation
+
+The base image now prints a career summary instead of claiming a download of a nonexistent
+`/resume.pdf`. `src/data/careerText.ts` renders the shared professional facts for both this script
+and `/llms.txt`. The shell still makes no network request and retains its fixed homepage redirect.
+Version 4 reseeds the updated project files, including SSH Arcade. Prior sandbox overlays are left
+in their old localStorage key and are not loaded into the new sandbox.

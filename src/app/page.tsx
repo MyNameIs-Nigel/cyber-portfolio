@@ -16,11 +16,12 @@ import { roadmapSections } from "@/data/roadmap";
 import { skillCategories } from "@/data/skills";
 import { terminalHeaders, terminalInput, terminalRows, terminalTitle } from "@/data/terminal";
 import { QuoteBlock } from "@/components/QuoteBlock";
+import { profile, workHighlights } from "@/data/profile";
 
 const heroStats: Stat[] = [
   { value: 14, suffix: "%", label: "AWS cost reduced", accent: 1 },
   { value: earnedCertifications.length, label: "Certifications", accent: 4 },
-  { value: 11, label: "Web apps shipped", accent: 3 },
+  { value: 200, suffix: "+", label: "Support calls monthly", accent: 3 },
   { value: 3, suffix: "+", label: "Years in tech", accent: 2 },
 ];
 
@@ -71,39 +72,24 @@ export default function HomePage() {
         <H3>Education</H3>
         <div className="mt-4 space-y-8">
           <div>
-            <p className="font-semibold text-fg">Brigham Young University–Idaho</p>
-            <p className="text-sm text-muted">B.S. Cybersecurity · EST. 2027</p>
+            <p className="font-semibold text-fg">{profile.education.school}</p>
+            <p className="text-sm text-muted">{profile.education.degree} · {profile.education.graduation}</p>
             <ul className="mt-2 space-y-1 text-sm text-muted">
-              <li>• Cloud Infrastructure</li>
-              <li>• Networking</li>
-              <li>• Cybersecurity</li>
-              <li>• Programming</li>
+              {profile.education.coursework.map((course) => <li key={course}>• {course}</li>)}
             </ul>
           </div>
         </div>
         <H3>Highlighted Experience</H3>
         <div className="mt-4 space-y-8">
-          <div>
-            <p className="font-semibold text-fg">Roundsphere</p>
-            <p className="text-sm text-muted">DevOps Intern · Nov 2025 – May 2026 · Remote / Athens, GA</p>
-            <ul className="mt-2 space-y-1 text-sm text-muted">
-              <li>• Migrated production apps to AWS CloudFormation IaC</li>
-              <li>• Reduced cloud spend 14% by auditing and consolidating AWS RDS</li>
-              <li>• Oversaw Google Workspace org-to-org migrations</li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-semibold text-fg">Fybercom</p>
-            <p className="text-sm text-muted">Technical Support · March 2026 – Present · Idaho Falls, ID</p>
-            <ul className="mt-2 space-y-1 text-sm text-muted">
-              <li>• Configures Ubiquiti, Cambium, and Tarana radios and fiber equipment</li>
-              <li>• Manages CRM systems to resolve customer network and speed tickets</li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-semibold text-fg">The Home Depot</p>
-            <p className="text-sm text-muted">Service Desk Associate · Aug 2022 – Jan 2025 · Monroe, GA</p>
-          </div>
+          {profile.experience.map((job) => (
+            <div key={job.company}>
+              <p className="font-semibold text-fg">{job.company}</p>
+              <p className="text-sm text-muted">{job.title} · {job.dates} · {job.location}</p>
+              <ul className="mt-2 space-y-1 text-sm text-muted">
+                {job.bullets.map((bullet) => <li key={bullet}>• {bullet}</li>)}
+              </ul>
+            </div>
+          ))}
         </div>
 
         <SectionDivider />
@@ -113,7 +99,7 @@ export default function HomePage() {
         <SectionDivider />
 
         <H2>Work I&apos;m Proud Of</H2>
-        <AccentList accent={4} items={["Cut monthly AWS costs by 14% ($700) after auditing and consolidating RDS infrastructure", "Moved enterprise Google Workspace environments without interrupting users", "Built and launched client websites, including their DNS and domain setup"]} />
+        <AccentList accent={4} items={workHighlights} />
 
         <SectionDivider />
 
