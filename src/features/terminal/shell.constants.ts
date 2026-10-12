@@ -1,4 +1,4 @@
-export const FS_SCHEMA_VERSION = 4;
+export const FS_SCHEMA_VERSION = 5;
 export const SEED_VERSION = 1;
 export const STORAGE_KEY = `portfolio-shell-fs:v${FS_SCHEMA_VERSION}`;
 

@@ -32,13 +32,19 @@ Page content lives in plain TypeScript modules under `src/data/` (e.g. `projects
 `getXBySlug` lookup helper. **To change site content, edit these data files** — pages map over
 them rather than hard-coding copy. All shared types live in `src/types/index.ts`.
 
-### Routing & dynamic pages
-- `src/app/projects/[slug]/page.tsx` — case-study pages, params from `projects.ts`
+### Routing & project pages
+- `src/app/projects/<slug>/page.tsx` — one dedicated page per featured web app in `projects.ts`
+  (`ndsironwood`, `ssharcade`, `bus321`, `full-coverage-technology`, in display order). Each page
+  wraps its own write-up in `ProjectPage` (`src/components/projects/ProjectPage.tsx`: back link,
+  screenshot slideshow, title, tags, links) and exports `metadata = projectMetadata(project)`.
+  Adding a project means adding both the data entry and the page folder — `src/data/projects.test.ts`
+  enforces the pairing and that every screenshot path exists. Screenshots are 2400×1600
+  quality-80 JPEGs in `public/projects/<folder>/`.
+- `src/app/projects/ssh-arcade-fleet/page.tsx` — the SSH Arcade infrastructure case study (the
+  `ssharcade` page above covers the website instead).
 - `src/app/projects/interactive/[slug]/page.tsx` — interactive project pages, params from
-  `interactiveProjects.ts`
-
-Both dynamic routes use `generateStaticParams()` (from the data arrays) + `generateMetadata()`
-and call `notFound()` for unknown slugs. They are static-by-default server components.
+  `interactiveProjects.ts`. Uses `generateStaticParams()` + `generateMetadata()` and calls
+  `notFound()` for unknown slugs.
 
 ### Interactive apps (`src/features/interactive/`)
 A registry pattern keeps the static project list decoupled from shipped interactive code, which

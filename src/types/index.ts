@@ -171,11 +171,11 @@ export interface Project {
   tags: string[];
   link?: string;
   image?: string;
+  /** Also the folder name of the project's dedicated page under `src/app/projects/`. */
   slug: string;
   screenshots: string[];
-  /** One string per paragraph in the case study write-up. */
+  /** Plain-text summary paragraphs, reused by the fake shell's `~/projects/<slug>.txt`. */
   content: string[];
-  demoUrl?: string;
   repoUrl?: string;
   preview?: ProjectPreview;
 }
