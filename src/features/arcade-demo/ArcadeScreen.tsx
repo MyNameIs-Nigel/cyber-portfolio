@@ -95,7 +95,7 @@ function LobbyScreen({ frame, compact }: { frame: DemoFrame; compact: boolean })
         </BorderLabel>
         {compact ? null : (
           <BorderLabel side="top" align="right" color={TERM.cyanDim}>
-            play.ssharcade.dev
+            ssharcade.dev
           </BorderLabel>
         )}
 
