@@ -45,3 +45,10 @@ next-env.d.ts
 PLAN.md
 # WSL/Windows alternate-data-stream metadata
 *:Zone.Identifier
+
+# ChatGPT Sites
+sites/
+
+# Agentic Folders
+.agents/
+.claude/
