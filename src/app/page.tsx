@@ -7,12 +7,10 @@ import { Stats, type Stat } from "@/components/Stats";
 import { H1, H2, H3, Paragraph } from "@/components/Typography";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { SkillCard } from "@/components/cards/SkillCard";
-import { Roadmap } from "@/components/Roadmap";
 import { CertificationsSection } from "@/components/CertificationsSection";
 import { earnedCertifications } from "@/data/certifications";
 import { projects } from "@/data/projects";
 import Link from "next/link";
-import { roadmapSections } from "@/data/roadmap";
 import { skillCategories } from "@/data/skills";
 import { terminalHeaders, terminalInput, terminalRows, terminalTitle } from "@/data/terminal";
 import { QuoteBlock } from "@/components/QuoteBlock";
@@ -124,12 +122,6 @@ export default function HomePage() {
           <Terminal title={terminalTitle} columnHeaders={terminalHeaders} rows={terminalRows} input={terminalInput} mobileHiddenColumns={[0, 3]} />
         </div>
 
-        <SectionDivider />
-
-        <H2>Future Roadmap</H2>
-        <div className="mt-4">
-          <Roadmap sections={roadmapSections} />
-        </div>
       </Container>
     </main>
   );
