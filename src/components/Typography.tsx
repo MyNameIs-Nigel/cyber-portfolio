@@ -4,8 +4,22 @@ function headingClass(extra: string) {
   return `tracking-tight leading-tight text-fg ${extra}`.trim();
 }
 
-export function H1({ children, className = "", firstOnPage = false }: { children: ReactNode; className?: string; firstOnPage?: boolean }) {
-  return <h1 className={headingClass(`${firstOnPage ? "mb-4" : "mt-12 mb-4"} text-3xl font-bold ${className}`)}>{children}</h1>;
+export function H1({
+  children,
+  className = "",
+  firstOnPage = false,
+  id,
+}: {
+  children: ReactNode;
+  className?: string;
+  firstOnPage?: boolean;
+  id?: string;
+}) {
+  return (
+    <h1 id={id} className={headingClass(`${firstOnPage ? "mb-4" : "mt-12 mb-4"} text-3xl font-bold ${className}`)}>
+      {children}
+    </h1>
+  );
 }
 
 export function H2({ children, className = "", id }: { children: ReactNode; className?: string; id?: string }) {

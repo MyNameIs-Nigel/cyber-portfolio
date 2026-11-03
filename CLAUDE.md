@@ -88,6 +88,17 @@ nothing runs below `MIN_VIEWPORT_WIDTH`, and reduced motion paints a single stil
 register it in `scenes/index.ts` and `AMBIENT_SCENES`. The night scene's moon uses `moonPhase.ts` (real phase,
 flipped for southern-hemisphere time zones); firefly synchrony is the Kuramoto model in `scenes/fireflySync.ts`.
 
+### Constellation sky (`src/features/constellations/`)
+The centrepiece of `/about`: hobbies drawn as constellations in a pinned, full-bleed night sky
+(`SKY_HEIGHT_LVH` tall) that pans as you scroll, with parallax star layers and a pre-rendered Milky
+Way. Content (names, copy, the coding branch list) lives in `src/data/interests.ts`; figure geometry
+and the staggered placements live in `figures.ts`. Desktop turns the cursor into a spyglass — hold
+to pull focus; defocus, halation and colour fringing come from `optics.ts` — and touch screens get
+a fixed viewfinder plus a draggable focus ring (`FocusDial`). A full focus zooms the camera in and
+opens `ConstellationDialog`, which maps each interest to its experience in `experiences/`.
+`SkyEngine` is one imperative rAF loop that writes styles through refs; React only hears about
+engage/lock events. A Browser pane that is hidden pauses rAF, so the sky looks frozen there.
+
 ### Health check
 `src/app/_selfcheck/route.ts` — `force-dynamic` JSON endpoint. Returns basic status publicly;
 returns runtime/memory/deployment detail only with a valid `Bearer` token matching the
