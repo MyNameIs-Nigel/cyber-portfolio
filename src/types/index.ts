@@ -262,3 +262,34 @@ export interface TopologyNode {
   posture: string[];
   accent: Accent;
 }
+
+export type InterestId = "photography" | "music" | "coding" | "cars";
+
+/** One hobby on /about, drawn in the sky as a constellation that opens onto its own small experience. */
+export interface Interest {
+  id: InterestId;
+  /** Star-chart numbering, in the order the sky reveals them on the way down. */
+  numeral: string;
+  /** The constellation's made-up Latin name. */
+  constellation: string;
+  /** What the Latin means, glossed the way a star atlas would. */
+  gloss: string;
+  title: string;
+  tagline: string;
+  description: string;
+  /** One line inside the spyglass hinting at what is behind the constellation. */
+  teaser: string;
+  tags: string[];
+  accent: Accent;
+}
+
+/** A side project on the coding constellation's branch graph. */
+export interface Experiment {
+  /** Branch name, without the `feat/` or `wip/` prefix. */
+  branch: string;
+  title: string;
+  description: string;
+  /** Merged ships somewhere on the site; open is still an idea or in progress. */
+  state: "merged" | "open";
+  href?: string;
+}
