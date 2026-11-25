@@ -31,7 +31,7 @@ import {
  */
 
 const DESCRIPTION =
-  "How a four-repo Go fleet ships through GitHub Actions onto a single EC2 instance, with SQLite replicated to S3 so the host is disposable.";
+  "How a five-repo Go fleet ships through GitHub Actions onto a single EC2 instance, with SQLite replicated to S3 so the host is disposable.";
 
 export const metadata: Metadata = {
   title: "SSH Arcade — the fleet",

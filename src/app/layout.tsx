@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Nigel Smith's Portfolio",
-    description: "Cloud infrastructure, automation, websites, and terminal games by Nigel Smith.",
+    description: "Security, infrastructure, CI/CD, and AI-assisted automation by Nigel Smith.",
     siteName: "Nigel Smith's Portfolio",
     locale: "en_US",
     type: "website",
@@ -59,7 +59,7 @@ const personSchema = {
   "@id": "https://nigel-smith.dev/#person",
   name: profile.name,
   url: profile.website,
-  jobTitle: profile.experience.filter((job) => job.dates.endsWith("Present")).map((job) => job.title),
+  jobTitle: profile.experience.flatMap((job) => job.roles.filter((role) => role.dates.endsWith("Present")).map((role) => role.title)),
   sameAs: [
     profile.github,
     profile.linkedin,

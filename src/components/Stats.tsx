@@ -25,16 +25,17 @@ const hoverBorder: Record<Accent, string> = {
   4: "hover:border-accent-4/50",
 };
 
+/**
+ * Renders the real value first, so the server HTML, crawlers and visitors
+ * without JavaScript see the number rather than 0. Once the row scrolls into
+ * view the count replays from 0, unless the user prefers reduced motion.
+ */
 function StatItem({ stat, run }: { stat: Stat; run: boolean }) {
-  const [display, setDisplay] = useState(0);
+  const [display, setDisplay] = useState(stat.value);
 
   useEffect(() => {
     if (!run) return;
-    // Jump straight to the final value when the user prefers reduced motion.
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const id = requestAnimationFrame(() => setDisplay(stat.value));
-      return () => cancelAnimationFrame(id);
-    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let raf = 0;
     const duration = 1100;
     const start = performance.now();

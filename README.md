@@ -1,7 +1,7 @@
 # Cyber Portfolio
 
-A technical portfolio built to make the work easy to inspect: cloud and DevOps
-experience, shipped client sites, an AWS-backed SSH arcade fleet, and browser
+A technical portfolio built to make the work easy to inspect: security,
+infrastructure, and DevOps experience, shipped client sites, an AWS-backed SSH arcade fleet, and browser
 experiments that reward a little curiosity.
 
 The interface is deliberately dark, direct, and fast. Its interactive Unix-ish
@@ -12,6 +12,7 @@ without executing anything on a server.
 
 - Case studies and live previews for production websites
 - A project page covering CI/CD and infrastructure for an SSH arcade fleet
+- Self-hosted automation and AI workflow projects (n8n, local models, a custom MCP server)
 - A safe, persistent-in-the-browser fake shell with pipes, redirects, and tab completion
 - Interactive experiments, including a playable Minesweeper implementation
 - A contact endpoint, health check, sitemap, robots file, and structured metadata

@@ -2,18 +2,23 @@ import type { FleetCabinet, PipelineStage, RecoveryStep, TopologyNode } from "@/
 import type { Stat } from "@/components/Stats";
 
 /** Fleet content verified against the public repositories on October 11, 2026.
- * Availability is a dated public-API snapshot, not a live health feed.
+ * Bulletin, the fifth service, was checked against its repository, the lobby's
+ * deploy files, and ssharcade.dev on November 25, 2026.
+ * Availability is a dated snapshot, not a live health feed.
  * Recovery figures describe the previously recorded local MinIO drill.
  */
 
-export const FLEET_EYEBROW = "one host · four repos · ci/cd pipeline";
+/** The router plus one service per cabinet, each in its own repository. */
+export const FLEET_SERVICE_COUNT = 5;
+
+export const FLEET_EYEBROW = "one host · five repos · ci/cd pipeline";
 
 /** The headline on /projects. Names the arcade, not the box. */
-export const FLEET_HEADLINE = "Three games accessible by one SSH command.";
+export const FLEET_HEADLINE = "Three games and a message board, one SSH command away.";
 
-/** The box is still the interesting engineering — it is just not the hook. */
+/** The box is still the interesting engineering. It is just not the hook. */
 export const FLEET_SUBHEAD =
-  "Four Go services behind a single SSH port on one EC2 instance, and every save streamed to S3 " +
+  "Five Go services behind a single SSH port on one EC2 instance, with every save streamed to S3 " +
   "so the box underneath is one I can throw away.";
 
 /** The write-up's own title. The deep-dive is allowed to lead with the box. */
@@ -24,9 +29,9 @@ export const FLEET_TITLE = "Shipping a Go fleet to a box I can throw away";
 export const FLEET_CONNECT = "ssh ssharcade.dev";
 
 export const FLEET_CONNECT_NOTE =
-  "Use an SSH client and a keypair for persistent saves. Guest access for Farm and Moon Miner depends on server configuration; guest progress is discarded. Game status snapshot: October 11, 2026 (public API); check the lobby for current availability.";
+  "Use an SSH client and a keypair to keep your saves. Farm and Moon Miner may allow guests, but guest progress is discarded. Statuses are a snapshot, not a live feed: the games were checked on October 11, 2026, and Bulletin joined in November. The lobby shows what is online right now.";
 
-/** Cabinet names match the registry; online status was observed on October 11, 2026. */
+/** Cabinet names match the registry. Statuses are the snapshot dated in FLEET_CONNECT_NOTE. */
 export const fleetCabinets: FleetCabinet[] = [
   {
     name: "Farm",
@@ -50,14 +55,22 @@ export const fleetCabinets: FleetCabinet[] = [
     note: "Chess · SSH key required · alpha warning",
     accent: 1,
   },
+  {
+    name: "Bulletin",
+    slug: "bulletin",
+    tagline: "A message board for the arcade. Drafts autosave as you type.",
+    status: "online",
+    note: "Message board · SSH key required · alpha warning",
+    accent: 1,
+  },
 ];
 
-/** Item 5 of the section: the thing that makes three games feel like one place. */
+/** Item 5 of the section: the thing that makes four cabinets feel like one place. */
 export const IDENTITY_HEADLINE = "Your key is your account.";
 export const IDENTITY_BODY =
-  "Same key, same game-specific saves on reconnect. The router hashes your public key and forwards that identity " +
-  "inward, so there is nothing to sign up for and nothing to remember — and no game ever sees the " +
-  "key itself. Guest sessions, when enabled, have no persistent saves; GAMBIT requires a key.";
+  "Same key, same saves every time you reconnect. The router hashes your public key and forwards that identity " +
+  "inward, so there is nothing to sign up for and nothing to remember, and no game ever sees the " +
+  "key itself. Guest sessions, where allowed, keep no saves. GAMBIT and Bulletin require a key.";
 
 /** The turn from the arcade to the machinery. Set as a rule across the measure. */
 export const SHIPS_ITSELF = "and it ships itself";
@@ -123,11 +136,11 @@ export const recoverySteps: RecoveryStep[] = [
 
 export const RECOVERY_CAPTION =
   "The volume is a cache; the bucket is the fleet's data. Credentials come from the EC2 instance " +
-  "role, so no AWS key exists in any image or compose file. Previously drilled locally against MinIO — a hard " +
-  "kill plus a volume delete restored clean, with a measured 12s RPO against an enforced 60s budget.";
+  "role, so no AWS key exists in any image or compose file. In an earlier local drill against MinIO, a hard " +
+  "kill plus a volume delete restored cleanly, with a measured 12s RPO against an enforced 60s budget.";
 
 export const RECOVERY_LIMIT =
-  "Those drills prove the mechanism. Only the live host proves the credentials — an instance-loss drill is still on the list.";
+  "Those drills prove the mechanism. Only the live host proves the credentials, and an instance-loss drill is still on the list.";
 
 /** The nest: containment. One public listener wrapping private ones. */
 export const topologyNodes: TopologyNode[] = [
@@ -159,6 +172,13 @@ export const topologyNodes: TopologyNode[] = [
     posture: ["read_only", "uid 65532", "cap_drop: ALL", "512m"],
     accent: 1,
   },
+  {
+    name: "bulletin",
+    ports: "no published ports",
+    status: "online",
+    posture: ["read_only", "uid 65532", "cap_drop: ALL", "256m"],
+    accent: 1,
+  },
 ];
 
 export const TOPOLOGY_CHAIN = ["Route 53", "Elastic IP", "t3.small · us-east-1"];
@@ -167,15 +187,15 @@ export const TOPOLOGY_CAPTION =
   "The router terminates the player's SSH, then opens a second connection to the chosen game on a " +
   "private bridge network. Games publish nothing, so the router is the only public SSH listener and the " +
   "entry point for connection rate limiting. A game that is down degrades to OFFLINE in the menu " +
-  "instead of breaking the arcade. Statuses are the October 11, 2026 public-API snapshot; a separate Caddy service exposes web ports 80 and 443.";
+  "instead of breaking the arcade. Statuses are a snapshot (games checked October 11, 2026; Bulletin added in November). A separate Caddy service exposes web ports 80 and 443.";
 
 /* --------------------------------------------------------------- the stats */
 
 /** Avoid unmeasured cost and deployment-time claims. */
 export const fleetStats: Stat[] = [
-  { value: 3, label: "Games in the fleet", accent: 2 },
+  { value: fleetCabinets.length, label: "Cabinets in the arcade", accent: 2 },
   { value: 12, suffix: "s", label: "RPO in the recorded local kill-drill (60s budget)", accent: 4 },
-  { value: 4, label: "Independently released Go services", accent: 1 },
+  { value: FLEET_SERVICE_COUNT, label: "Independently released Go services", accent: 1 },
   { value: 1, label: "Public SSH port (web uses 80/443)", accent: 2 },
 ];
 

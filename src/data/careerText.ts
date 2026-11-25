@@ -4,6 +4,7 @@ import { skillCategories } from "@/data/skills";
 import { projects } from "@/data/projects";
 import { FLEET_SUMMARY, FLEET_TAGS, FLEET_LIMITS } from "@/data/fleetCaseStudy";
 import { FLEET_CONNECT, FLEET_CONNECT_NOTE } from "@/data/fleet";
+import { automationProjects } from "@/data/automation";
 
 /** Used by both the shell résumé and the public machine-readable profile. */
 export function renderCareerSummary(): string {
@@ -24,8 +25,11 @@ export function renderCareerSummary(): string {
     "",
     "## Work Experience",
     ...profile.experience.flatMap((job) => [
-      "", `### ${job.title} — ${job.company} (${job.dates})`, job.location,
-      ...job.bullets.map((bullet) => `- ${bullet}`),
+      "", `### ${job.company} — ${job.location}`,
+      ...job.roles.flatMap((role) => [
+        "", `#### ${role.title} (${role.dates})`,
+        ...role.bullets.map((bullet) => `- ${bullet}`),
+      ]),
     ]),
     "",
     "## Certifications",
@@ -52,9 +56,17 @@ export function renderCareerSummary(): string {
       ...(project.repoUrl ? [`Source: ${project.repoUrl}`] : []),
     ]),
     "",
+    "## Automation & AI Workflows",
+    ...automationProjects.flatMap((project) => [
+      "", `### ${project.title} (${project.status === "in-use" ? "in use" : "in progress"})`,
+      project.description,
+      `Stack: ${project.tags.join(", ")}`,
+    ]),
+    "",
     "## Currently",
-    "- Seeking DevOps and cloud roles, with an interest in cloud security",
-    `- ${profile.certificationStudy.description}`,
+    `- ${profile.title} at Fybercom`,
+    "- Interested in DevSecOps, CI/CD, and putting AI to work in everyday workflows",
+    `- Studying for ${profile.certificationStudy.map((study) => study.name).join(", ")}`,
     "",
   ].join("\n");
 }
