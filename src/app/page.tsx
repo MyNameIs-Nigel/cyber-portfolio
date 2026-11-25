@@ -92,7 +92,7 @@ export default function HomePage() {
                       {role.title}
                       {job.roles.length > 1 && i === 0 ? (
                         <span className="ml-2 rounded-full border border-accent-1/30 bg-accent-1/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-accent-1">
-                          Promoted
+                          Current
                         </span>
                       ) : null}
                     </p>

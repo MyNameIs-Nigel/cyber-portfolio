@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local ChatGPT Sites exports are outside the root app.
+    "sites/",
   ]),
 ]);
 
