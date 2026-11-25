@@ -19,7 +19,7 @@ export const certifications: Certification[] = [
     date: "Aug 2025",
     status: "earned",
   },
-  { name: profile.certificationStudy.name, issuer: profile.certificationStudy.issuer, status: "in-progress" },
+  ...profile.certificationStudy.map((study): Certification => ({ ...study, status: "in-progress" })),
 ];
 
 export const earnedCertifications = certifications.filter((c) => c.status === "earned");

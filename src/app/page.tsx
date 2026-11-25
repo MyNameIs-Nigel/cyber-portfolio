@@ -15,16 +15,17 @@ import { skillCategories } from "@/data/skills";
 import { terminalHeaders, terminalInput, terminalRows, terminalTitle } from "@/data/terminal";
 import { QuoteBlock } from "@/components/QuoteBlock";
 import { profile, workHighlights } from "@/data/profile";
+import { FLEET_SERVICE_COUNT } from "@/data/fleet";
 
 const heroStats: Stat[] = [
-  { value: 14, suffix: "%", label: "AWS cost reduced", accent: 1 },
-  { value: earnedCertifications.length, label: "Certifications", accent: 4 },
-  { value: 200, suffix: "+", label: "Support calls monthly", accent: 3 },
-  { value: 3, suffix: "+", label: "Years in tech", accent: 2 },
+  { value: FLEET_SERVICE_COUNT, label: "Go services shipped through CI/CD", accent: 1 },
+  { value: earnedCertifications.length, label: "Certifications earned", accent: 4 },
+  { value: 14, suffix: "%", label: "AWS spend cut at Roundsphere", accent: 3 },
+  { value: 3, suffix: "+", label: "Years in IT", accent: 2 },
 ];
 
 // Terminal-style path label per skill category (index-aligned with skillCategories).
-const skillTags = ["~/cloud", "~/scripting", "~/infra", "~/security"];
+const skillTags = ["~/cloud", "~/automation", "~/infra", "~/security", "~/network", "~/scripting"];
 
 export default function HomePage() {
   return (
@@ -39,10 +40,10 @@ export default function HomePage() {
 
         <H1>About Me</H1>
         <Paragraph>
-          I build cloud infrastructure and automate the repetitive work around it. Right now that means AWS, infrastructure as code, and a cybersecurity degree.
+          I&apos;m a cybersecurity student at BYU&ndash;Idaho and a security and infrastructure engineer at Fybercom, an internet provider in Idaho Falls. I started there on the support line, and I now review the development team&apos;s pull requests, keep our Proxmox VMs patched, and track the CVEs that affect them.
         </Paragraph>
         <Paragraph>
-          I&apos;m looking for DevOps or cloud security work where I can keep improving both sides of that stack.
+          Outside work I build the same way. My SSH arcade ships itself through GitHub Actions, my homelab runs on Proxmox, and a few n8n workflows hand the tedious parts of email and paperwork to language models. I&apos;m looking for work where security, CI/CD, and AI-assisted automation meet.
         </Paragraph>
 
         <QuoteBlock attribution="— Brené Brown, 2015">
@@ -77,15 +78,31 @@ export default function HomePage() {
             </ul>
           </div>
         </div>
-        <H3>Highlighted Experience</H3>
+        <H3>Experience</H3>
         <div className="mt-4 space-y-8">
           {profile.experience.map((job) => (
             <div key={job.company}>
-              <p className="font-semibold text-fg">{job.company}</p>
-              <p className="text-sm text-muted">{job.title} · {job.dates} · {job.location}</p>
-              <ul className="mt-2 space-y-1 text-sm text-muted">
-                {job.bullets.map((bullet) => <li key={bullet}>• {bullet}</li>)}
-              </ul>
+              <p className="font-semibold text-fg">
+                {job.company} <span className="text-sm font-normal text-muted">· {job.location}</span>
+              </p>
+              <ol className={job.roles.length > 1 ? "mt-3 space-y-5 border-l-2 border-accent-1/30 pl-4" : "mt-1"}>
+                {job.roles.map((role, i) => (
+                  <li key={role.title}>
+                    <p className="text-sm text-fg">
+                      {role.title}
+                      {job.roles.length > 1 && i === 0 ? (
+                        <span className="ml-2 rounded-full border border-accent-1/30 bg-accent-1/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-accent-1">
+                          Current
+                        </span>
+                      ) : null}
+                    </p>
+                    <p className="text-sm text-muted">{role.dates}</p>
+                    <ul className="mt-2 space-y-1 text-sm text-muted">
+                      {role.bullets.map((bullet) => <li key={bullet}>• {bullet}</li>)}
+                    </ul>
+                  </li>
+                ))}
+              </ol>
             </div>
           ))}
         </div>

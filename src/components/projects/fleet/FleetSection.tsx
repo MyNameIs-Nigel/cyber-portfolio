@@ -69,7 +69,7 @@ export function FleetSection() {
         </div>
 
         {/*
-          The one fact that turns three cabinets into one arcade. It was only in
+          The one fact that turns four cabinets into one arcade. It was only in
           the docs, which is the wrong place for the answer to "do I lose my save
           when I switch games".
         */}

@@ -15,7 +15,7 @@ export const experiments: Experiment[] = [
   {
     branch: "ssh-arcade",
     title: "SSH Arcade",
-    description: "Terminal games you play over SSH: four Go services on one EC2 instance, deployed from GitHub Releases.",
+    description: "Terminal games you play over SSH: five Go services on one EC2 instance, deployed from GitHub Releases.",
     state: "merged",
     href: "/projects/ssh-arcade-fleet",
   },

@@ -12,11 +12,15 @@ describe("machine-readable career profile", () => {
     const body = await response.text();
     for (const fact of [
       "Expected July 2027", "Cloud & IT Consultant", "May 2023 – Present",
-      "30,000-subscriber ISP", "200+ support calls monthly", "14%",
+      "Security & Infrastructure Engineer (Nov 2026 – Present)",
+      "Technical Support Representative (Mar 2026 – Nov 2026)",
+      "30,000-subscriber ISP", "200+ support calls a month", "14%",
       "Cisco Certified Network Associate (CCNA) — Cisco — Studying; no exam date set",
+      "TCM Practical SOC Analyst Associate (PSAA) — TCM Security — Studying; no exam date set",
       "Published GitHub Releases", "GitHub OIDC and AWS SSM",
+      "Automation & AI Workflows", "MCP server", "n8n",
     ]) expect(body).toContain(fact);
-    for (const stale of ["Network+", "$700", "11 web apps", "self-hosted runner", "Solutions Architect", "resume.pdf"]) {
+    for (const stale of ["Network+", "$700", "11 web apps", "self-hosted runner", "resume.pdf", "four repos", "Seeking DevOps"]) {
       expect(body).not.toContain(stale);
     }
     expect(earnedCertifications).toHaveLength(4);

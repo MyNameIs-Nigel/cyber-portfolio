@@ -2,9 +2,9 @@ import type { FleetCabinet } from "@/types";
 import { accentText } from "./accents";
 
 /**
- * The three cabinets, in the order the router's menu lists them.
+ * The cabinets, in the order the router's menu lists them.
  *
- * Three cards side by side rather than a list, because they are peers — the menu
+ * Cards in a grid rather than a list, because they are peers — the menu
  * does not rank them and neither should the page. Each carries its own status,
  * so the row is also the fleet's health at a glance.
  *
@@ -13,7 +13,7 @@ import { accentText } from "./accents";
  */
 export function CabinetRow({ cabinets }: { cabinets: FleetCabinet[] }) {
   return (
-    <ul className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+    <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
       {cabinets.map((cabinet) => (
         <li key={cabinet.slug}>
           <Cabinet cabinet={cabinet} />

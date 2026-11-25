@@ -2,6 +2,7 @@ import { Container } from "@/components/Container";
 import { SectionDivider } from "@/components/SectionDivider";
 import { H1, H2, Paragraph } from "@/components/Typography";
 import { ProjectCard } from "@/components/cards/ProjectCard";
+import { AutomationSection } from "@/components/projects/AutomationSection";
 import { FakeShellSection } from "@/components/projects/FakeShellSection";
 import { FleetSection } from "@/components/projects/fleet/FleetSection";
 import { projects } from "@/data/projects";
@@ -9,11 +10,11 @@ import { projects } from "@/data/projects";
 
 export const metadata = {
   title: "Projects",
-  description: "The CI/CD pipeline and AWS infrastructure behind a Go game fleet, plus websites and browser experiments built by Nigel Smith.",
+  description: "The CI/CD pipeline and AWS infrastructure behind a Go game fleet, self-hosted automation and AI workflows, and websites built by Nigel Smith.",
   alternates: { canonical: "/projects" },
   openGraph: {
     title: "Projects — Nigel Smith's Portfolio",
-    description: "The CI/CD pipeline and AWS infrastructure behind a Go game fleet, plus websites and browser experiments built by Nigel Smith.",
+    description: "The CI/CD pipeline and AWS infrastructure behind a Go game fleet, self-hosted automation and AI workflows, and websites built by Nigel Smith.",
     siteName: "Nigel Smith's Portfolio",
     locale: "en_US",
     type: "website",
@@ -33,11 +34,12 @@ export const metadata = {
 
 /**
  * Jump links. The page runs long enough that a visitor who came for one thing
- * should not have to scroll past the other four to find it. Order matches the
+ * should not have to scroll past the rest to find it. Order matches the
  * document, so the nav doubles as an outline.
  */
 const sections = [
   { href: "#fleet", label: "SSH Arcade fleet" },
+  { href: "#automation", label: "Automation & AI" },
   { href: "#shell", label: "Portfolio shell" },
   { href: "#web-apps", label: "Web apps" },
 ] as const;
@@ -48,7 +50,7 @@ export default function ProjectsPage() {
       <Container className="pt-12 pb-10">
         <H1 firstOnPage>Projects</H1>
         <Paragraph muted className="mb-0">
-          Infrastructure I run, websites I&apos;ve shipped, and a few games and tools in progress.
+          Infrastructure I run, automation I rely on, and websites I&apos;ve shipped.
         </Paragraph>
 
         <nav aria-label="On this page" className="mt-6 flex flex-wrap gap-2">
@@ -73,7 +75,11 @@ export default function ProjectsPage() {
       <FleetSection />
 
       <Container className="py-12">
-        <FakeShellSection headingClassName="mt-0" />
+        <AutomationSection headingClassName="mt-0" />
+
+        <SectionDivider />
+
+        <FakeShellSection />
 
         <SectionDivider />
 

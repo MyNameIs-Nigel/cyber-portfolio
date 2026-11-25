@@ -54,7 +54,7 @@ export function ConnectBar({ command, note }: { command: string; note: string })
 
       {/* The button's own label changes, so the announcement lives beside it rather than in it. */}
       <p aria-live="polite" className="sr-only">
-        {state === "copied" ? "Command copied to clipboard" : state === "failed" ? "Could not copy — select the command instead" : ""}
+        {state === "copied" ? "Command copied to clipboard" : state === "failed" ? "Could not copy. Select the command instead." : ""}
       </p>
 
       <p className="mt-3 max-w-[62ch] text-sm leading-relaxed text-muted">{note}</p>

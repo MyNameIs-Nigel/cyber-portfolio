@@ -6,10 +6,15 @@ import { LiveClock } from "@/components/LiveClock";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { profile } from "@/data/profile";
 
+/**
+ * The first entry is also the static text shown when motion is reduced. Keep
+ * each one short enough to stay on one line beside the prompt on a phone.
+ */
 const ROLES = [
-  "DevOps Engineer",
-  "Cloud Security",
-  "IaC Automation",
+  "DevSecOps Engineer",
+  "Infra & Security",
+  "CI/CD & Automation",
+  "AI Workflows",
   "Cybersecurity Student",
 ];
 
@@ -101,7 +106,7 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-1 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-1" />
             </span>
-            Open to DevOps / cloud roles
+            Open to DevSecOps &amp; automation work
           </span>
           <span className="font-mono text-xs text-muted">
             {profile.location} · <LiveClock />
